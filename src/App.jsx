@@ -11,6 +11,8 @@ import ProtectedRoute from './pages/ProtectedRoute.jsx';
 import AppLayout from './ui/AppLayout.jsx';
 import ResetPassword from './pages/ResetPassword.jsx';
 import AdminPage from './admin/AdminPage.jsx';
+import AdminsPanel from './admin/AdminsPanel.jsx';
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,9 +32,11 @@ const App = () => (
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="admin" element={<AppLayout />}>
+        <Route path="/admin" element={<AppLayout />}>
           <Route index element={<AdminPage />} />
+          <Route path="quan-ly-admin" index element={<AdminsPanel />} />
         </Route>
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
