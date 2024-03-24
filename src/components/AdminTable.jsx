@@ -1,6 +1,21 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { getUser } from '../services/apiUser';
 
 const AdminTable = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const { data } = await getUser();
+        setUsers(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchUser();
+  }, []);
+
   return (
     <div className="content">
       <div className="preload hidden" id="preload">
@@ -45,7 +60,19 @@ const AdminTable = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200" id="list_admins">
-            {/* Populate table rows dynamically */}
+            {users.map(user => (
+              <tr key={user.id}>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <input type="checkbox" className="form-checkbox h-4 w-4 text-indigo-600" />
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">{user.id}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <img className="w-10 h-10 rounded-full" src={user.avatar} alt={user.name} />
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">{user.ten}</td>
+                {/* Thêm các thẻ td cho các trường dữ liệu khác tương tự */}
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

@@ -12,7 +12,7 @@ const AdminForm = ({ handleSubmit }) => {
   };
 
   return (
-    <div className="mx-10">
+    <div className="mx-10 mb-20">
       <form onSubmit={handleSubmit} className="bg-white">
         <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10">
           {/* Form Inputs */}
