@@ -13,9 +13,9 @@ const AdminForm = ({ handleSubmit }) => {
   };
 
   return (
-    <div className="mx-10 mb-20">
+    <div className="mx-10 mb-20 whitespace-nowrap">
       <form onSubmit={handleSubmit} className="bg-white">
-        <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10 whitespace-nowrap">
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10">
           {/* Form Inputs */}
           <InputField
             label="Tên"
@@ -69,10 +69,19 @@ const AdminForm = ({ handleSubmit }) => {
               <option value="3">Nữ</option>
             </select>
           </div>
+          <div className="mb-4 flex items-center"></div>
+          <div className="mb-4 flex items-center border-b-2">
+            <label htmlFor="gender" className="text-gray-700 font-bold mr-2 ">Môn</label>
+            <select name="gender" id="gender" className="input-field">
+              <option value="1" selected>Toán</option>
+              <option value="2">Văn</option>
+              <option value="3">Anh</option>
+            </select>
+          </div>
         </div>
         <div className="col-span-12 mt-10">
           {/* Submit Button */}
-          <button type="submit" className="btn bg-customPurple hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+          <button type="submit" className="btn bg-customPurple hover:bg-purple-700 text-white font-bold py-2 px-5 rounded">
             Thêm
           </button>
         </div>

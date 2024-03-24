@@ -70,7 +70,17 @@ const AdminTable = () => {
                   <img className="w-10 h-10 rounded-full" src={user.avatar} alt={user.name} />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">{user.ten}</td>
-                {/* Thêm các thẻ td cho các trường dữ liệu khác tương tự */}
+                <td className="px-6 py-4 whitespace-nowrap">{user.ten}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{user.ten}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{user.ten}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{user.ten}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{user.ten}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="flex flex-col">
+                    <button className="bg-customPurple hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mb-2">Sửa</button>
+                    <button className="bg-customPurple hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">Xoá</button>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>

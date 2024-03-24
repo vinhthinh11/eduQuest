@@ -11,6 +11,8 @@ import ResetPassword from './pages/ResetPassword.jsx';
 import AdminPage from './admin/AdminPage.jsx';
 import User from './admin/manage/User.jsx';
 import UserDetail from './admin/manage/UserDetail.jsx';
+import HeadDetail from './admin/manage/HeadDetail.jsx';
+import TeacherDetail from './admin/manage/TeacherDetail.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,10 +35,9 @@ const App = () => (
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminPage />} />
-          <Route path="admin" element={<User />} />
-          <Route path="admin1" element={<UserDetail />} />
-          <Route path="head" element={<User />} />
-          <Route path="teacher" element={<User />} />
+          <Route path="admin" element={<UserDetail />} />
+          <Route path="head" element={<HeadDetail />} />
+          <Route path="teacher" element={<TeacherDetail />} />
           <Route path="student" element={<User />} />
           <Route path="class" element={<User />} />
           <Route path="exam" element={<User />} />
