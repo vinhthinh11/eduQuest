@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Homepage from './pages/Homepage.jsx';
 import Login from './pages/Login.jsx';
 import { Toaster } from 'react-hot-toast';
@@ -8,11 +8,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import ProtectedRoute from './pages/ProtectedRoute.jsx';
-import AppLayout from './ui/AppLayout.jsx';
+import AdminLayout from './admin/AdminLayout.jsx';
 import ResetPassword from './pages/ResetPassword.jsx';
 import AdminPage from './admin/AdminPage.jsx';
-import AdminsPanel from './admin/AdminsPanel.jsx';
-
+import AdminsPanel from './admin/manage/UserDetail.jsx';
+import User from './admin/manage/User.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,14 +29,21 @@ const App = () => (
     <CssBaseline />
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Navigate replace to="/admin" />} />
+        {/*Chua co trang home page nen de tam trang admin*/}
         <Route path="/login" element={<Login />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/admin" element={<AppLayout />}>
+        <Route path="/reset" element={<ResetPassword />} />
+        <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminPage />} />
-          <Route path="quan-ly-admin" index element={<AdminsPanel />} />
+          <Route path="admin" element={<User />} />
+          <Route path="head" element={<User />} />
+          <Route path="teacher" element={<User />} />
+          <Route path="student" element={<User />} />
+          <Route path="class" element={<User />} />
+          <Route path="exam" element={<User />} />
+          <Route path="statitic" element={<User />} />
+          <Route path="question" element={<User />} />
         </Route>
-
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

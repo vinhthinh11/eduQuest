@@ -3,11 +3,12 @@ import { Checkbox, FormLabel, Input } from '@mui/joy';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
   const { register, formState, handleSubmit } = useForm();
   const { errors } = formState;
+  const navigate = useNavigate();
   const onSubmit = async ({ email, password }) => {
     const { data } = await axios.get(
       'https://65f53032f54db27bc022bcf0.mockapi.io/api/user'
@@ -17,6 +18,7 @@ function Login() {
     });
     if (!user) return toast.error('Khong co usre nao trong he thong');
     toast.success('Chuc mung ban da dang nhap thanh cong');
+    navigate('/');
   };
   return (
     <div className="bg-base flex justify-center items-center w-full h-full">
@@ -30,6 +32,7 @@ function Login() {
               <FormLabel htmlFor="email">Email</FormLabel>
               <Input
                 color="neutral"
+                defaultValue={'vinhthinh@gmail.com'}
                 type="email"
                 id="email"
                 {...register('email', { required: 'This field is required' })}
@@ -46,6 +49,7 @@ function Login() {
                 color="neutral"
                 type="password"
                 id="password"
+                defaultValue={123}
                 {...register('password', {
                   required: 'This field is required',
                 })}
