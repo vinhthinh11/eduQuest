@@ -20,8 +20,8 @@ function UserDetail() {
   };
 
   return (
-    <div className="flex w-full min-h-full">
-      <div className=" w-full min-h-full flex flex-col">
+    <div className=" ">
+      <div className=" min-h-full flex flex-col">
         {/* Main content */}
         <div className="w-full">
           <AdminTable />
