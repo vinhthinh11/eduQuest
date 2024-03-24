@@ -3,6 +3,8 @@ import { getUser } from '../services/apiUser';
 
 const AdminTable = () => {
   const [users, setUsers] = useState([]);
+  const [perPage, setPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     async function fetchUser() {
@@ -15,11 +17,35 @@ const AdminTable = () => {
     }
     fetchUser();
   }, []);
+  const handlePerPageChange = (e) => {
+    setPerPage(parseInt(e.target.value));
+    setCurrentPage(1);
+  };
+
+  const totalPages = Math.ceil(users.length / perPage);
+  const visibleUsers = users.slice((currentPage - 1) * perPage, currentPage * perPage);
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
 
   return (
     <div className="content">
       <div className="preload hidden" id="preload">
         <img src="#" alt="" />
+      </div>
+      <div className=' border-b-2 border-edu py-3 pl-3'>
+        <label htmlFor="perPage">Hiển thị </label>
+        <select id="perPage" value={perPage} onChange={handlePerPageChange}>
+          <option value={10}>10</option>
+          <option value={20}>20</option>
+          <option value={30}>30</option>
+        </select>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200" id="table_admins">
@@ -60,7 +86,7 @@ const AdminTable = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200" id="list_admins">
-            {users.map(user => (
+            {visibleUsers.map(user => (
               <tr key={user.id}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <input type="checkbox" className="form-checkbox h-4 w-4 text-indigo-600" />
@@ -83,8 +109,17 @@ const AdminTable = () => {
                 </td>
               </tr>
             ))}
+
           </tbody>
         </table>
+      </div>
+      <div className='flex justify-between px-10 border-t-2 border-black pt-4'>
+        <span>{`Trang hiển thị ${currentPage} / ${totalPages}`}</span>
+        <div className="pagination pb-3">
+          <button className='pr-3' onClick={handlePrevPage} disabled={currentPage === 1}>Trước</button>
+          <span className='bg-customPurple hover:bg-purple-700 text-white py-2 px-4 rounded-md'>{currentPage}</span>
+          <button className='pl-3' onClick={handleNextPage} disabled={currentPage === totalPages}>Sau</button>
+        </div>
       </div>
     </div>
   );

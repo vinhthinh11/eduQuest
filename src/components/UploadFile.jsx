@@ -17,7 +17,7 @@ const FileUpload = ({ handleFileSubmit }) => {
             <span>Chọn File</span>
             <input type="file" name="file_data" id="file_data" required class="hidden" />
           </label>
-
+          <div></div>
           <div className="input-field mt-4 ">
             <button className="btn bg-customPurple text-white hover:bg-purple-700 py-2 px-4 rounded" type="submit" name="submit">Thêm</button>
           </div>
