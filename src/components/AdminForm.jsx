@@ -1,43 +1,106 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const AdminForm = ({ handleSubmit, validUsernameOrEmail }) => {
+const AdminForm = ({ handleSubmit }) => {
+  const [focusedField, setFocusedField] = useState('');
+
+  const handleFocus = (fieldName) => {
+    setFocusedField(fieldName);
+  };
+
+  const handleBlur = () => {
+    setFocusedField('');
+  };
+
   return (
-    <div id="add_normal" className="col-span-12">
-      <form onSubmit={handleSubmit} role="form" id="add_admin_form" className="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="mx-10">
+      <form onSubmit={handleSubmit} className="bg-white">
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10">
           {/* Form Inputs */}
           {/* Tên */}
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Tên</label>
-            <input type="text" id="name" name="name" className="input-field" onChange="" required />
+          <div className="relative mb-4 border-b-2">
+            <div className="flex items-center">
+              <label htmlFor="name" className={`pl-2 text-gray-700 font-bold transition-all ${focusedField === 'name' ? 'top-0 -translate-y-5 text-sm text-custom-purple' : ''}`}>
+                Tên
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="input-field pl-8 outline-none border-none w-full"
+                onChange=""
+                onFocus={() => handleFocus('name')}
+                onBlur={handleBlur}
+                required
+              />
+            </div>
           </div>
-          {/* Tài khoản */}
-          <div className="mb-4">
-            <label htmlFor="username" className="block text-gray-700 font-bold mb-2">Tài khoản</label>
-            <input type="text" name="username" id="username" className="input-field" required onInput={(e) => validUsernameOrEmail(e.target.value, e.target.name)} />
-            <img src="res/img/true.png" className="valid-img hidden" id="valid-username-true" alt="Valid" />
-            <img src="res/img/false.png" className="valid-img" id="valid-username-false" alt="Invalid" />
-          </div>
-          {/* Mật khẩu */}
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-700 font-bold mb-2">Mật khẩu</label>
-            <input type="password" data-minlength="6" name="password" id="password" className="input-field" required />
-          </div>
+
           {/* Email */}
-          <div className="mb-4">
-          <label for="email" class="lu avz awd awo axu">Email</label>
-          <div class="lb">
-            <input type="email" name="email" id="email" class="lu tn adu afa arp axu bbm bbs bbw bce bgc bnd bne bnq cia cic" placeholder="you@example.com"/>
+          <div className="relative mb-4 border-b-2">
+            <div className="flex items-center">
+              <label htmlFor="email" className={`pl-2 text-gray-700 font-bold transition-all ${focusedField === 'email' ? 'top-0 -translate-y-5 text-sm text-custom-purple' : ''}`}>
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                className="input-field pl-8 outline-none border-none w-full"
+                onChange=""
+                onFocus={() => handleFocus('email')}
+                onBlur={handleBlur}
+                required
+              />
+            </div>
           </div>
+
+          {/* Tài khoản */}
+          <div className="relative mb-4 border-b-2">
+            <div className="flex items-center">
+              <label htmlFor="username" className={`pl-2 text-gray-700 font-bold transition-all ${focusedField === 'username' ? 'top-0 -translate-y-5 text-sm text-custom-purple' : ''}`}>
+                Tài khoản
+              </label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                className="input-field pl-8 outline-none border-none w-full"
+                onChange=""
+                onFocus={() => handleFocus('username')}
+                onBlur={handleBlur}
+                required
+              />
+            </div>
           </div>
+
           {/* Ngày sinh */}
-          <div className="mb-4">
-            <label htmlFor="birthday" className="block text-gray-700 font-bold mb-2">Ngày sinh</label>
-            <input type="date" name="birthday" id="birthday" className="input-field" required defaultValue="1997-01-01" />
+          <div className="mb-4 flex items-center border-b-2">
+            <label htmlFor="birthday" className="text-gray-700 font-bold mr-2 whitespace-nowrap">Ngày sinh</label>
+            <input type="date" name="birthday" id="birthday" className="input-field w-full border-none outline-none ml-5" required defaultValue="1997-01-01" />
           </div>
+
+          {/* Mật khẩu */}
+          <div className="relative mb-4 border-b-2">
+            <div className="flex items-center">
+              <label htmlFor="password" className={`pl-2 text-gray-700 font-bold transition-all ${focusedField === 'password' ? 'top-0 -translate-y-5 text-sm text-custom-purple' : ''}`}>
+                Mật khẩu
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                className="input-field pl-8 outline-none border-none w-full"
+                onChange=""
+                onFocus={() => handleFocus('password')}
+                onBlur={handleBlur}
+                required
+              />
+            </div>
+          </div>
+
           {/* Giới tính */}
-          <div className="mb-4">
-            <label htmlFor="gender" className="block text-gray-700 font-bold mb-2">Giới tính</label>
+          <div className="mb-4 flex items-center border-b-2">
+            <label htmlFor="gender" className="text-gray-700 font-bold mr-2 ">Giới tính</label>
             <select name="gender" id="gender" className="input-field">
               <option value="1" selected>Không Xác Định</option>
               <option value="2">Nam</option>
@@ -47,7 +110,9 @@ const AdminForm = ({ handleSubmit, validUsernameOrEmail }) => {
         </div>
         <div className="col-span-12">
           {/* Submit Button */}
-          <button type="submit" className="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Thêm</button>
+          <button type="submit" className="btn bg-customPurple hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+            Thêm
+          </button>
         </div>
       </form>
     </div>

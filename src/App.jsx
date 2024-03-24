@@ -1,18 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import Homepage from './pages/Homepage.jsx';
 import Login from './pages/Login.jsx';
 import { Toaster } from 'react-hot-toast';
 import PageNotFound from './pages/PageNotFound.jsx';
 import CssBaseline from '@mui/material/CssBaseline';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import ProtectedRoute from './pages/ProtectedRoute.jsx';
 import AdminLayout from './admin/AdminLayout.jsx';
 import ResetPassword from './pages/ResetPassword.jsx';
 import AdminPage from './admin/AdminPage.jsx';
-import AdminsPanel from './admin/manage/UserDetail.jsx';
 import User from './admin/manage/User.jsx';
+import UserDetail from './admin/manage/UserDetail.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +34,7 @@ const App = () => (
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminPage />} />
           <Route path="admin" element={<User />} />
+          <Route path="admin1" element={<UserDetail />} />
           <Route path="head" element={<User />} />
           <Route path="teacher" element={<User />} />
           <Route path="student" element={<User />} />
