@@ -14,6 +14,8 @@ import Question from './admin/manage/Question.jsx';
 import UserDetail from './admin/manage/UserDetail.jsx';
 import HeadDetail from './admin/manage/HeadDetail.jsx';
 import TeacherDetail from './admin/manage/TeacherDetail.jsx';
+import Contact from './pages/Contact.jsx';
+import Chat from './pages/Chat.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,6 +25,7 @@ const queryClient = new QueryClient({
     },
   },
 });
+//NOTE : Trong trang nay co 2 trang chua design la trang chat va contact
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -34,6 +37,8 @@ const App = () => (
         {/*Chua co trang home page nen de tam trang admin*/}
         <Route path="/login" element={<Login />} />
         <Route path="/reset" element={<ResetPassword />} />
+        <Route path="contact" element={<Contact />} />
+        <Route path="chat" element={<Chat />} />
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminPage />} />
           <Route path="admin" element={<UserDetail />} />
@@ -42,7 +47,7 @@ const App = () => (
           <Route path="student" element={<User />} />
           <Route path="class" element={<User />} />
           <Route path="exam" element={<User />} />
-          <Route path="statitic" element={<User />} />
+          <Route path="statistic" element={<User />} />
           <Route path="question" element={<Question />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
