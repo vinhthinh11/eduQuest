@@ -3,7 +3,7 @@ import { getUser } from '../../services/apiUser.js';
 
 function User() {
   const [users, setUsers] = useState([]);
-  const user = useEffect(() => {
+  useEffect(() => {
     async function fetchUser() {
       try {
         const { data } = await getUser();

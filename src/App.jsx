@@ -10,6 +10,7 @@ import AdminLayout from './admin/AdminLayout.jsx';
 import ResetPassword from './pages/ResetPassword.jsx';
 import AdminPage from './admin/AdminPage.jsx';
 import User from './admin/manage/User.jsx';
+import Question from './admin/manage/Question.jsx';
 import UserDetail from './admin/manage/UserDetail.jsx';
 import HeadDetail from './admin/manage/HeadDetail.jsx';
 import TeacherDetail from './admin/manage/TeacherDetail.jsx';
@@ -42,7 +43,7 @@ const App = () => (
           <Route path="class" element={<User />} />
           <Route path="exam" element={<User />} />
           <Route path="statitic" element={<User />} />
-          <Route path="question" element={<User />} />
+          <Route path="question" element={<Question />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
