@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
@@ -16,8 +15,12 @@ const style = {
   p: 4,
 };
 
-export default function ModalDelete({ open, setOpen }) {
+const ModalDelete = ({ open, setOpen, user, handleDeleteUser }) => {
   const handleClose = () => setOpen(false);
+
+  const handleConfirm = () => {
+    handleDeleteUser(user.id); // Xóa user khi nhấn Đồng ý
+  };
 
   return (
     <Modal
@@ -28,12 +31,22 @@ export default function ModalDelete({ open, setOpen }) {
     >
       <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Are you sure you want to delete this item?
+          Cảnh báo
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          This action cannot be undone.
+          Xác nhận xoá tài khoản {user.name}
         </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+          <button onClick={handleClose} className="btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mr-2">
+            Quay lại
+          </button>
+          <button onClick={handleConfirm} className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+            Đồng ý
+          </button>
+        </Box>
       </Box>
     </Modal>
   );
 }
+
+export default ModalDelete;

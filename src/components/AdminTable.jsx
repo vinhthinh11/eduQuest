@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
-import { getUser } from '../services/apiUser';
-import ModalEdit from './ModalEdit.jsx';
-import ModalDelete from './ModalDelete.jsx';
+import { useEffect, useState } from "react";
+import { getUser } from "../services/apiUser";
+import ModalEdit from "./ModalEdit.jsx";
+import ModalDelete from "./ModalDelete.jsx";
 
 const AdminTable = () => {
   const [users, setUsers] = useState([]);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  // 2 state duoi de mo modal edit va delete
+  // State để mở modal edit và delete
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  // state nay truyen user cho 2 modal
+  // State để lưu thông tin user cần sửa hoặc xoá
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
@@ -25,20 +25,10 @@ const AdminTable = () => {
     fetchUser();
   }, []);
 
-  const handlePerPageChange = e => {
+  // Các hàm xử lý phân trang và thay đổi số lượng item trên trang
+  const handlePerPageChange = (e) => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
-  };
-
-  const handleDeleteUser = userId => {
-    setOpenDelete(true);
-    const confirmDelete = window.confirm(
-      'Bạn có chắc muốn xoá người dùng này?'
-    );
-    if (confirmDelete) {
-      const updatedUsers = users.filter(user => user.id !== userId);
-      setUsers(updatedUsers);
-    }
   };
 
   const totalPages = Math.ceil(users.length / perPage);
@@ -48,11 +38,11 @@ const AdminTable = () => {
   );
 
   const handlePrevPage = () => {
-    setCurrentPage(prevPage => prevPage - 1);
+    setCurrentPage((prevPage) => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage(prevPage => prevPage + 1);
+    setCurrentPage((prevPage) => prevPage + 1);
   };
 
   return (
@@ -146,7 +136,7 @@ const AdminTable = () => {
             className="bg-white divide-y divide-gray-200 "
             id="list_admins"
           >
-            {visibleUsers.map(user => (
+            {visibleUsers.map((user) => (
               <tr key={user.id}>
                 <td className="px-3 py-4 whitespace-nowrap">
                   <input
@@ -173,7 +163,7 @@ const AdminTable = () => {
                     <button
                       className="bg-customPurple hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mb-2"
                       onClick={() => {
-                        setCurrentUser(() => user);
+                        setCurrentUser(user);
                         setOpenEdit(true);
                       }}
                     >
@@ -183,7 +173,7 @@ const AdminTable = () => {
                       className="bg-customPurple hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
                       onClick={() => {
                         setCurrentUser(user);
-                        handleDeleteUser(user.id);
+                        setOpenDelete(true); // Mở modal delete khi ấn vào nút "Xoá"
                       }}
                     >
                       Xoá
@@ -199,6 +189,11 @@ const AdminTable = () => {
           open={openDelete}
           setOpen={setOpenDelete}
           user={currentUser}
+          handleDeleteUser={(userId) => {
+            const updatedUsers = users.filter((user) => user.id !== userId);
+            setUsers(updatedUsers);
+            setOpenDelete(false); // Đóng modal delete sau khi xóa
+          }}
         />
       </div>
       <div className="flex justify-between px-10 border-t-2 border-black pt-4">
