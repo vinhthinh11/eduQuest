@@ -46,7 +46,6 @@ const AdminLeftSideBar = () => {
       <List
         sx={{
           width: '100%',
-          maxWidth: 360,
           height: '100%',
           bgcolor: 'background.paper',
         }}
@@ -62,7 +61,6 @@ const AdminLeftSideBar = () => {
         <ListItemButton
           sx={{
             borderBottom: '1px solid #c6c6c6',
-            selected: { color: '#d71c38' },
           }}
           selected={selectedIndex === 1}
           onClick={() => handleOnClick(1, '/')}
@@ -165,7 +163,12 @@ const AdminLeftSideBar = () => {
       </List>
 
       <List>
-        <ListItemButton sx={{ borderTop: '1px solid #c6c6c6  ' }}>
+        <ListItemButton
+          sx={{
+            borderTop: '1px solid #c6c6c6',
+            width: '100%',
+          }}
+        >
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
