@@ -17,6 +17,7 @@ const AdminForm = ({ handleSubmit }) => {
       <form onSubmit={handleSubmit} className="bg-white">
         <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10 whitespace-nowrap">
           {/* Form Inputs */}
+          
           <InputField
             label="Tên"
             name="name"
