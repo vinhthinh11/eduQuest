@@ -62,7 +62,6 @@ const AdminLeftSideBar = () => {
         <ListItemButton
           sx={{
             borderBottom: '1px solid #c6c6c6',
-            selected: { color: '#d71c38' },
           }}
           selected={selectedIndex === 1}
           onClick={() => handleOnClick(1, '/')}
