@@ -17,6 +17,8 @@ import TeacherDetail from './admin/manage/TeacherDetail.jsx';
 import Contact from './pages/Contact.jsx';
 import Chat from './pages/Chat.jsx';
 import Statistic from './pages/Statistic.jsx';
+import ProfileForm from './components/ProfileForm.jsx';
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -49,6 +51,7 @@ const App = () => (
           <Route path="exam" element={<User />} />
           <Route path="statistic" element={<Statistic />} />
           <Route path="question" element={<Question />} />
+          <Route path="profile" element={<ProfileForm />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
