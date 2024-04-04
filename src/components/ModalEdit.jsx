@@ -1,21 +1,31 @@
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { useEffect, useState } from 'react';
-import InputField from './InputField';
+import { useState } from "react";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import InputField from "./InputField";
+import SelectInput from "./SelectInput";
 
 export default function ModalEdit({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUserEdit({ ...userEdit, [name]: value });
+  };
+
   const handleConfirm = () => {
-    // Xử lý logic khi nhấn Đồng ý
     console.log("Đã nhấn Đồng ý");
+
+    setUserEdit(userEdit);
     setOpen(false);
   };
 
-  useEffect(() => {
-    setUserEdit(user);
-  }, [user, userEdit]);
+  const genderOptions = [
+    { value: "1", label: "Không Xác Định" },
+    { value: "2", label: "Nam" },
+    { value: "3", label: "Nữ" },
+  ];
 
   return (
     <Modal
@@ -29,36 +39,52 @@ export default function ModalEdit({ open, setOpen, user }) {
           Chỉnh sửa thông tin {userEdit?.name}
         </Typography>
         <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10 whitespace-nowrap">
-          <InputField 
+          <InputField
             label="Tên"
             name="name"
             type="text"
             value={userEdit?.name}
+            onChange={handleInputChange}
           />
           <InputField
             label="Mật khẩu"
             name="password"
             type="password"
             value={userEdit?.password}
+            onChange={handleInputChange}
           />
           <div className="mb-4 flex items-center border-b-2">
-            <label htmlFor="birthday" className="text-gray-700 font-bold mr-2">Ngày sinh</label>
-            <input type="date" name="birthday" id="birthday" className="input-field w-full border-none outline-none ml-5" required defaultValue="1997-01-01" />
+            <label htmlFor="birthday" className="text-gray-700 font-bold mr-2">
+              Ngày sinh
+            </label>
+            <input
+              type="date"
+              name="birthday"
+              id="birthday"
+              className="input-field w-full border-none outline-none ml-5"
+              required
+              defaultValue="1997-01-01"
+            />
           </div>
-          <div className="mb-4 flex items-center border-b-2">
-            <label htmlFor="gender" className="text-gray-700 font-bold mr-2">Giới tính</label>
-            <select name="gender" id="gender" className="input-field">
-              <option value="1" selected>Không Xác Định</option>
-              <option value="2">Nam</option>
-              <option value="3">Nữ</option>
-            </select>
-          </div>
+          <SelectInput
+            label="Giới tính"
+            name="gender"
+            value={userEdit?.gender}
+            onChange={handleInputChange}
+            options={genderOptions}
+          />
         </div>
         <div className="flex justify-between mt-8">
-          <button onClick={handleClose} className="btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+          <button
+            onClick={handleClose}
+            className="btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+          >
             Quay lại
           </button>
-          <button onClick={handleConfirm} className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+          <button
+            onClick={handleConfirm}
+            className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+          >
             Đồng ý
           </button>
         </div>

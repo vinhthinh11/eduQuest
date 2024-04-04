@@ -9,12 +9,12 @@ const AdminForm = ({ handleSubmit }) => {
   ];
 
   const fields = [
-    { label: "Tên", name: "name", type: "text", value: "", onChange: () => {}, required: true },
-    { label: "Email", name: "email", type: "email", value: "", onChange: () => {}, required: true },
-    { label: "Tài khoản", name: "username", type: "text", value: "", onChange: () => {}, required: true },
-    { label: "Ngày sinh", name: "birthday", type: "date", value: "", onChange: () => {}, required: true },
-    { label: "Mật khẩu", name: "password", type: "password", value: "", onChange: () => {}, required: true },
-    { label: "Giới tính", name: "gender", type: "select", value: "", onChange: () => {}, options: genderOptions },
+    { label: "Tên", name: "name", type: "text", value: "", required: true },
+    { label: "Email", name: "email", type: "email", value: "", required: true },
+    { label: "Tài khoản", name: "username", type: "text", value: "", required: true },
+    { label: "Ngày sinh", name: "birthday", type: "date", value: "", required: true },
+    { label: "Mật khẩu", name: "password", type: "password", value: "", required: true },
+    { label: "Giới tính", name: "gender", type: "select", value: "", options: genderOptions },
   ];
 
   return (
