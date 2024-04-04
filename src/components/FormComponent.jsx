@@ -1,21 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import InputField from "../components/InputField";
 import SelectInput from "../components/SelectInput";
 
 const FormComponent = ({ handleSubmit, fields }) => {
-  const [focusedField, setFocusedField] = React.useState("");
+  const [formData, setFormData] = useState({});
+
+  const handleInputChange = (name, value) => {
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
 
   const handleFocus = (fieldName) => {
-    setFocusedField(fieldName);
+    
   };
 
   const handleBlur = () => {
-    setFocusedField("");
+   
+  };
+
+  const submitForm = (event) => {
+    event.preventDefault();
+    handleSubmit(formData);
   };
 
   return (
     <div className="mx-10 mb-20">
-      <form onSubmit={handleSubmit} className="bg-white">
+      <form onSubmit={submitForm} className="bg-white">
         <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10 whitespace-nowrap">
           {/* Form Inputs */}
           {fields.map((field, index) => (
@@ -25,8 +37,8 @@ const FormComponent = ({ handleSubmit, fields }) => {
                 label={field.label}
                 name={field.name}
                 type={field.type}
-                value={field.value}
-                onChange={field.onChange}
+                value={formData[field.name] || ''}
+                onChange={(e) => handleInputChange(field.name, e.target.value)}
                 onFocus={() => handleFocus(field.name)}
                 onBlur={handleBlur}
                 required={field.required}
@@ -39,8 +51,8 @@ const FormComponent = ({ handleSubmit, fields }) => {
                 key={index}
                 label={field.label}
                 name={field.name}
-                value={field.value}
-                onChange={field.onChange}
+                value={formData[field.name] || ''}
+                onChange={(value) => handleInputChange(field.name, value)}
                 options={field.options}
               />
             )
