@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { getUser } from "../services/apiUser";
-import ModalEdit from "./ModalEdit.jsx";
-import ModalDelete from "./ModalDelete.jsx";
+import { useEffect, useState } from 'react';
+import { getUser } from '../services/apiUser';
+import ModalEdit from './ModalEdit.jsx';
+import ModalDelete from './ModalDelete.jsx';
 
 const AdminTable = () => {
   const [users, setUsers] = useState([]);
@@ -26,7 +26,7 @@ const AdminTable = () => {
   }, []);
 
   // Các hàm xử lý phân trang và thay đổi số lượng item trên trang
-  const handlePerPageChange = (e) => {
+  const handlePerPageChange = e => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
@@ -38,11 +38,11 @@ const AdminTable = () => {
   );
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    setCurrentPage(prevPage => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage(prevPage => prevPage + 1);
   };
 
   return (
@@ -63,11 +63,11 @@ const AdminTable = () => {
           className="min-w-full divide-y divide-gray-200"
           id="table_admins"
         >
-          <thead className="bg-gray-50">
+          <thead className="bg-gray-50 text-slate-700">
             <tr>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 <label className="inline-flex items-center">
                   <input
@@ -78,57 +78,57 @@ const AdminTable = () => {
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 ID
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 Avatar
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 Tên
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 Tài Khoản
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 Email
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 Giới Tính
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-3 py-3 text-left text-xs font-medium  uppercase tracking-wider"
               >
                 Ngày Sinh
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 Online Cuối
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
-                <i className="material-icons">settings</i>
+                <p className="material-icons">settings</p>
               </th>
             </tr>
           </thead>
@@ -136,7 +136,7 @@ const AdminTable = () => {
             className="bg-white divide-y divide-gray-200 "
             id="list_admins"
           >
-            {visibleUsers.map((user) => (
+            {visibleUsers.map(user => (
               <tr key={user.id}>
                 <td className="px-3 py-4 whitespace-nowrap">
                   <input
@@ -161,7 +161,7 @@ const AdminTable = () => {
                 <td className="px-3 py-4 whitespace-nowrap">
                   <div className="flex flex-col">
                     <button
-                      className="bg-customPurple hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mb-2"
+                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2"
                       onClick={() => {
                         setCurrentUser(user);
                         setOpenEdit(true);
@@ -170,7 +170,7 @@ const AdminTable = () => {
                       Sửa
                     </button>
                     <button
-                      className="bg-customPurple hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                      className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
                       onClick={() => {
                         setCurrentUser(user);
                         setOpenDelete(true); // Mở modal delete khi ấn vào nút "Xoá"
@@ -189,8 +189,8 @@ const AdminTable = () => {
           open={openDelete}
           setOpen={setOpenDelete}
           user={currentUser}
-          handleDeleteUser={(userId) => {
-            const updatedUsers = users.filter((user) => user.id !== userId);
+          handleDeleteUser={userId => {
+            const updatedUsers = users.filter(user => user.id !== userId);
             setUsers(updatedUsers);
             setOpenDelete(false); // Đóng modal delete sau khi xóa
           }}
@@ -198,19 +198,19 @@ const AdminTable = () => {
       </div>
       <div className="flex justify-between px-10 border-t-2 border-black pt-4">
         <span>{`Trang hiển thị ${currentPage} / ${totalPages}`}</span>
-        <div className="pagination pb-3">
+        <div className="pagination pb-3 flex gap-2">
           <button
-            className="pr-3"
+            className="pr-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
             onClick={handlePrevPage}
             disabled={currentPage === 1}
           >
             Trước
           </button>
-          <span className="bg-customPurple hover:bg-purple-700 text-white py-2 px-4 rounded-md">
+          <button className="bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md">
             {currentPage}
-          </span>
+          </button>
           <button
-            className="pl-3"
+            className="pl-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
           >
