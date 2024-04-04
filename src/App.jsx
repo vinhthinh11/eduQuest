@@ -16,6 +16,7 @@ import HeadDetail from './admin/manage/HeadDetail.jsx';
 import TeacherDetail from './admin/manage/TeacherDetail.jsx';
 import Contact from './pages/Contact.jsx';
 import Chat from './pages/Chat.jsx';
+import Statistic from './pages/Statistic.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,7 +35,6 @@ const App = () => (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate replace to="/admin" />} />
-        {/*Chua co trang home page nen de tam trang admin*/}
         <Route path="/login" element={<Login />} />
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="contact" element={<Contact />} />
@@ -47,7 +47,7 @@ const App = () => (
           <Route path="student" element={<User />} />
           <Route path="class" element={<User />} />
           <Route path="exam" element={<User />} />
-          <Route path="statistic" element={<User />} />
+          <Route path="statistic" element={<Statistic />} />
           <Route path="question" element={<Question />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />

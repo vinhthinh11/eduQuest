@@ -8,7 +8,6 @@ function User() {
       try {
         const { data } = await getUser();
         setUsers(() => data);
-        console.log(data);
       } catch (err) {
         console.log(err);
       }
