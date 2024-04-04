@@ -1,93 +1,33 @@
-import React, { useState } from 'react';
-import InputField from '../components/InputField';
+// HeadForm.jsx
+import React from "react";
+import FormComponent from "./FormComponent";
 
-const AdminForm = ({ handleSubmit }) => {
-  const [focusedField, setFocusedField] = useState('');
+const HeadForm = ({ handleSubmit }) => {
+  const genderOptions = [
+    { value: '1', label: 'Không Xác Định' },
+    { value: '2', label: 'Nam' },
+    { value: '3', label: 'Nữ' },
+  ];
+  const subject = [
+    { value: '1', label: 'Toán' },
+    { value: '2', label: 'Lý' },
+    { value: '3', label: 'Hoá' },
+  ];
 
-  const handleFocus = (fieldName) => {
-    setFocusedField(fieldName);
-  };
+  const fields = [
+    { label: "Tên", name: "name", type: "text", value: "", onChange: () => {}, required: true },
+    { label: "Email", name: "email", type: "email", value: "", onChange: () => {}, required: true },
+    { label: "Tài khoản", name: "username", type: "text", value: "", onChange: () => {}, required: true },
+    { label: "Ngày sinh", name: "birthday", type: "date", value: "", onChange: () => {}, required: true },
+    { label: "Mật khẩu", name: "password", type: "password", value: "", onChange: () => {}, required: true },
+    { label: "Giới tính", name: "gender", type: "select", value: "", onChange: () => {}, options: genderOptions },
+    { label: "Môn học", name: "subject", type: "select", value: "", onChange: () => {}, options: subject },
 
-  const handleBlur = () => {
-    setFocusedField('');
-  };
+  ];
 
   return (
-    <div className="mx-10 mb-20 whitespace-nowrap">
-      <form onSubmit={handleSubmit} className="bg-white">
-        <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10">
-          {/* Form Inputs */}
-          <InputField
-            label="Tên"
-            name="name"
-            type="text"
-            value=""
-            onChange={() => {}}
-            onFocus={() => handleFocus('name')}
-            onBlur={handleBlur}
-            required
-          />
-          <InputField
-            label="Email"
-            name="email"
-            type="email"
-            value=""
-            onChange={() => {}}
-            onFocus={() => handleFocus('email')}
-            onBlur={handleBlur}
-            required
-          />
-          <InputField
-            label="Tài khoản"
-            name="username"
-            type="text"
-            value=""
-            onChange={() => {}}
-            onFocus={() => handleFocus('username')}
-            onBlur={handleBlur}
-            required
-          />
-          <div className="mb-4 flex items-center border-b-2">
-            <label htmlFor="birthday" className="text-gray-700 font-bold mr-2 ">Ngày sinh</label>
-            <input type="date" name="birthday" id="birthday" className="input-field w-full border-none outline-none ml-5" required defaultValue="1997-01-01" />
-          </div>
-          <InputField
-            label="Mật khẩu"
-            name="password"
-            type="password"
-            value=""
-            onChange={() => {}}
-            onFocus={() => handleFocus('password')}
-            onBlur={handleBlur}
-            required
-          />
-          <div className="mb-4 flex items-center border-b-2">
-            <label htmlFor="gender" className="text-gray-700 font-bold mr-2 ">Giới tính</label>
-            <select name="gender" id="gender" className="input-field">
-              <option value="1" selected>Không Xác Định</option>
-              <option value="2">Nam</option>
-              <option value="3">Nữ</option>
-            </select>
-          </div>
-          <div className="mb-4 flex items-center"></div>
-          <div className="mb-4 flex items-center border-b-2">
-            <label htmlFor="gender" className="text-gray-700 font-bold mr-2 ">Môn</label>
-            <select name="gender" id="gender" className="input-field">
-              <option value="1" selected>Toán</option>
-              <option value="2">Văn</option>
-              <option value="3">Anh</option>
-            </select>
-          </div>
-        </div>
-        <div className="col-span-12 mt-10">
-          {/* Submit Button */}
-          <button type="submit" className="btn bg-customPurple hover:bg-purple-700 text-white font-bold py-2 px-5 rounded">
-            Thêm
-          </button>
-        </div>
-      </form>
-    </div>
+    <FormComponent handleSubmit={handleSubmit} fields={fields} />
   );
 };
 
-export default AdminForm;
+export default HeadForm;
