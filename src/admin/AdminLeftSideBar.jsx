@@ -14,6 +14,32 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useState } from 'react';
 import { HomeIcon } from './AdminPage';
 import { useNavigate } from 'react-router-dom';
+import { grey } from '@mui/material/colors';
+const style = {
+  pl: 4,
+  '&.Mui-selected': {
+    backgroundColor: grey[400],
+  },
+  '&.Mui-focusVisible': {
+    backgroundColor: grey[300],
+  },
+
+  ':hover': {
+    backgroundColor: grey[300],
+  },
+};
+const style1 = {
+  '&.Mui-selected': {
+    backgroundColor: grey[400],
+  },
+  '&.Mui-focusVisible': {
+    backgroundColor: grey[300],
+  },
+
+  ':hover': {
+    backgroundColor: grey[300],
+  },
+};
 
 const AdminLeftSideBar = () => {
   const [open, setOpen] = useState(false);
@@ -60,9 +86,7 @@ const AdminLeftSideBar = () => {
         }
       >
         <ListItemButton
-          sx={{
-            borderBottom: '1px solid #c6c6c6',
-          }}
+          sx={style1}
           selected={selectedIndex === 1}
           onClick={() => handleOnClick(1, '/')}
         >
@@ -72,7 +96,7 @@ const AdminLeftSideBar = () => {
           <ListItemText primary="Home" />
         </ListItemButton>
         <ListItemButton
-          sx={{ borderBottom: '1px solid #c6c6c6  ' }}
+          sx={style1}
           selected={selectedIndex === 12}
           onClick={handleClick}
         >
@@ -85,56 +109,56 @@ const AdminLeftSideBar = () => {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItemButton
-              sx={{ pl: 4 }}
+              sx={style}
               selected={selectedIndex === 2}
               onClick={() => handleOnClick(2, 'admin')}
             >
               <ListItemText primary="Quản lý Admin" />
             </ListItemButton>
             <ListItemButton
-              sx={{ pl: 4 }}
+              sx={style}
               selected={selectedIndex === 3}
               onClick={() => handleOnClick(3, 'head')}
             >
               <ListItemText primary="Quản lý Trưởng bộ môn" />
             </ListItemButton>
             <ListItemButton
-              sx={{ pl: 4 }}
+              sx={style}
               selected={selectedIndex === 4}
               onClick={() => handleOnClick(4, 'teacher')}
             >
               <ListItemText primary="Quản lý Giáo viên" />
             </ListItemButton>
             <ListItemButton
-              sx={{ pl: 4 }}
+              sx={style}
               selected={selectedIndex === 5}
               onClick={() => handleOnClick(5, 'class')}
             >
               <ListItemText primary="Quản lý Lớp" />
             </ListItemButton>
             <ListItemButton
-              sx={{ pl: 4 }}
+              sx={style}
               selected={selectedIndex === 6}
               onClick={() => handleOnClick(6, 'student')}
             >
               <ListItemText primary="Quản lý Học sinh" />
             </ListItemButton>
             <ListItemButton
-              sx={{ pl: 4 }}
+              sx={style}
               selected={selectedIndex === 7}
               onClick={() => handleOnClick(7, 'question')}
             >
               <ListItemText primary="Quản lý Câu hỏi" />
             </ListItemButton>
             <ListItemButton
-              sx={{ pl: 4 }}
+              sx={style}
               selected={selectedIndex === 8}
               onClick={() => handleOnClick(8, 'exam')}
             >
               <ListItemText primary="Quản lý Đề thi" />
             </ListItemButton>
             <ListItemButton
-              sx={{ pl: 4 }}
+              sx={style}
               selected={selectedIndex === 9}
               onClick={() => handleOnClick(9, 'statistic')}
             >
@@ -143,7 +167,7 @@ const AdminLeftSideBar = () => {
           </List>
         </Collapse>
         <ListItemButton
-          sx={{ borderBottom: '1px solid #c6c6c6  ' }}
+          sx={style1}
           selected={selectedIndex === 10}
           onClick={() => handleOnClick(10, '/chat')}
         >
@@ -153,6 +177,7 @@ const AdminLeftSideBar = () => {
           <ListItemText primary="Chat" />
         </ListItemButton>
         <ListItemButton
+          sx={style1}
           selected={selectedIndex === 11}
           onClick={() => handleOnClick(11, '/contact')}
         >
