@@ -1,47 +1,48 @@
-import React from 'react'; // Add this import
-
-import UploadFile from '../../components/UploadFile';
-import AdminTable from '../../components/AdminTable';
-import HeadForm from '../../components/HeadForm';
-
-
-
+// UserDetail.js
+import React, { useState } from "react";
+import FormModal from "../../components/head/FormModal";
+import UploadFileModal from "../../components/head/UploadFileModal";
+import HeadTable from "../../components/head/HeadTable";
 function UserDetail() {
-  const [showAdminForm, setShowAdminForm] = React.useState(true); 
-  const [showFileUpload, setShowFileUpload] = React.useState(false);
-
-  const handleAdminFormClick = () => {
-    setShowAdminForm(true);
-    setShowFileUpload(false);
-  };
-
-  const handleFileUploadClick = () => {
-    setShowFileUpload(true);
-    setShowAdminForm(false);
-  };
+  const [showAdminForm, setShowAdminForm] = useState(false);
+  const [showFileUpload, setShowFileUpload] = useState(false);
 
   return (
     <div className=" ">
       <div className=" min-h-full flex flex-col">
-        {/* Main content */}
         <div className="w-full">
-          <AdminTable />
+          <HeadTable />
         </div>
         <div className="title-content">
-  
-          {/* Control buttons */}
-          <div className='text-center grid grid-cols-2 gap-4 w-full border-t-2 border-edu'>
+          <div className="text-center grid grid-cols-2 gap-4 w-full border-t-2 border-edu">
             <div className={showAdminForm ? "border-b-2 border-edu" : ""}>
-              <h1 className="text-sm font-medium my-4 text-custom-purple" onClick={handleAdminFormClick}>Thêm mới admin</h1>
+              <h1
+                className="text-sm font-medium my-4 text-custom-purple"
+                onClick={() => {
+                  setShowAdminForm(true);
+                  setShowFileUpload(false);
+                }}
+              >
+                Thêm mới trưởng bộ môn
+              </h1>
             </div>
             <div className={showFileUpload ? "border-b-2 border-edu" : ""}>
-              <h1 className="text-sm font-medium my-4 text-custom-purple" onClick={handleFileUploadClick}>Thêm bằng file</h1>
+              <h1
+                className="text-sm font-medium my-4 text-custom-purple"
+                onClick={() => {
+                  setShowFileUpload(true);
+                  setShowAdminForm(false);
+                }}
+              >
+                Thêm bằng file
+              </h1>
             </div>
           </div>
         </div>
 
-        {showAdminForm && <HeadForm />}
-        {showFileUpload && <UploadFile />}
+        {/* Conditional rendering based on state */}
+        <FormModal open={showAdminForm} setOpen={setShowAdminForm} />
+        <UploadFileModal open={showFileUpload} setOpen={setShowFileUpload} />
       </div>
     </div>
   );

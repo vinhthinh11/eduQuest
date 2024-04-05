@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
-import { getUser } from '../services/apiUser';
-import ModalEdit from './ModalEdit.jsx';
-import ModalDelete from './ModalDelete.jsx';
+import { useEffect, useState } from "react";
+import { getUser } from "../../services/apiUser.js";
+import ModalEdit from "./ModalEdit.jsx";
+import ModalDelete from "../ModalDelete.jsx";
+import SearchComponent from "../SearchComponent.jsx";
 
 const AdminTable = () => {
   const [users, setUsers] = useState([]);
@@ -27,7 +28,7 @@ const AdminTable = () => {
   }, []);
 
   // Các hàm xử lý phân trang và thay đổi số lượng item trên trang
-  const handlePerPageChange = e => {
+  const handlePerPageChange = (e) => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
@@ -39,11 +40,11 @@ const AdminTable = () => {
   );
 
   const handlePrevPage = () => {
-    setCurrentPage(prevPage => prevPage - 1);
+    setCurrentPage((prevPage) => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage(prevPage => prevPage + 1);
+    setCurrentPage((prevPage) => prevPage + 1);
   };
 
   return (
@@ -51,13 +52,16 @@ const AdminTable = () => {
       <div className="preload hidden" id="preload">
         <img src="#" alt="" />
       </div>
-      <div className=" border-b-2 border-edu py-3 pl-3">
-        <label htmlFor="perPage">Hiển thị </label>
-        <select id="perPage" value={perPage} onChange={handlePerPageChange}>
-          <option value={10}>10</option>
-          <option value={20}>20</option>
-          <option value={30}>30</option>
-        </select>
+      <div className="flex justify-between border-b-2 border-edu py-3 pl-3">
+        <div>
+          <label htmlFor="perPage">Hiển thị </label>
+          <select id="perPage" value={perPage} onChange={handlePerPageChange}>
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={30}>30</option>
+          </select>
+        </div>
+        <SearchComponent />
       </div>
       <div className="overflow-x-auto">
         <table
@@ -66,17 +70,6 @@ const AdminTable = () => {
         >
           <thead className="bg-gray-50 text-slate-700">
             <tr>
-              <th
-                scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
-              >
-                <label className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-4 w-4 text-indigo-600"
-                  />
-                </label>
-              </th>
               <th
                 scope="col"
                 className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
@@ -137,15 +130,9 @@ const AdminTable = () => {
             className="bg-white divide-y divide-gray-200 "
             id="list_admins"
           >
-            {visibleUsers.map(user => (
-              <tr key={user.id}>
-                <td className="px-3 py-4 whitespace-nowrap">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-4 w-4 text-indigo-600"
-                  />
-                </td>
-                <td className="px-3 py-4 whitespace-wrap">{user.id}</td>
+            {visibleUsers.map((user) => (
+              <tr key={user.admin_id}>
+                <td className="px-3 py-4 whitespace-wrap">{user.admin_id}</td>
                 <td className="px-3 py-4 whitespace-wrap">
                   <img
                     className="w-10 h-10 rounded-full"
@@ -160,14 +147,14 @@ const AdminTable = () => {
                 <td className="px-3 py-4 break-all">{user.email}</td>
                 <td className="px-3 py-4 break-all">
                   {user.gender_id === 1
-                    ? 'Nam'
+                    ? "Nam"
                     : user.gender_id === 2
-                    ? 'Nu'
-                    : 'Khong xac dinh'}
+                    ? "Nữ"
+                    : "Không xác định"}
                 </td>
                 <td className="px-3 py-4 break-all">{user.birthday}</td>
                 <td className="px-3 py-4 break-all">
-                  {new Date(user.last_login).toLocaleDateString('vn-VN')}
+                  {new Date(user.last_login).toLocaleDateString("vn-VN")}
                 </td>
                 <td className="px-3 py-4 whitespace-nowrap">
                   <div className="flex flex-col">
@@ -200,30 +187,30 @@ const AdminTable = () => {
           open={openDelete}
           setOpen={setOpenDelete}
           user={currentUser}
-          handleDeleteUser={userId => {
-            const updatedUsers = users.filter(user => user.id !== userId);
+          handleDeleteUser={(userId) => {
+            const updatedUsers = users.filter((user) => user.id !== userId);
             setUsers(updatedUsers);
             setOpenDelete(false); // Đóng modal delete sau khi xóa
           }}
         />
       </div>
       <div className="flex justify-between px-10 border-t-2 border-black pt-4">
-        {/* <span>{`Trang hiển thị ${currentPage} / ${totalPages}`}</span> */}
+        <span>{`Trang hiển thị ${currentPage} / ${totalPages}`}</span>
         <div className="pagination pb-3 flex gap-2">
           <button
             className="pr-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
-            // onClick={handlePrevPage}
-            // disabled={currentPage === 1}
+            onClick={handlePrevPage}
+            disabled={currentPage === 1}
           >
             Trước
           </button>
           <button className="bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md">
-            {/* {currentPage} */}
+            {currentPage}
           </button>
           <button
             className="pl-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
-            // onClick={handleNextPage}
-            // disabled={currentPage === totalPages}
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
           >
             Sau
           </button>

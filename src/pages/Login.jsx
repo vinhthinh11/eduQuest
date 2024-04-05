@@ -10,19 +10,21 @@ function Login() {
   const { errors } = formState;
   const navigate = useNavigate();
   const onSubmit = async ({ email, password }) => {
-    console.log(email, password);
-    const { data } = await axios.post(
-      'http://127.0.0.1:8000/api/submit-login',
-      { email, password }
-    );
-    console.log(data);
-    localStorage.setItem('token', data.a);
-    // const user = data.find(u => {
-    //   return u.name === email && u.password === password;
-    // });
-    // if (!user) return toast.error('Khong co usre nao trong he thong');
-    // toast.success('Chuc mung ban da dang nhap thanh cong');
-    // navigate('/');
+    try {
+      console.log(email, password);
+      const { data } = await axios.post(
+        'http://127.0.0.1:8000/api/submit-login',
+        { email, password }
+      );
+      localStorage.setItem('token', data.access_token);
+      toast.success('Dang nhap thanh cong');
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+      toast.error();
+    }
   };
   return (
     <div className="bg-base flex justify-center items-center w-full h-full">
