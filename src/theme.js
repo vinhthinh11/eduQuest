@@ -45,5 +45,45 @@ export const themeSetting = mode => {
             },
           }),
     },
+    typography: {
+      fontFamily: ['Consolas, sans-serif'],
+      fontSize: 12,
+      h1: {
+        fontFamily: ['Consolas, sans-serif'],
+        fontSize: 40,
+      },
+      h2: {
+        fontFamily: ['Consolas, sans-serif'],
+        fontSize: 32,
+      },
+      h3: {
+        fontFamily: ['Consolas, sans-serif'],
+        fontSize: 24,
+      },
+      h4: {
+        fontFamily: ['Consolas, sans-serif'],
+        fontSize: 20,
+      },
+      h5: {
+        fontFamily: ['Consolas, sans-serif'],
+        fontSize: 16,
+      },
+      h6: {
+        fontFamily: ['Consolas, sans-serif'],
+        fontSize: 14,
+      },
+    },
   };
+};
+export const ColorModeContext = createContext({ toggleColorMode: () => {} });
+
+export const useMode = () => {
+  const [mode, setMode] = useState('light');
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () =>
+        setMode(prevMode => (prevMode === 'light' ? 'dark' : 'light')),
+    }),
+    []
+  );
 };
