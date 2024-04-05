@@ -17,7 +17,8 @@ const AdminTable = () => {
     async function fetchUser() {
       try {
         const { data } = await getUser();
-        setUsers(data);
+        console.log(data.getAllAdmin);
+        setUsers(data.getAllAdmin);
       } catch (err) {
         console.log(err);
       }
@@ -148,16 +149,26 @@ const AdminTable = () => {
                 <td className="px-3 py-4 whitespace-wrap">
                   <img
                     className="w-10 h-10 rounded-full"
-                    src={user.avatar}
+                    src={`https://i.pravatar.cc/${
+                      Math.floor(Math.random() * 500) + 1
+                    }`}
                     alt={user.name}
                   />
                 </td>
                 <td className="px-3 py-4 break-all">{user.name}</td>
-                <td className="px-3 py-4 break-all">{user.name}</td>
-                <td className="px-3 py-4 break-all">{user.name}</td>
-                <td className="px-3 py-4 break-all">{user.name}</td>
-                <td className="px-3 py-4 break-all">{user.name}</td>
-                <td className="px-3 py-4 break-all">{user.name}</td>
+                <td className="px-3 py-4 break-all">{user.username}</td>
+                <td className="px-3 py-4 break-all">{user.email}</td>
+                <td className="px-3 py-4 break-all">
+                  {user.gender_id === 1
+                    ? 'Nam'
+                    : user.gender_id === 2
+                    ? 'Nu'
+                    : 'Khong xac dinh'}
+                </td>
+                <td className="px-3 py-4 break-all">{user.birthday}</td>
+                <td className="px-3 py-4 break-all">
+                  {new Date(user.last_login).toLocaleDateString('vn-VN')}
+                </td>
                 <td className="px-3 py-4 whitespace-nowrap">
                   <div className="flex flex-col">
                     <button
@@ -197,22 +208,22 @@ const AdminTable = () => {
         />
       </div>
       <div className="flex justify-between px-10 border-t-2 border-black pt-4">
-        <span>{`Trang hiển thị ${currentPage} / ${totalPages}`}</span>
+        {/* <span>{`Trang hiển thị ${currentPage} / ${totalPages}`}</span> */}
         <div className="pagination pb-3 flex gap-2">
           <button
             className="pr-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
-            onClick={handlePrevPage}
-            disabled={currentPage === 1}
+            // onClick={handlePrevPage}
+            // disabled={currentPage === 1}
           >
             Trước
           </button>
           <button className="bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md">
-            {currentPage}
+            {/* {currentPage} */}
           </button>
           <button
             className="pl-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
+            // onClick={handleNextPage}
+            // disabled={currentPage === totalPages}
           >
             Sau
           </button>

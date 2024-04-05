@@ -10,15 +10,19 @@ function Login() {
   const { errors } = formState;
   const navigate = useNavigate();
   const onSubmit = async ({ email, password }) => {
-    const { data } = await axios.get(
-      'https://65f53032f54db27bc022bcf0.mockapi.io/api/user'
+    console.log(email, password);
+    const { data } = await axios.post(
+      'http://127.0.0.1:8000/api/admin/submit-login',
+      { email, password }
     );
-    const user = data.find(u => {
-      return u.name === email && u.password === password;
-    });
-    if (!user) return toast.error('Khong co usre nao trong he thong');
-    toast.success('Chuc mung ban da dang nhap thanh cong');
-    navigate('/');
+    console.log(data);
+    localStorage.setItem('token', data.a);
+    // const user = data.find(u => {
+    //   return u.name === email && u.password === password;
+    // });
+    // if (!user) return toast.error('Khong co usre nao trong he thong');
+    // toast.success('Chuc mung ban da dang nhap thanh cong');
+    // navigate('/');
   };
   return (
     <div className="bg-base flex justify-center items-center w-full h-full">

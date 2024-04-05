@@ -15,21 +15,19 @@ function User() {
     fetchUser();
   }, []);
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center divide-y">
       {users.map(user => (
         <div
-          className="flex justify-around items-center gap-2 divide-y text-left"
+          className="grid grid-cols-3 items-center gap-2 px-8 text-left py-2 hover:bg-gray-200 cursor-pointer"
           key={user.id}
         >
-          <div className="w-full ">
-            <img
-              className="mx-auto w-10 rounded-full"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/813px-Unknown_person.jpg"
-              alt={user.name}
-            />
-          </div>
-          <p className="w-full">{user.id}</p>
-          <p className="w-full">{user.name}</p>
+          <img
+            className="w-10 rounded-full shadow-md mx-auto  "
+            src={`https://i.pravatar.cc/${Math.floor(Math.random() * 500) + 1}`}
+            alt={user.name}
+          />
+          <p className="">{user.name}</p>
+          <p className="">{`Lớp ${Math.floor(Math.random() * 3) + 10}`}</p>
         </div>
       ))}
     </div>

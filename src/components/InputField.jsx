@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 
-const InputField = ({ label, name, type, value, onChange, onFocus, onBlur, required }) => {
+const InputField = ({
+  label = '',
+  name = '',
+  type = '',
+  value = '',
+  onChange = () => {},
+  onFocus = () => {},
+  onBlur = () => {},
+  required = false,
+}) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
@@ -16,9 +25,14 @@ const InputField = ({ label, name, type, value, onChange, onFocus, onBlur, requi
   return (
     <div className="relative mb-4 border-b-2">
       <div className="flex items-center">
-      <label className={`text-gray-700 font-bold absolute transition-all ${isFocused || value ? '-top-5 text-sm' : ''}`} htmlFor={name}>
-        {label}
-      </label>
+        <label
+          className={`text-gray-700 font-bold absolute transition-all ${
+            isFocused || value ? '-top-5 text-sm' : ''
+          }`}
+          htmlFor={name}
+        >
+          {label}
+        </label>
         <input
           type={type}
           id={name}
