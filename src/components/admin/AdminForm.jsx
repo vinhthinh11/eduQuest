@@ -1,5 +1,5 @@
 import React from "react";
-import FormComponent from "./FormComponent";
+import FormComponent from "../FormComponent";
 
 const AdminForm = ({ handleSubmit }) => {
   const genderOptions = [

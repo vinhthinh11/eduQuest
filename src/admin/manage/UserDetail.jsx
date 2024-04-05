@@ -1,8 +1,8 @@
 // UserDetail.js
 import React, { useState } from "react";
-import AdminTable from "../../components/AdminTable";
-import FormModal from "../../components/FormModal";
-import UploadFileModal from "../../components/UploadFileModal";
+import AdminTable from "../../components/admin/AdminTable";
+import FormModal from "../../components/admin/FormModal";
+import UploadFileModal from "../../components/admin/UploadFileModal";
 function UserDetail() {
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);

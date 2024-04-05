@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { getUser } from '../services/apiUser';
-import ModalEdit from './ModalEdit.jsx';
-import ModalDelete from './ModalDelete.jsx';
+import { getUser } from '../../services/apiUser.js';
+import ModalEdit from '../head/ModalEdit.jsx';
+import ModalDelete from '../ModalDelete.jsx';
 
-const AdminTable = () => {
+const HeadTable = () => {
   const [users, setUsers] = useState([]);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -110,6 +110,12 @@ const AdminTable = () => {
               </th>
               <th
                 scope="col"
+                className="px-3 py-3 text-left text-xs font-medium  uppercase tracking-wider"
+              >
+                Môn
+              </th>
+              <th
+                scope="col"
                 className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
                 Online Cuối
@@ -148,6 +154,7 @@ const AdminTable = () => {
                     ? 'Nữ'
                     : 'Không xác định'}
                 </td>
+                <td className="px-3 py-4 break-all">{user.birthday}</td>
                 <td className="px-3 py-4 break-all">{user.birthday}</td>
                 <td className="px-3 py-4 break-all">
                   {new Date(user.last_login).toLocaleDateString('vn-VN')}
@@ -216,4 +223,4 @@ const AdminTable = () => {
   );
 };
 
-export default AdminTable;
+export default HeadTable;

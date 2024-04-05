@@ -2,10 +2,9 @@ import { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import FileUpload from "../UploadFile";
 
-import AdminForm from "./AdminForm";
-
-export default function FormModal({ open, setOpen, user }) {
+export default function ModalEdit({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
 
@@ -14,18 +13,16 @@ export default function FormModal({ open, setOpen, user }) {
     setUserEdit({ ...userEdit, [name]: value });
   };
 
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+  };
+
   const handleConfirm = () => {
     console.log("Đã nhấn Đồng ý");
 
     setUserEdit(userEdit);
     setOpen(false);
   };
-
-  const genderOptions = [
-    { value: "1", label: "Không Xác Định" },
-    { value: "2", label: "Nam" },
-    { value: "3", label: "Nữ" },
-  ];
 
   return (
     <Modal
@@ -36,10 +33,11 @@ export default function FormModal({ open, setOpen, user }) {
     >
       <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8">
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Thêm mới admin
+          Thêm giáo viên bằng file
         </Typography>
 
-        <AdminForm />
+        {/* Use FileUpload component here */}
+        <FileUpload handleFileSubmit={handleFileInputChange} />
 
         <div className="flex justify-between mt-8">
           <button
