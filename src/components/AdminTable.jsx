@@ -70,17 +70,6 @@ const AdminTable = () => {
                 scope="col"
                 className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
               >
-                <label className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-4 w-4 text-indigo-600"
-                  />
-                </label>
-              </th>
-              <th
-                scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
-              >
                 ID
               </th>
               <th
@@ -138,14 +127,8 @@ const AdminTable = () => {
             id="list_admins"
           >
             {visibleUsers.map(user => (
-              <tr key={user.id}>
-                <td className="px-3 py-4 whitespace-nowrap">
-                  <input
-                    type="checkbox"
-                    className="form-checkbox h-4 w-4 text-indigo-600"
-                  />
-                </td>
-                <td className="px-3 py-4 whitespace-wrap">{user.id}</td>
+              <tr key={user.admin_id}>
+                <td className="px-3 py-4 whitespace-wrap">{user.admin_id}</td>
                 <td className="px-3 py-4 whitespace-wrap">
                   <img
                     className="w-10 h-10 rounded-full"
@@ -208,22 +191,22 @@ const AdminTable = () => {
         />
       </div>
       <div className="flex justify-between px-10 border-t-2 border-black pt-4">
-        {/* <span>{`Trang hiển thị ${currentPage} / ${totalPages}`}</span> */}
+        <span>{`Trang hiển thị ${currentPage} / ${totalPages}`}</span>
         <div className="pagination pb-3 flex gap-2">
           <button
             className="pr-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
-            // onClick={handlePrevPage}
-            // disabled={currentPage === 1}
+            onClick={handlePrevPage}
+            disabled={currentPage === 1}
           >
             Trước
           </button>
           <button className="bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md">
-            {/* {currentPage} */}
+            {currentPage}
           </button>
           <button
             className="pl-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
-            // onClick={handleNextPage}
-            // disabled={currentPage === totalPages}
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
           >
             Sau
           </button>
