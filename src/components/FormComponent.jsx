@@ -58,15 +58,14 @@ const FormComponent = ({ handleSubmit, fields }) => {
             )
           ))}
         </div>
-        <div className="col-span-12 mt-10">
-          {/* Submit Button */}
+        {/* <div className="col-span-12 mt-10">
           <button
             type="submit"
             className="btn bg-customPurple hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
           >
             Thêm
           </button>
-        </div>
+        </div> */}
       </form>
     </div>
   );

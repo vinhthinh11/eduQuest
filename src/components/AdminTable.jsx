@@ -145,8 +145,8 @@ const AdminTable = () => {
                   {user.gender_id === 1
                     ? 'Nam'
                     : user.gender_id === 2
-                    ? 'Nu'
-                    : 'Khong xac dinh'}
+                    ? 'Nữ'
+                    : 'Không xác định'}
                 </td>
                 <td className="px-3 py-4 break-all">{user.birthday}</td>
                 <td className="px-3 py-4 break-all">
