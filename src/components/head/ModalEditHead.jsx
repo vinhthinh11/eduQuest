@@ -3,6 +3,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useEffect, useState } from "react";
 import InputField from "../InputField";
+import SelectInput from "../SelectInput";
 
 export default function ModalEditHead({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getUser } from '../../services/apiUser.js';
-import ModalEdit from '../head/ModalEdit.jsx';
+import ModalEdit from '../head/ModalEditHead.jsx';
 import ModalDelete from '../ModalDelete.jsx';
 
 const HeadTable = () => {
