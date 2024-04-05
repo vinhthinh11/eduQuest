@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { getUser } from "../../services/apiUser.js";
-import ModalEdit from "../head/ModalEditHead.jsx";
-import ModalDelete from "../ModalDelete.jsx";
-import SearchComponent from "../SearchComponent.jsx";
+import { useEffect, useState } from 'react';
+import { getUser } from '../../services/apiUser.js';
+import ModalEdit from '../head/ModalEditHead.jsx';
+import ModalDelete from '../ModalDelete.jsx';
+import SearchComponent from '../SearchComponent.jsx';
 
 const HeadTable = () => {
   const [users, setUsers] = useState([]);
@@ -13,13 +13,15 @@ const HeadTable = () => {
   const [openDelete, setOpenDelete] = useState(false);
   // State để lưu thông tin user cần sửa hoặc xoá
   const [currentUser, setCurrentUser] = useState({});
+  let data;
 
   useEffect(() => {
     async function fetchUser() {
       try {
         const { data } = await getUser();
-        console.log(data.getAllAdmin);
+        // console.log(data.getAllAdmin);
         setUsers(data.getAllAdmin);
+        // data = data.getAllAdmin;
       } catch (err) {
         console.log(err);
       }
@@ -28,7 +30,7 @@ const HeadTable = () => {
   }, []);
 
   // Các hàm xử lý phân trang và thay đổi số lượng item trên trang
-  const handlePerPageChange = (e) => {
+  const handlePerPageChange = e => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
@@ -40,11 +42,11 @@ const HeadTable = () => {
   );
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    setCurrentPage(prevPage => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage(prevPage => prevPage + 1);
   };
 
   return (
@@ -136,7 +138,7 @@ const HeadTable = () => {
             className="bg-white divide-y divide-gray-200 "
             id="list_admins"
           >
-            {visibleUsers.map((user) => (
+            {visibleUsers.map(user => (
               <tr key={user.admin_id}>
                 <td className="px-3 py-4 whitespace-wrap">{user.admin_id}</td>
                 <td className="px-3 py-4 whitespace-wrap">
@@ -153,15 +155,15 @@ const HeadTable = () => {
                 <td className="px-3 py-4 break-all">{user.email}</td>
                 <td className="px-3 py-4 break-all">
                   {user.gender_id === 1
-                    ? "Nam"
+                    ? 'Nam'
                     : user.gender_id === 2
-                    ? "Nữ"
-                    : "Không xác định"}
+                    ? 'Nữ'
+                    : 'Không xác định'}
                 </td>
                 <td className="px-3 py-4 break-all">{user.birthday}</td>
                 <td className="px-3 py-4 break-all">{user.birthday}</td>
                 <td className="px-3 py-4 break-all">
-                  {new Date(user.last_login).toLocaleDateString("vn-VN")}
+                  {new Date(user.last_login).toLocaleDateString('vn-VN')}
                 </td>
                 <td className="px-3 py-4 whitespace-nowrap">
                   <div className="flex flex-col">
@@ -194,8 +196,8 @@ const HeadTable = () => {
           open={openDelete}
           setOpen={setOpenDelete}
           user={currentUser}
-          handleDeleteUser={(userId) => {
-            const updatedUsers = users.filter((user) => user.id !== userId);
+          handleDeleteUser={userId => {
+            const updatedUsers = users.filter(user => user.id !== userId);
             setUsers(updatedUsers);
             setOpenDelete(false); // Đóng modal delete sau khi xóa
           }}

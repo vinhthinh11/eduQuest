@@ -193,6 +193,10 @@ const AdminLeftSideBar = () => {
             borderTop: '1px solid #c6c6c6',
             width: '100%',
           }}
+          onClick={() => {
+            localStorage.removeItem('token');
+            navigate('/login');
+          }}
         >
           <ListItemIcon>
             <LogoutIcon />
