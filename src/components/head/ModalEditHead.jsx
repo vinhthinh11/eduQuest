@@ -1,27 +1,25 @@
+import { useState } from "react";
+import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import { useEffect, useState } from "react";
 import InputField from "../InputField";
 import SelectInput from "../SelectInput";
 
 export default function ModalEditHead({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserEdit({ ...userEdit, [name]: value });
   };
 
   const handleConfirm = () => {
-    // Xử lý logic khi nhấn Đồng ý
     console.log("Đã nhấn Đồng ý");
+
+    setUserEdit(userEdit);
     setOpen(false);
   };
-
-  useEffect(() => {
-    setUserEdit(user);
-  }, [user, userEdit]);
 
   const genderOptions = [
     { value: "1", label: "Không Xác Định" },
@@ -51,12 +49,14 @@ export default function ModalEditHead({ open, setOpen, user }) {
             name="name"
             type="text"
             value={userEdit?.name}
+            onChange={handleInputChange}
           />
           <InputField
             label="Mật khẩu"
             name="password"
             type="password"
             value={userEdit?.password}
+            onChange={handleInputChange}
           />
           <div className="mb-4 flex items-center border-b-2">
             <label htmlFor="birthday" className="text-gray-700 font-bold mr-2">
@@ -71,25 +71,20 @@ export default function ModalEditHead({ open, setOpen, user }) {
               defaultValue="1997-01-01"
             />
           </div>
-          <div className="mb-4 flex items-center border-b-2">
-            <SelectInput
-              label="Giới tính"
-              name="gender"
-              value={userEdit?.gender}
-              onChange={handleInputChange}
-              options={genderOptions}
-            />
-
-            
-
-            <SelectInput
+          <SelectInput
+            label="Giới tính"
+            name="gender"
+            value={userEdit?.gender}
+            onChange={handleInputChange}
+            options={genderOptions}
+          />
+          <SelectInput
               label="Môn"
               name="subject"
               value={userEdit?.subject}
               onChange={handleInputChange}
               options={subject}
             />
-          </div>
         </div>
         <div className="flex justify-between mt-8">
           <button
