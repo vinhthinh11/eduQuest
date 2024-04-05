@@ -12,7 +12,7 @@ function Login() {
   const onSubmit = async ({ email, password }) => {
     console.log(email, password);
     const { data } = await axios.post(
-      'http://127.0.0.1:8000/api/admin/submit-login',
+      'http://127.0.0.1:8000/api/submit-login',
       { email, password }
     );
     console.log(data);
@@ -36,7 +36,7 @@ function Login() {
               <FormLabel htmlFor="email">Email</FormLabel>
               <Input
                 color="neutral"
-                defaultValue={'vinhthinh@gmail.com'}
+                defaultValue={'111@mail.com'}
                 type="email"
                 id="email"
                 {...register('email', { required: 'This field is required' })}
@@ -53,7 +53,7 @@ function Login() {
                 color="neutral"
                 type="password"
                 id="password"
-                defaultValue={123}
+                defaultValue={111}
                 {...register('password', {
                   required: 'This field is required',
                 })}
