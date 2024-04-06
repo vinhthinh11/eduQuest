@@ -13,12 +13,11 @@ const HeadTable = () => {
   const [openDelete, setOpenDelete] = useState(false);
   // State để lưu thông tin user cần sửa hoặc xoá
   const [currentUser, setCurrentUser] = useState({});
-  let data;
 
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser();
+        const { data } = await getUser('/admin/get');
         // console.log(data.getAllAdmin);
         setUsers(data.getAllAdmin);
         // data = data.getAllAdmin;

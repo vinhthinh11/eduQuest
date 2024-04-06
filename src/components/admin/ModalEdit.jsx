@@ -14,7 +14,6 @@ const genderOptions = [
 export default function ModalEdit({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
-  console.log(user);
 
   const handleInputChange = event => {
     const { name, value } = event.target;
