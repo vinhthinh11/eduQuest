@@ -1,31 +1,35 @@
-import { useState } from "react";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import InputField from "../InputField";
-import SelectInput from "../SelectInput";
+import { useEffect, useState } from 'react';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import InputField from '../InputField';
+import SelectInput from '../SelectInput';
+
+const genderOptions = [
+  { value: '1', label: 'Nam' },
+  { value: '2', label: 'Nữ' },
+  { value: '3', label: 'Không xác định' },
+];
 
 export default function ModalEdit({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
+  console.log(user);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = event => {
     const { name, value } = event.target;
     setUserEdit({ ...userEdit, [name]: value });
+    console.log(userEdit);
   };
 
   const handleConfirm = () => {
-    console.log("Đã nhấn Đồng ý");
-
-    setUserEdit(userEdit);
+    // setUserEdit(userEdit);
+    console.log(userEdit);
     setOpen(false);
   };
-
-  const genderOptions = [
-    { value: "1", label: "Không Xác Định" },
-    { value: "2", label: "Nam" },
-    { value: "3", label: "Nữ" },
-  ];
+  useEffect(() => {
+    setUserEdit(user);
+  }, [user]);
 
   return (
     <Modal
@@ -36,7 +40,7 @@ export default function ModalEdit({ open, setOpen, user }) {
     >
       <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8">
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Chỉnh sửa thông tin {userEdit?.name}
+          Chỉnh sửa thông tin
         </Typography>
         <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10 whitespace-nowrap">
           <InputField
@@ -68,8 +72,8 @@ export default function ModalEdit({ open, setOpen, user }) {
           </div>
           <SelectInput
             label="Giới tính"
-            name="gender"
-            value={userEdit?.gender}
+            name="gender_id"
+            value={userEdit?.gender_id}
             onChange={handleInputChange}
             options={genderOptions}
           />

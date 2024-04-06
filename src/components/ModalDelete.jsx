@@ -15,12 +15,10 @@ const style = {
   p: 4,
 };
 
-const ModalDelete = ({ open, setOpen, user, handleDeleteUser }) => {
+const ModalDelete = ({ open, setOpen, user }) => {
   const handleClose = () => setOpen(false);
 
-  const handleConfirm = () => {
-    handleDeleteUser(user.id); // Xóa user khi nhấn Đồng ý
-  };
+  const handleDelete = () => {};
 
   return (
     <Modal
@@ -37,16 +35,24 @@ const ModalDelete = ({ open, setOpen, user, handleDeleteUser }) => {
           Xác nhận xoá tài khoản {user.name}
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-          <button onClick={handleClose} className="btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mr-2">
+          <button
+            onClick={handleClose}
+            className="btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mr-2"
+          >
             Quay lại
           </button>
-          <button onClick={handleConfirm} className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+          <button
+            onClick={() => {
+              handleClose();
+            }}
+            className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+          >
             Đồng ý
           </button>
         </Box>
       </Box>
     </Modal>
   );
-}
+};
 
 export default ModalDelete;

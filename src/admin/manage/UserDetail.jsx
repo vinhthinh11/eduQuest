@@ -1,8 +1,7 @@
-// UserDetail.js
-import React, { useState } from "react";
-import AdminTable from "../../components/admin/AdminTable";
-import FormModal from "../../components/admin/FormModal";
-import UploadFileModal from "../../components/admin/UploadFileModal";
+import React, { useState } from 'react';
+import AdminTable from '../../components/admin/AdminTable';
+import FormModal from '../../components/admin/FormModal';
+import UploadFileModal from '../../components/admin/UploadFileModal';
 function UserDetail() {
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);
@@ -15,8 +14,8 @@ function UserDetail() {
         </div>
         <div className="title-content">
           <div className="text-center grid grid-cols-2 gap-4 w-full border-t-2 border-edu">
-            <div className={showAdminForm ? "border-b-2 border-edu" : ""}>
-              <h1
+            <div className={showAdminForm ? 'border-b-2 border-edu' : ''}>
+              <button
                 className="text-sm font-medium my-4 text-custom-purple"
                 onClick={() => {
                   setShowAdminForm(true);
@@ -24,10 +23,10 @@ function UserDetail() {
                 }}
               >
                 Thêm mới admin
-              </h1>
+              </button>
             </div>
-            <div className={showFileUpload ? "border-b-2 border-edu" : ""}>
-              <h1
+            <div className={showFileUpload ? 'border-b-2 border-edu' : ''}>
+              <button
                 className="text-sm font-medium my-4 text-custom-purple"
                 onClick={() => {
                   setShowFileUpload(true);
@@ -35,12 +34,10 @@ function UserDetail() {
                 }}
               >
                 Thêm bằng file
-              </h1>
+              </button>
             </div>
           </div>
         </div>
-
-        {/* Conditional rendering based on state */}
         <FormModal open={showAdminForm} setOpen={setShowAdminForm} />
         <UploadFileModal open={showFileUpload} setOpen={setShowFileUpload} />
       </div>

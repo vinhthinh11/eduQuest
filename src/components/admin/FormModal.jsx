@@ -1,31 +1,23 @@
-import { useState } from "react";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { useState } from 'react';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
-import AdminForm from "../admin/AdminForm";
+import AdminForm from '../admin/AdminForm';
 
 export default function FormModal({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = event => {
     const { name, value } = event.target;
     setUserEdit({ ...userEdit, [name]: value });
   };
 
   const handleConfirm = () => {
-    console.log("Đã nhấn Đồng ý");
-
     setUserEdit(userEdit);
     setOpen(false);
   };
-
-  const genderOptions = [
-    { value: "1", label: "Không Xác Định" },
-    { value: "2", label: "Nam" },
-    { value: "3", label: "Nữ" },
-  ];
 
   return (
     <Modal

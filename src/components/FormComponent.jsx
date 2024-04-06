@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import InputField from "../components/InputField";
-import SelectInput from "../components/SelectInput";
+import React, { useState } from 'react';
+import InputField from '../components/InputField';
+import SelectInput from '../components/SelectInput';
 
 const FormComponent = ({ handleSubmit, fields }) => {
   const [formData, setFormData] = useState({});
@@ -8,20 +8,19 @@ const FormComponent = ({ handleSubmit, fields }) => {
   const handleInputChange = (name, value) => {
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
+    console.log(formData);
   };
 
-  const handleFocus = (fieldName) => {
-    
-  };
+  const handleFocus = fieldName => {};
 
-  const handleBlur = () => {
-   
-  };
+  const handleBlur = () => {};
 
-  const submitForm = (event) => {
+  const submitForm = event => {
     event.preventDefault();
+    console.log('da submit');
+    console.log(formData);
     handleSubmit(formData);
   };
 
@@ -30,33 +29,35 @@ const FormComponent = ({ handleSubmit, fields }) => {
       <form onSubmit={submitForm} className="bg-white">
         <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10 whitespace-nowrap">
           {/* Form Inputs */}
-          {fields.map((field, index) => (
-            field.type !== "select" && (
-              <InputField
-                key={index}
-                label={field.label}
-                name={field.name}
-                type={field.type}
-                value={formData[field.name] || ''}
-                onChange={(e) => handleInputChange(field.name, e.target.value)}
-                onFocus={() => handleFocus(field.name)}
-                onBlur={handleBlur}
-                required={field.required}
-              />
-            )
-          ))}
-          {fields.map((field, index) => (
-            field.type === "select" && (
-              <SelectInput
-                key={index}
-                label={field.label}
-                name={field.name}
-                value={formData[field.name] || ''}
-                onChange={(value) => handleInputChange(field.name, value)}
-                options={field.options}
-              />
-            )
-          ))}
+          {fields.map(
+            (field, index) =>
+              field.type !== 'select' && (
+                <InputField
+                  key={index}
+                  label={field.label}
+                  name={field.name}
+                  type={field.type}
+                  value={formData[field.name] || ''}
+                  onChange={e => handleInputChange(field.name, e.target.value)}
+                  onFocus={() => handleFocus(field.name)}
+                  onBlur={handleBlur}
+                  required={field.required}
+                />
+              )
+          )}
+          {fields.map(
+            (field, index) =>
+              field.type === 'select' && (
+                <SelectInput
+                  key={index}
+                  label={field.label}
+                  name={field.name}
+                  value={formData[field.name] || ''}
+                  onChange={value => handleInputChange(field.name, value)}
+                  options={field.options}
+                />
+              )
+          )}
         </div>
         {/* <div className="col-span-12 mt-10">
           <button

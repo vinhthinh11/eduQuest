@@ -18,7 +18,7 @@ const AdminTable = () => {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser();
+        const { data } = await getUser('/admin/get');
         // console.log(data.getAllAdmin);
         setUsers(data.getAllAdmin);
         usersData.current = data.getAllAdmin;
@@ -138,7 +138,7 @@ const AdminTable = () => {
             id="list_admins"
           >
             {visibleUsers?.map(user => (
-              <tr key={user.admin_id}>
+              <tr className="hover:bg-slate-200" key={user.admin_id}>
                 <td className="px-3 py-4 whitespace-wrap">{user.admin_id}</td>
                 <td className="px-3 py-4 whitespace-wrap">
                   <img
@@ -194,28 +194,25 @@ const AdminTable = () => {
           open={openDelete}
           setOpen={setOpenDelete}
           user={currentUser}
-          handleDeleteUser={userId => {
-            const updatedUsers = users.filter(user => user.id !== userId);
-            setUsers(updatedUsers);
-            setOpenDelete(false); // Đóng modal delete sau khi xóa
-          }}
         />
       </div>
-      <div className="flex justify-between px-10 border-t-2 border-black pt-4">
-        <span>{`Trang hiển thị ${currentPage} / ${totalPages}`}</span>
+      <div className="flex justify-end px-10 border-t-2 border-black pt-4">
         <div className="pagination pb-3 flex gap-2">
           <button
-            className="pr-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
+            className="min-w-20 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
             onClick={handlePrevPage}
             disabled={currentPage === 1}
           >
             Trước
           </button>
-          <button className="bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md">
-            {currentPage}
+          <button
+            disabled
+            className="bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
+          >
+            {`${currentPage}/${totalPages}`}
           </button>
           <button
-            className="pl-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
+            className=" min-w-20 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
           >
