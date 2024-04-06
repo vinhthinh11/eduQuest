@@ -21,11 +21,7 @@ export default function FormModal({ open, setOpen, user }) {
     setOpen(false);
   };
 
-  const genderOptions = [
-    { value: "1", label: "Không Xác Định" },
-    { value: "2", label: "Nam" },
-    { value: "3", label: "Nữ" },
-  ];
+ 
 
   return (
     <Modal

@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
-import { getUser } from '../../services/apiUser.js';
-import ModalEdit from '../admin/ModalEdit.jsx';
-import ModalDelete from '../ModalDelete.jsx';
-import SearchComponent from '../SearchComponent.jsx';
+import { useEffect, useRef, useState } from "react";
+import { getUser } from "../../services/apiUser.js";
+import ModalEdit from "../admin/ModalEdit.jsx";
+import ModalDelete from "../ModalDelete.jsx";
+import SearchComponent from "../SearchComponent.jsx";
 
 const AdminTable = () => {
   const [users, setUsers] = useState([]);
@@ -30,7 +30,7 @@ const AdminTable = () => {
   }, []);
 
   // Các hàm xử lý phân trang và thay đổi số lượng item trên trang
-  const handlePerPageChange = e => {
+  const handlePerPageChange = (e) => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
@@ -42,11 +42,11 @@ const AdminTable = () => {
   );
 
   const handlePrevPage = () => {
-    setCurrentPage(prevPage => prevPage - 1);
+    setCurrentPage((prevPage) => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage(prevPage => prevPage + 1);
+    setCurrentPage((prevPage) => prevPage + 1);
   };
 
   return (
@@ -54,9 +54,9 @@ const AdminTable = () => {
       <div className="preload hidden" id="preload">
         <img src="#" alt="" />
       </div>
-      <div className="flex justify-start gap-10 items-center border-b-2 border-edu py-3 pl-3">
+      <div class="flex justify-between items-center border-b-2 border-edu py-3 pl-3 pr-3">
         <div>
-          <label htmlFor="perPage">Hiển thị </label>
+          <label for="perPage">Hiển thị </label>
           <select id="perPage" value={perPage} onChange={handlePerPageChange}>
             <option value={10}>10</option>
             <option value={20}>20</option>
@@ -137,7 +137,7 @@ const AdminTable = () => {
             className="bg-white divide-y divide-gray-200 "
             id="list_admins"
           >
-            {visibleUsers?.map(user => (
+            {visibleUsers?.map((user) => (
               <tr key={user.admin_id}>
                 <td className="px-3 py-4 whitespace-wrap">{user.admin_id}</td>
                 <td className="px-3 py-4 whitespace-wrap">
@@ -154,14 +154,14 @@ const AdminTable = () => {
                 <td className="px-3 py-4 break-all">{user.email}</td>
                 <td className="px-3 py-4 break-all">
                   {user.gender_id === 1
-                    ? 'Nam'
+                    ? "Nam"
                     : user.gender_id === 2
-                    ? 'Nữ'
-                    : 'Không xác định'}
+                    ? "Nữ"
+                    : "Không xác định"}
                 </td>
                 <td className="px-3 py-4 break-all">{user.birthday}</td>
                 <td className="px-3 py-4 break-all">
-                  {new Date(user.last_login).toLocaleDateString('vn-VN')}
+                  {new Date(user.last_login).toLocaleDateString("vn-VN")}
                 </td>
                 <td className="px-3 py-4 whitespace-nowrap">
                   <div className="flex flex-col">
@@ -194,8 +194,8 @@ const AdminTable = () => {
           open={openDelete}
           setOpen={setOpenDelete}
           user={currentUser}
-          handleDeleteUser={userId => {
-            const updatedUsers = users.filter(user => user.id !== userId);
+          handleDeleteUser={(userId) => {
+            const updatedUsers = users.filter((user) => user.id !== userId);
             setUsers(updatedUsers);
             setOpenDelete(false); // Đóng modal delete sau khi xóa
           }}
