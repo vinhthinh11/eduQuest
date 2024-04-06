@@ -54,9 +54,9 @@ const AdminTable = () => {
       <div className="preload hidden" id="preload">
         <img src="#" alt="" />
       </div>
-      <div className="flex justify-start gap-10 items-center border-b-2 border-edu py-3 pl-3">
+      <div class="flex justify-between items-center border-b-2 border-edu py-3 pl-3 pr-3">
         <div>
-          <label htmlFor="perPage">Hiển thị </label>
+          <label for="perPage">Hiển thị </label>
           <select id="perPage" value={perPage} onChange={handlePerPageChange}>
             <option value={10}>10</option>
             <option value={20}>20</option>

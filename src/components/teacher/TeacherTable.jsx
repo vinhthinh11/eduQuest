@@ -52,7 +52,7 @@ const AdminTable = () => {
       <div className="preload hidden" id="preload">
         <img src="#" alt="" />
       </div>
-      <div className="flex justify-between border-b-2 border-edu py-3 pl-3">
+      <div className="flex justify-between items-center border-b-2 border-edu py-3 pl-3 pr-3">
         <div>
           <label htmlFor="perPage">Hiển thị </label>
           <select id="perPage" value={perPage} onChange={handlePerPageChange}>

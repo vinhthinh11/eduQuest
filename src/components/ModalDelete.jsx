@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { deleteUser } from '../services/apiUser.js';
+import toast from 'react-hot-toast';
 
 const style = {
   position: 'absolute',
@@ -18,7 +20,15 @@ const style = {
 const ModalDelete = ({ open, setOpen, user }) => {
   const handleClose = () => setOpen(false);
 
-  const handleDelete = () => {};
+  const handleDelete = async () => {
+    try {
+      await deleteUser('/admin/delete-admin', user.admin_id);
+      handleClose();
+      toast.success('Xoá tài khoản thành công');
+    } catch (err) {
+      toast.error('Xoá tài khoản không thành công');
+    }
+  };
 
   return (
     <Modal
@@ -43,11 +53,11 @@ const ModalDelete = ({ open, setOpen, user }) => {
           </button>
           <button
             onClick={() => {
-              handleClose();
+              handleDelete();
             }}
             className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
           >
-            Đồng ý
+            Xóa
           </button>
         </Box>
       </Box>
