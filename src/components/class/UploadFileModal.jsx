@@ -33,7 +33,7 @@ export default function ModalEdit({ open, setOpen, user }) {
     >
       <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8">
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Thêm giáo viên bằng file
+          Thêm lớp bằng file
         </Typography>
 
         {/* Use FileUpload component here */}
