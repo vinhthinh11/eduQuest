@@ -1,17 +1,19 @@
-function Button({ children, onClick, disabled, variant }) {
-  const style =
-    variant === 'solid'
-      ? 'bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md'
-      : 'bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded';
-  return (
-    <button
-      className="bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {children}
-    </button>
-  );
-}
+import styled from 'styled-components';
 
+const Button = styled.button`
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: #836fe1;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+
+  &:hover {
+    background-color: #7355fd;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
 export default Button;

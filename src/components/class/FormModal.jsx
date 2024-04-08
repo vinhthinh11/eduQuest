@@ -1,26 +1,25 @@
-import { useState } from "react";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { useState } from 'react';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
-import TeachForm from "./TeacherForm";
+// import TeachForm from './TeacherForm';
 
 export default function FormModal({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = event => {
     const { name, value } = event.target;
     setUserEdit({ ...userEdit, [name]: value });
   };
 
   const handleConfirm = () => {
-    console.log("Đã nhấn Đồng ý");
+    console.log('Đã nhấn Đồng ý');
 
     setUserEdit(userEdit);
     setOpen(false);
   };
-
 
   return (
     <Modal
@@ -34,7 +33,7 @@ export default function FormModal({ open, setOpen, user }) {
           Thêm mới lớp
         </Typography>
 
-        <TeachForm />
+        {/* <TeachForm /> */}
 
         <div className="flex justify-between mt-8">
           <button

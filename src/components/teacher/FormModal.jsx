@@ -1,26 +1,23 @@
-import { useState } from "react";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-
-import TeachForm from "./TeacherForm";
+import { useState } from 'react';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 export default function FormModal({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = event => {
     const { name, value } = event.target;
     setUserEdit({ ...userEdit, [name]: value });
   };
 
   const handleConfirm = () => {
-    console.log("Đã nhấn Đồng ý");
+    console.log('Đã nhấn Đồng ý');
 
     setUserEdit(userEdit);
     setOpen(false);
   };
-
 
   return (
     <Modal
@@ -33,8 +30,6 @@ export default function FormModal({ open, setOpen, user }) {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Thêm mới giáo viên
         </Typography>
-
-        <TeachForm />
 
         <div className="flex justify-between mt-8">
           <button

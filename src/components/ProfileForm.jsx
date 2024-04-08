@@ -1,42 +1,41 @@
-import React, { useState } from "react";
-import InputField from "./InputField";
-import SelectInput from "./SelectInput";
+import React, { useState } from 'react';
+import InputField from './InputField';
+import SelectInput from './SelectInput';
 
 const ProfileForm = () => {
   const [formData, setFormData] = useState({
-    username: "example_username",
-    birthday: "2000-01-01",
-    gender: "1",
-    lastLogin: "2024-04-04",
-    name: "Example Name",
-    currentEmail: "example@example.com",
-    newEmail: "example@example.com",
-    password: "",
+    username: 'example_username',
+    birthday: '2000-01-01',
+    gender: '1',
+    lastLogin: '2024-04-04',
+    name: 'Example Name',
+    currentEmail: 'example@example.com',
+    newEmail: 'example@example.com',
+    password: '',
   });
 
   const genderOptions = [
-    { value: "1", label: "Không Xác Định" },
-    { value: "2", label: "Nam" },
-    { value: "3", label: "Nữ" },
+    { value: '1', label: 'Không Xác Định' },
+    { value: '2', label: 'Nam' },
+    { value: '3', label: 'Nữ' },
   ];
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     // Gửi dữ liệu form đi
   };
 
   return (
     <div className="title-content flex justify-center">
-       
       <div className="block-content my-auto mt-6">
-      <span className="title">Thông Tin Cá Nhân</span>
+        <span className="title">Thông Tin Cá Nhân</span>
         <div className="content">
           <div className="flex flex-row justify-center mt-10">
             <div className="w-1/2 mx-auto mr-4">
@@ -70,6 +69,7 @@ const ProfileForm = () => {
                     height="50"
                     className="valid-img hidden"
                     id="avatar_uploading"
+                    alt="user avatar random..."
                   />
                 </div>
               </div>

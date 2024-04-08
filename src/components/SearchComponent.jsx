@@ -14,6 +14,7 @@ const SearchComponent = ({ usersData, setUsers, users }) => {
         slotProps={{
           input: { placeholder: 'Enter here to search ...', type: 'text' },
         }}
+        value={query}
         sx={{
           '--Input-minHeight': '30px',
           '--Input-radius': '10px',
