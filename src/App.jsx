@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login.jsx';
 import { Toaster } from 'react-hot-toast';
@@ -19,7 +19,6 @@ import Chat from './pages/Chat.jsx';
 import Statistic from './pages/Statistic.jsx';
 import ProfileForm from './components/ProfileForm.jsx';
 
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -36,7 +35,7 @@ const App = () => (
     <CssBaseline />
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate replace to="/admin" />} />
+        <Route path="/" element={<Navigate replace to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="contact" element={<Contact />} />

@@ -58,5 +58,4 @@ function Statistic() {
     </div>
   );
 }
-
 export default Statistic;
