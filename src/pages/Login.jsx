@@ -11,7 +11,6 @@ function Login() {
   const navigate = useNavigate();
   const onSubmit = async ({ email, password }) => {
     try {
-      console.log(email, password);
       const { data } = await axios.post(
         'http://127.0.0.1:8000/api/submit-login',
         { email, password }
@@ -19,7 +18,7 @@ function Login() {
       localStorage.setItem('token', data.access_token);
       toast.success('Dang nhap thanh cong');
       setTimeout(() => {
-        navigate('/');
+        navigate('/admin');
       }, 1000);
     } catch (error) {
       console.log(error);

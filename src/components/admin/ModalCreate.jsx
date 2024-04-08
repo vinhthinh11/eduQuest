@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import InputDefault from '../InputDefault.jsx';
+import { toast } from 'react-hot-toast';
+import { createUser } from '../../services/apiUser.js';
+// import { useForm } from 'react-hook-form';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -18,6 +21,7 @@ const style = {
   p: 4,
 };
 // const user = { name, username, password, gender, birthday ,email};
+export const FormContext = createContext();
 export default function ModalCreate({ open, setOpen }) {
   const [user, setUser] = useState({ gender: 1 });
   const handleClose = () => setOpen(false);
@@ -26,9 +30,15 @@ export default function ModalCreate({ open, setOpen }) {
     setUser(pre => ({ ...pre, [field]: e.target.value }));
   };
 
-  const handleConfirm = () => {
-    console.log(user);
-    // setOpen(false);
+  const handleSubmit = async () => {
+    const newUser = { ...user, username: user.name };
+    try {
+      await createUser('/admin/create-admin', newUser);
+      setOpen(false);
+      toast.success('Thêm mới thành công');
+    } catch (err) {
+      toast.error('Thêm mới thất bại');
+    }
   };
 
   return (
@@ -85,8 +95,7 @@ export default function ModalCreate({ open, setOpen }) {
           onChange={e => handleInputChange(e, 'birthday')}
           value={user.birthday}
         />
-
-        <div className="flex justify-end gap-4 mt-4">
+        <div className="flex justify-end gap-6 mt-4">
           <button
             onClick={handleClose}
             className="btn bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
@@ -94,8 +103,8 @@ export default function ModalCreate({ open, setOpen }) {
             Quay lại
           </button>
           <button
-            onClick={handleConfirm}
             className="btn bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+            onClick={handleSubmit}
           >
             Đồng ý
           </button>
