@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getUser } from "../../services/apiUser.js";
-import ModalEdit from "./ModalEdit.jsx";
+import ModalEditTeacher from "./ModalEditTeacher.jsx";
 import ModalDelete from "../ModalDelete.jsx";
 import SearchComponent from "../SearchComponent.jsx";
+import toast from 'react-hot-toast';
 
-const AdminTable = () => {
+
+const TeacherTable = () => {
   const [users, setUsers] = useState([]);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,6 +15,7 @@ const AdminTable = () => {
   const [openDelete, setOpenDelete] = useState(false);
   // State để lưu thông tin user cần sửa hoặc xoá
   const [currentUser, setCurrentUser] = useState({});
+  const usersData = useRef([]);
 
   useEffect(() => {
     async function fetchUser() {
@@ -20,8 +23,9 @@ const AdminTable = () => {
         const { data } = await getUser();
         console.log(data.getAllAdmin);
         setUsers(data.getAllAdmin);
+        usersData.current = data.getAllAdmin;
       } catch (err) {
-        console.log(err);
+        toast.log(err);
       }
     }
     fetchUser();
@@ -33,8 +37,8 @@ const AdminTable = () => {
     setCurrentPage(1);
   };
 
-  const totalPages = Math.ceil(users.length / perPage);
-  const visibleUsers = users.slice(
+  const totalPages = Math.ceil(users?.length / perPage) || 1;
+  const visibleUsers = users?.slice(
     (currentPage - 1) * perPage,
     currentPage * perPage
   );
@@ -182,33 +186,31 @@ const AdminTable = () => {
             ))}
           </tbody>
         </table>
-        <ModalEdit open={openEdit} setOpen={setOpenEdit} user={currentUser} />
+        <ModalEditTeacher open={openEdit} setOpen={setOpenEdit} user={currentUser} />
         <ModalDelete
           open={openDelete}
           setOpen={setOpenDelete}
           user={currentUser}
-          handleDeleteUser={(userId) => {
-            const updatedUsers = users.filter((user) => user.id !== userId);
-            setUsers(updatedUsers);
-            setOpenDelete(false); // Đóng modal delete sau khi xóa
-          }}
+          
         />
       </div>
-      <div className="flex justify-between px-10 border-t-2 border-black pt-4">
-        <span>{`Trang hiển thị ${currentPage} / ${totalPages}`}</span>
+      <div className="flex justify-end px-10 border-t-2 border-black pt-4">
         <div className="pagination pb-3 flex gap-2">
           <button
-            className="pr-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
+            className="min-w-20 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
             onClick={handlePrevPage}
             disabled={currentPage === 1}
           >
             Trước
           </button>
-          <button className="bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md">
-            {currentPage}
+          <button
+            disabled
+            className="bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
+          >
+            {`${currentPage}/${totalPages}`}
           </button>
           <button
-            className="pl-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
+            className=" min-w-20 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
           >
@@ -220,4 +222,4 @@ const AdminTable = () => {
   );
 };
 
-export default AdminTable;
+export default TeacherTable;

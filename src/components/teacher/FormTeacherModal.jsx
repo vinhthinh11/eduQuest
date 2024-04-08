@@ -51,27 +51,40 @@ export default function ModalCreate({ open, setOpen }) {
           THÊM MỚI ADMIN
         </Typography>
         <InputDefault
-          label="Tên lớp"
-          name="class_name"
+          label="Tên"
+          name="name"
           type="text"
-          onChange={e => handleInputChange(e, 'class_name')}
-          value={user.class_name}
+          onChange={e => handleInputChange(e, 'name')}
+          value={user.name}
         />
         <InputDefault
-          label="Khối"
-          name="subject"
-          type="text"
-          onChange={e => handleInputChange(e, 'sublect')}
-          value={user.subject}
+          label="Email"
+          name="email"
+          type="email"
+          onChange={e => handleInputChange(e, 'email')}
+          value={user.email}
         />
         <InputDefault
-          label="Giáo Viên"
-          name="teacher"
-          type="text"
-          onChange={e => handleInputChange(e, 'teacher')}
-          value={user.teacher}
+          label="Password"
+          name="password"
+          type="password"
+          onChange={e => handleInputChange(e, 'password')}
+          value={user.password}
         />
-      
+        <InputDefault
+          label="Gender"
+          name="gender"
+          type="text"
+          onChange={e => handleInputChange(e, 'gender')}
+          value={user.gender}
+        />
+        <InputDefault
+          label="Birthday"
+          name="birthday"
+          type="date"
+          onChange={e => handleInputChange(e, 'birthday')}
+          value={user.birthday}
+        />
 
         <div className="flex justify-end gap-4 mt-4">
           <button

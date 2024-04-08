@@ -1,8 +1,7 @@
-// UserDetail.js
-import React, { useState } from "react";
-import FormModal from "../../components/head/FormModal";
-import UploadFileModal from "../../components/head/UploadFileModal";
-import HeadTable from "../../components/head/HeadTable";
+import React, { useState } from 'react';
+import HeadTable from '../../components/head/HeadTable';
+import FormHeadModal from '../../components/head/FormHeadModal';
+import UploadFileHeadModal from '../../components/head/UploadFileHeadModal';
 function UserDetail() {
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);
@@ -15,34 +14,32 @@ function UserDetail() {
         </div>
         <div className="title-content">
           <div className="text-center grid grid-cols-2 gap-4 w-full border-t-2 border-edu">
-            <div className={showAdminForm ? "border-b-2 border-edu" : ""}>
-              <h1
-                className="text-sm font-medium my-4 text-custom-purple"
+            <div className={showAdminForm ? 'border-b-2 border-edu' : ''}>
+              <button
+                className="text-sm font-medium my-4 bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
                 onClick={() => {
                   setShowAdminForm(true);
                   setShowFileUpload(false);
                 }}
               >
                 Thêm mới trưởng bộ môn
-              </h1>
+              </button>
             </div>
-            <div className={showFileUpload ? "border-b-2 border-edu" : ""}>
-              <h1
-                className="text-sm font-medium my-4 text-custom-purple"
+            <div className={showFileUpload ? 'border-b-2 border-edu' : ''}>
+              <button
+                className="text-sm font-medium my-4 bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
                 onClick={() => {
                   setShowFileUpload(true);
                   setShowAdminForm(false);
                 }}
               >
                 Thêm bằng file
-              </h1>
+              </button>
             </div>
           </div>
         </div>
-
-        {/* Conditional rendering based on state */}
-        <FormModal open={showAdminForm} setOpen={setShowAdminForm} />
-        <UploadFileModal open={showFileUpload} setOpen={setShowFileUpload} />
+        <FormHeadModal open={showAdminForm} setOpen={setShowAdminForm} />
+        <UploadFileHeadModal open={showFileUpload} setOpen={setShowFileUpload} />
       </div>
     </div>
   );

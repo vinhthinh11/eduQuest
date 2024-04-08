@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getUser } from '../../services/apiUser.js';
 import ModalEdit from '../head/ModalEditHead.jsx';
 import ModalDelete from '../ModalDelete.jsx';
 import SearchComponent from '../SearchComponent.jsx';
+import toast from 'react-hot-toast';
 
 const HeadTable = () => {
   const [users, setUsers] = useState([]);
@@ -11,18 +12,17 @@ const HeadTable = () => {
   // State để mở modal edit và delete
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  // State để lưu thông tin user cần sửa hoặc xoá
   const [currentUser, setCurrentUser] = useState({});
+  const usersData = useRef([]);
 
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser('/admin/get');
-        // console.log(data.getAllAdmin);
-        setUsers(data.getAllAdmin);
-        // data = data.getAllAdmin;
+        const { data } = await getUser('/admin/truongbomon');
+        setUsers(data.data);
+        usersData.current = data.data;
       } catch (err) {
-        console.log(err);
+        toast.log(err.message);
       }
     }
     fetchUser();
@@ -34,8 +34,8 @@ const HeadTable = () => {
     setCurrentPage(1);
   };
 
-  const totalPages = Math.ceil(users.length / perPage);
-  const visibleUsers = users.slice(
+  const totalPages = Math.ceil(users?.length / perPage) || 1;
+  const visibleUsers = users?.slice(
     (currentPage - 1) * perPage,
     currentPage * perPage
   );
@@ -137,9 +137,9 @@ const HeadTable = () => {
             className="bg-white divide-y divide-gray-200 "
             id="list_admins"
           >
-            {visibleUsers.map(user => (
-              <tr key={user.admin_id}>
-                <td className="px-3 py-4 whitespace-wrap">{user.admin_id}</td>
+            {visibleUsers?.map(user => (
+              <tr key={user.subject_head_id}>
+                <td className="px-3 py-4 whitespace-wrap">{user.subject_head_id}</td>
                 <td className="px-3 py-4 whitespace-wrap">
                   <img
                     className="w-10 h-10 rounded-full"
@@ -160,7 +160,7 @@ const HeadTable = () => {
                     : 'Không xác định'}
                 </td>
                 <td className="px-3 py-4 break-all">{user.birthday}</td>
-                <td className="px-3 py-4 break-all">{user.birthday}</td>
+                <td className="px-3 py-4 break-all">{user.subject_id}</td>
                 <td className="px-3 py-4 break-all">
                   {new Date(user.last_login).toLocaleDateString('vn-VN')}
                 </td>
@@ -195,28 +195,30 @@ const HeadTable = () => {
           open={openDelete}
           setOpen={setOpenDelete}
           user={currentUser}
-          handleDeleteUser={userId => {
-            const updatedUsers = users.filter(user => user.id !== userId);
-            setUsers(updatedUsers);
-            setOpenDelete(false); // Đóng modal delete sau khi xóa
-          }}
+          // handleDeleteUser={userId => {
+          //   const updatedUsers = users.filter(user => user.id !== userId);
+          //   setUsers(updatedUsers);
+          //   setOpenDelete(false); // Đóng modal delete sau khi xóa
+          // }}
         />
       </div>
-      <div className="flex justify-between px-10 border-t-2 border-black pt-4">
-        <span>{`Trang hiển thị ${currentPage} / ${totalPages}`}</span>
+      <div className="flex justify-end px-10 border-t-2 border-black pt-4">
         <div className="pagination pb-3 flex gap-2">
           <button
-            className="pr-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
+            className="min-w-20 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
             onClick={handlePrevPage}
             disabled={currentPage === 1}
           >
             Trước
           </button>
-          <button className="bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md">
-            {currentPage}
+          <button
+            disabled
+            className="bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
+          >
+            {`${currentPage}/${totalPages}`}
           </button>
           <button
-            className="pl-3 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
+            className=" min-w-20 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
           >
