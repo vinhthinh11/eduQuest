@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
 import './index.css';
+import App from './App.jsx';
 import ErrorFallback from './ui/ErrorFallback.jsx';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -12,11 +12,11 @@ import { ErrorBoundary } from 'react-error-boundary';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ErrorBoundary
+    {/* <ErrorBoundary
       FallbackComponent={ErrorFallback}
       onReset={() => window.location.replace('/')}
     >
-      <App />
-    </ErrorBoundary>
+    </ErrorBoundary> */}
+    <App />
   </React.StrictMode>
 );
