@@ -1,6 +1,7 @@
 {
   "extends": "react-app",
   "rules": {
-    "allowAnonymousFunction": 0
+    "allowAnonymousFunction": 0,
+    "singleQuote": 0
   }
 }

@@ -1,8 +1,8 @@
-import axios from "axios";
-import { USER_URL } from "./config.js";
-export const getUser = async (endpoint) => {
+import axios from 'axios';
+import { USER_URL } from './config.js';
+export const getUser = async endpoint => {
   try {
-    const bearerToken = localStorage.getItem("token");
+    const bearerToken = localStorage.getItem('token');
     const users = await axios.get(`${USER_URL}${endpoint}`, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
@@ -15,7 +15,7 @@ export const getUser = async (endpoint) => {
 };
 export const deleteUser = async (endpoint, id) => {
   try {
-    const bearerToken = localStorage.getItem("token");
+    const bearerToken = localStorage.getItem('token');
     await axios.delete(`${USER_URL}${endpoint}`, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
