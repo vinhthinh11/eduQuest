@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 
 import ClassForm from "./ClassForm";
 
-export default function FormModal({ open, setOpen, user }) {
+export default function FormClassModal({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
 

@@ -53,19 +53,14 @@ export default function ModalEdit({ open, setOpen, user }) {
             value={userEdit?.password}
             onChange={handleInputChange}
           />
-          <div className="mb-4 flex items-center border-b-2">
-            <label htmlFor="birthday" className="text-gray-700 font-bold mr-2">
-              Ngày sinh
-            </label>
-            <input
-              type="date"
-              name="birthday"
-              id="birthday"
-              className="input-field w-full border-none outline-none ml-5"
-              required
-              defaultValue="1997-01-01"
-            />
-          </div>
+          <InputField
+            label="Ngày sinh"
+            name="dob"
+            type="date"
+            value={userEdit?.dob}
+            onChange={handleInputChange}
+          />
+          
           <SelectInput
             label="Giới tính"
             name="gender"

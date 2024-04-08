@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUser } from "../../services/apiUser.js";
-import ModalEdit from "./ModalEdit.jsx";
+import ModalEditClass from "./ModalEditClass.jsx";
 import ModalDelete from "../ModalDelete.jsx";
 import SearchComponent from "../SearchComponent.jsx";
 
@@ -17,7 +17,7 @@ const ClassTable = () => {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser();
+        const { data } = await getUser("/classes/get");
         console.log(data.getAllAdmin);
         setUsers(data.getAllAdmin);
       } catch (err) {
@@ -107,11 +107,11 @@ const ClassTable = () => {
             id="list_admins"
           >
             {visibleUsers.map((user) => (
-              <tr key={user.admin_id}>
-                <td className="px-3 py-4 whitespace-wrap">{user.admin_id}</td>
-                <td className="px-3 py-4 break-all">{user.name}</td>
-                <td className="px-3 py-4 break-all">{user.username}</td>
-                <td className="px-3 py-4 break-all">{user.email}</td>
+              <tr key={user.class_id}>
+                <td className="px-3 py-4 whitespace-wrap">{user.class_id}</td>
+                <td className="px-3 py-4 break-all">{user.grade_id}</td>
+                <td className="px-3 py-4 break-all">{user.class_name}</td>
+                <td className="px-3 py-4 break-all">{user.teacher_id}</td>
                 
                 <td className="px-3 py-4 whitespace-nowrap">
                   <div className="flex flex-col">
@@ -139,7 +139,7 @@ const ClassTable = () => {
             ))}
           </tbody>
         </table>
-        <ModalEdit open={openEdit} setOpen={setOpenEdit} user={currentUser} />
+        <ModalEditClass open={openEdit} setOpen={setOpenEdit} user={currentUser} />
         <ModalDelete
           open={openDelete}
           setOpen={setOpenDelete}

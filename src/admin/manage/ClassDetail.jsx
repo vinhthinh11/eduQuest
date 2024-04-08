@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import ClassTable from '../../components/class/ClassTable';
-import FormModal from '../../components/class/FormModal';
-import UploadFileModal from '../../components/class/UploadFileModal';
-function UserDetail() {
+// UserDetail.js
+import React, { useState } from "react";
+import FormClassModal from "../../components/class/FormClassModal";
+import UploadFileClassModal from "../../components/class/UploadFileClassModal";
+import ClassTable from "../../components/class/ClassTable";
+function ClassDetail() {
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);
 
@@ -14,8 +15,8 @@ function UserDetail() {
         </div>
         <div className="title-content">
           <div className="text-center grid grid-cols-2 gap-4 w-full border-t-2 border-edu">
-            <div className={showAdminForm ? 'border-b-2 border-edu' : ''}>
-              <button
+            <div className={showAdminForm ? "border-b-2 border-edu" : ""}>
+              <h1
                 className="text-sm font-medium my-4 text-custom-purple"
                 onClick={() => {
                   setShowAdminForm(true);
@@ -23,10 +24,10 @@ function UserDetail() {
                 }}
               >
                 Thêm mới lớp
-              </button>
+              </h1>
             </div>
-            <div className={showFileUpload ? 'border-b-2 border-edu' : ''}>
-              <button
+            <div className={showFileUpload ? "border-b-2 border-edu" : ""}>
+              <h1
                 className="text-sm font-medium my-4 text-custom-purple"
                 onClick={() => {
                   setShowFileUpload(true);
@@ -34,15 +35,17 @@ function UserDetail() {
                 }}
               >
                 Thêm bằng file
-              </button>
+              </h1>
             </div>
           </div>
         </div>
-        <FormModal open={showAdminForm} setOpen={setShowAdminForm} />
-        <UploadFileModal open={showFileUpload} setOpen={setShowFileUpload} />
+
+        {/* Conditional rendering based on state */}
+        <FormClassModal open={showAdminForm} setOpen={setShowAdminForm} />
+        <UploadFileClassModal open={showFileUpload} setOpen={setShowFileUpload} />
       </div>
     </div>
   );
 }
 
-export default UserDetail;
+export default ClassDetail;

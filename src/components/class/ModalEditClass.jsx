@@ -2,9 +2,10 @@ import { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import FileUpload from "../UploadFile";
+import InputField from "../InputField";
+import SelectInput from "../SelectInput";
 
-export default function ModalEdit({ open, setOpen, user }) {
+export default function ModalEditClass({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
 
@@ -13,16 +14,20 @@ export default function ModalEdit({ open, setOpen, user }) {
     setUserEdit({ ...userEdit, [name]: value });
   };
 
-  const handleFileInputChange = (event) => {
-    const file = event.target.files[0];
-  };
-
   const handleConfirm = () => {
     console.log("Đã nhấn Đồng ý");
 
     setUserEdit(userEdit);
     setOpen(false);
   };
+
+  const grades = [10, 11, 12];
+
+  const gradeOptions = grades.map(grade => ({
+    value: grade.toString(),
+    label: `Khối ${grade}`
+  }));
+
 
   return (
     <Modal
@@ -33,12 +38,32 @@ export default function ModalEdit({ open, setOpen, user }) {
     >
       <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8">
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Thêm lớp bằng file
+          Chỉnh sửa thông tin {userEdit?.name}
         </Typography>
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10 whitespace-nowrap">
+          <InputField
+            label="Tên lớp"
+            name="nameClass"
+            type="text"
+            value={userEdit?.name}
+            onChange={handleInputChange}
+          />
+          <SelectInput
+            label="Giới tính"
+            name="gender"
+            value={userEdit?.gender}
+            onChange={handleInputChange}
+            options={gradeOptions}
+          />
 
-        {/* Use FileUpload component here */}
-        <FileUpload handleFileSubmit={handleFileInputChange} />
-
+          <SelectInput
+          label="Giáo viên"
+          name="teacher"
+          value={userEdit?.gender}
+          onChange={handleInputChange}
+          options={gradeOptions}
+        />
+        </div>
         <div className="flex justify-between mt-8">
           <button
             onClick={handleClose}
