@@ -10,6 +10,7 @@ import AdminLayout from './admin/AdminLayout.jsx';
 import ResetPassword from './pages/ResetPassword.jsx';
 import AdminPage from './admin/AdminPage.jsx';
 import User from './admin/manage/User.jsx';
+import ClassDetail from './admin/manage/ClassDetail.jsx';
 import Question from './admin/manage/Question.jsx';
 import UserDetail from './admin/manage/UserDetail.jsx';
 import HeadDetail from './admin/manage/HeadDetail.jsx';
@@ -47,7 +48,7 @@ const App = () => (
           <Route path="head" element={<HeadDetail />} />
           <Route path="teacher" element={<TeacherDetail />} />
           <Route path="student" element={<User />} />
-          <Route path="class" element={<User />} />
+          <Route path="class" element={<ClassDetail />} />
           <Route path="exam" element={<User />} />
           <Route path="statistic" element={<Statistic />} />
           <Route path="question" element={<Question />} />
