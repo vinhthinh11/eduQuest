@@ -1,10 +1,15 @@
-import { useState } from "react";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import InputField from "../InputField";
-import SelectInput from "../SelectInput";
+import { useEffect, useState } from 'react';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import InputField from '../InputField';
+import SelectInput from '../SelectInput';
 
+const gradeOptions = [
+  { value: '1', label: 'Khối 10' },
+  { value: '2', label: 'Khối 11' },
+  { value: '3', label: 'Khối 12' },
+];
 export default function ModalEditClass({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
@@ -15,18 +20,16 @@ export default function ModalEditClass({ open, setOpen, user }) {
   };
 
   const handleConfirm = () => {
-    console.log("Đã nhấn Đồng ý");
+    console.log(userEdit);
 
-    setUserEdit(userEdit);
+    // setUserEdit(userEdit);
     setOpen(false);
   };
 
-  const grades = [10, 11, 12];
+  useEffect(() => {
+    setUserEdit(user);
+  }, [user]);
 
-  const gradeOptions = grades.map(grade => ({
-    value: grade.toString(),
-    label: `Khối ${grade}`
-  }));
 
 
   return (
@@ -38,30 +41,30 @@ export default function ModalEditClass({ open, setOpen, user }) {
     >
       <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8">
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Chỉnh sửa thông tin {userEdit?.name}
+          Chỉnh sửa thông tin
         </Typography>
         <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10 whitespace-nowrap">
           <InputField
             label="Tên lớp"
-            name="nameClass"
+            name="class_name"
             type="text"
-            value={userEdit?.name}
+            value={userEdit?.class_name}
             onChange={handleInputChange}
           />
           <SelectInput
-            label="Giới tính"
+            label="Khối"
             name="gender"
-            value={userEdit?.gender}
+            value={userEdit?.grade_id}
             onChange={handleInputChange}
             options={gradeOptions}
           />
 
           <SelectInput
           label="Giáo viên"
-          name="teacher"
-          value={userEdit?.gender}
+          name="teacher_id"
+          value={userEdit?.teacher_id}
           onChange={handleInputChange}
-          options={gradeOptions}
+          // options={gradeOptions}
         />
         </div>
         <div className="flex justify-between mt-8">

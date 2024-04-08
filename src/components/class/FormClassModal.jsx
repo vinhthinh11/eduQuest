@@ -66,10 +66,10 @@ export default function ModalCreate({ open, setOpen }) {
         />
         <InputDefault
           label="Giáo Viên"
-          name="teacher"
+          name="teacher_id"
           type="text"
-          onChange={e => handleInputChange(e, 'teacher')}
-          value={user.teacher}
+          onChange={e => handleInputChange(e, 'teacher_id')}
+          value={user.teacher_id}
         />
       
 

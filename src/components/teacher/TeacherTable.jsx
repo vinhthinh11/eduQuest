@@ -20,10 +20,9 @@ const TeacherTable = () => {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser();
-        console.log(data.getAllAdmin);
-        setUsers(data.getAllAdmin);
-        usersData.current = data.getAllAdmin;
+        const { data } = await getUser("/admin/teacher/get");
+        setUsers(data.data);
+        usersData.current = data.data;
       } catch (err) {
         toast.log(err);
       }
@@ -135,8 +134,8 @@ const TeacherTable = () => {
             id="list_admins"
           >
             {visibleUsers.map((user) => (
-              <tr key={user.admin_id}>
-                <td className="px-3 py-4 whitespace-wrap">{user.admin_id}</td>
+              <tr key={user.teacher_id}>
+                <td className="px-3 py-4 whitespace-wrap">{user.teacher_id}</td>
                 <td className="px-3 py-4 whitespace-wrap">
                   <img
                     className="w-10 h-10 rounded-full"

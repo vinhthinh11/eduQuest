@@ -1,10 +1,15 @@
-import { useState } from "react";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import InputField from "../InputField";
-import SelectInput from "../SelectInput";
+import { useEffect, useState } from 'react';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import InputField from '../InputField';
+import SelectInput from '../SelectInput';
 
+const genderOptions = [
+  { value: '1', label: 'Nam' },
+  { value: '2', label: 'Nữ' },
+  { value: '3', label: 'Không xác định' },
+];
 export default function ModalEditTeacher({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
@@ -15,17 +20,14 @@ export default function ModalEditTeacher({ open, setOpen, user }) {
   };
 
   const handleConfirm = () => {
-    console.log("Đã nhấn Đồng ý");
-
-    setUserEdit(userEdit);
+    console.log(userEdit);
+    // setUserEdit(userEdit);
     setOpen(false);
   };
 
-  const genderOptions = [
-    { value: "1", label: "Không Xác Định" },
-    { value: "2", label: "Nam" },
-    { value: "3", label: "Nữ" },
-  ];
+  useEffect(() => {
+    setUserEdit(user);
+  }, [user]);
 
   return (
     <Modal
@@ -53,18 +55,24 @@ export default function ModalEditTeacher({ open, setOpen, user }) {
             value={userEdit?.password}
             onChange={handleInputChange}
           />
-          <InputField
-            label="Ngày sinh"
-            name="dob"
-            type="date"
-            value={userEdit?.dob}
-            onChange={handleInputChange}
-          />
+          <div className="mb-4 flex items-center border-b-2">
+            <label htmlFor="birthday" className="text-gray-700 font-bold mr-2">
+              Ngày sinh
+            </label>
+            <input
+              type="date"
+              name="birthday"
+              id="birthday"
+              className="input-field w-full border-none outline-none ml-5"
+              required
+              defaultValue="1997-01-01"
+            />
+          </div>
           
           <SelectInput
             label="Giới tính"
             name="gender"
-            value={userEdit?.gender}
+            value={userEdit?.gender_id}
             onChange={handleInputChange}
             options={genderOptions}
           />

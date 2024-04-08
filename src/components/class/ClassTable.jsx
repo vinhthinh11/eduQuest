@@ -20,7 +20,7 @@ const ClassTable = () => {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser("/classes/get");
+        const { data } = await getUser("/admin/classes/get");
         console.log(data.data);
         setUsers(data.data);
       } catch (err) {
@@ -111,8 +111,8 @@ const ClassTable = () => {
             {visibleUsers?.map((user) => (
               <tr key={user.class_id}>
                 <td className="px-3 py-4 whitespace-wrap">{user.class_id}</td>
-                <td className="px-3 py-4 break-all">{user.grade_id}</td>
                 <td className="px-3 py-4 break-all">{user.class_name}</td>
+                <td className="px-3 py-4 break-all">{user.grade_id}</td>
                 <td className="px-3 py-4 break-all">{user.teacher_id}</td>
                 
                 <td className="px-3 py-4 whitespace-nowrap">

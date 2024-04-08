@@ -18,7 +18,7 @@ const HeadTable = () => {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser('/admin/truongbomon');
+        const { data } = await getUser('/admin/truongbomon/get');
         setUsers(data.data);
         usersData.current = data.data;
       } catch (err) {
