@@ -3,7 +3,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import TeachForm from "./TeacherForm";
+import ClassForm from "./ClassForm";
 
 export default function FormModal({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
@@ -34,7 +34,7 @@ export default function FormModal({ open, setOpen, user }) {
           Thêm mới lớp
         </Typography>
 
-        <TeachForm />
+        <ClassForm />
 
         <div className="flex justify-between mt-8">
           <button

@@ -5,7 +5,7 @@ const ClassForm = ({ handleSubmit }) => {
   const gradeOptions = [
     { value: '1', label: 'Khối 10' },
     { value: '2', label: 'Khối 11' },
-    { value: '3', label: 'Khối 12' },Ư
+    { value: '3', label: 'Khối 12' },
   ];
 
   const fields = [
