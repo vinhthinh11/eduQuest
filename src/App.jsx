@@ -14,7 +14,7 @@ import ClassDetail from './admin/manage/ClassDetail.jsx';
 import Question from './admin/manage/Question.jsx';
 import UserDetail from './admin/manage/UserDetail.jsx';
 import HeadDetail from './admin/manage/HeadDetail.jsx';
-import TeacherDetail from './admin/manage/TeacherDetail.jsx';
+// import TeacherDetail from './admin/manage/TeacherDetail.jsx';
 import Contact from './pages/Contact.jsx';
 import Chat from './pages/Chat.jsx';
 import Statistic from './pages/Statistic.jsx';
@@ -45,7 +45,7 @@ const App = () => (
           <Route index element={<AdminPage />} />
           <Route path="admin" element={<UserDetail />} />
           <Route path="head" element={<HeadDetail />} />
-          <Route path="teacher" element={<TeacherDetail />} />
+          <Route path="teacher" element={<UserDetail />} />
           <Route path="student" element={<User />} />
           <Route path="class" element={<ClassDetail />} />
           <Route path="exam" element={<User />} />

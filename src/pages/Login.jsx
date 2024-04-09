@@ -16,7 +16,7 @@ function Login() {
         { email, password }
       );
       localStorage.setItem('token', data.access_token);
-      toast.success('Dang nhap thanh cong');
+      toast.success('Đăng nhập thành công');
       setTimeout(() => {
         navigate('/admin');
       }, 1000);

@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
 import AdminTable from '../../components/admin/AdminTable';
 import ModalCreate from '../../components/admin/ModalCreate';
-import UploadFileModal from '../../components/admin/UploadFileModal';
+import ModalUploadFile from '../../components/admin/ModalUploadFile';
+import { useLocation } from 'react-router-dom';
+
+const linkUser = {
+  admin: 'admin',
+  teacher: 'admin/teacher',
+  student: 'admin/student',
+  head: 'admin/head',
+};
+
 function UserDetail() {
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);
+  const location = useLocation();
+  const userPath = location.pathname.split('/').at(-1);
+  const userType = linkUser[userPath];
 
   return (
     <div className=" ">
       <div className=" min-h-full flex flex-col">
         <div className="w-full">
-          <AdminTable />
+          <AdminTable userType={userType} />
         </div>
         <div className="title-content">
           <div className="text-center grid grid-cols-2 gap-4 w-full border-t-2 border-edu">
@@ -22,7 +34,7 @@ function UserDetail() {
                   setShowFileUpload(false);
                 }}
               >
-                Thêm mới admin
+                {`Thêm mới ${userPath}`}
               </button>
             </div>
             <div className={showFileUpload ? 'border-b-2 border-edu' : ''}>
@@ -38,8 +50,12 @@ function UserDetail() {
             </div>
           </div>
         </div>
-        <ModalCreate open={showAdminForm} setOpen={setShowAdminForm} />
-        <UploadFileModal open={showFileUpload} setOpen={setShowFileUpload} />
+        <ModalCreate
+          open={showAdminForm}
+          userType={userPath}
+          setOpen={setShowAdminForm}
+        />
+        <ModalUploadFile open={showFileUpload} setOpen={setShowFileUpload} />
       </div>
     </div>
   );

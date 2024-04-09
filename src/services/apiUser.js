@@ -52,3 +52,18 @@ export const updateUser = async (endpoint, user) => {
     throw new Error(err.message);
   }
 };
+export const uploadUserByFile = async (endpoint, file) => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    const formData = new FormData();
+    formData.append('file', file);
+    await axios.post(`${USER_URL}${endpoint}`, formData, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};

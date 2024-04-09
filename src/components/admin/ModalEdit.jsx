@@ -30,6 +30,7 @@ export default function ModalEdit({
   open,
   setOpen,
   user,
+  userType = 'admin',
   setUpdate = () => {},
 }) {
   const [userEdit, setUserEdit] = useState(user);
@@ -45,7 +46,7 @@ export default function ModalEdit({
     }
     console.log(userEdit);
     try {
-      await updateUser('/admin/update-admin', userEdit);
+      await updateUser(`/${userType}/update`, userEdit);
       setOpen(false);
       toast.success('Cập nhật thành công');
       setUpdate(pre => !pre);
@@ -75,7 +76,7 @@ export default function ModalEdit({
             textTransform: 'uppercase',
           }}
         >
-          Chỉnh sửa người dùng
+          {`Chỉnh sửa ${userType}`}
         </Typography>
         <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-y-10 md:gap-x-10 whitespace-nowrap">
           <InputDefault
@@ -107,7 +108,7 @@ export default function ModalEdit({
             value={userEdit.gender_id}
           />
         </div>
-        <div className="flex justify-between mt-8">
+        <div className="flex justify-end mt-4 gap-6">
           <button
             onClick={handleClose}
             className="btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"

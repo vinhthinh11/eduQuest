@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import InputDefault from '../InputDefault.jsx';
 import { toast } from 'react-hot-toast';
 import { createUser } from '../../services/apiUser.js';
-// import { useForm } from 'react-hook-form';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -22,7 +21,7 @@ const style = {
 };
 // const user = { name, username, password, gender, birthday ,email};
 export const FormContext = createContext();
-export default function ModalCreate({ open, setOpen }) {
+export default function ModalCreate({ open, setOpen, userType = 'admin' }) {
   const [user, setUser] = useState({ gender: 1 });
   const handleClose = () => setOpen(false);
 
@@ -33,7 +32,7 @@ export default function ModalCreate({ open, setOpen }) {
   const handleSubmit = async () => {
     const newUser = { ...user, username: user.name };
     try {
-      await createUser('/admin/create-admin', newUser);
+      await createUser(`/${userType}/create`, newUser);
       setOpen(false);
       toast.success('Thêm mới thành công');
     } catch (err) {
@@ -56,9 +55,10 @@ export default function ModalCreate({ open, setOpen }) {
             fontSize: '16px',
             fontWeight: 'bold',
             color: 'grey.800',
+            textTransform: 'uppercase',
           }}
         >
-          THÊM MỚI ADMIN
+          {`THÊM MỚI ${userType}`}
         </Typography>
         <InputDefault
           label="Tên"

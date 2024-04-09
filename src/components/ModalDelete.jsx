@@ -14,16 +14,22 @@ const style = {
   border: '1px solid #000',
   borderRadius: '20px',
   boxShadow: 24,
-  p: 4,
+  p: 3,
 };
 
-const ModalDelete = ({ open, setOpen, user, setUpdate }) => {
+const ModalDelete = ({
+  open,
+  setOpen,
+  user,
+  setUpdate,
+  userType = 'admin',
+}) => {
   const handleClose = () => setOpen(false);
 
   const handleDelete = async () => {
     try {
       console.log('thực hien delete admin');
-      await deleteUser('/admin/delete-admin', { admin_id: user.admin_id });
+      await deleteUser(`/${userType}/delete`, { admin_id: user.admin_id });
       setUpdate(pre => !pre);
       handleClose();
       toast.success('Xoá tài khoản thành công');
@@ -44,18 +50,20 @@ const ModalDelete = ({ open, setOpen, user, setUpdate }) => {
           Cảnh báo
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Xác nhận xoá tài khoản {user.name}
+          Xác nhận xoá tài khoản <strong>{user.name}</strong>
         </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+        <Box
+          sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2, gap: 1 }}
+        >
           <button
             onClick={handleClose}
-            className="btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded mr-2"
+            className="min-w-24 bg-slate-100 hover:bg-slate-500 text-slate-600 hover:text-slate-100 font-bold py-2 px-4 rounded border-2 border-slate-500 transition duration-300 ease-in-out"
           >
             Quay lại
           </button>
           <button
             onClick={handleDelete}
-            className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+            className="min-w-24 bg-slate-100 hover:bg-red-500 text-red-500 hover:text-slate-100 font-bold py-2 px-4 rounded border-2 border-red-500 transition duration-300 ease-in-out"
           >
             Xóa
           </button>

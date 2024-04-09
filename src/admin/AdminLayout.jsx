@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import AdminLeftSideBar from './AdminLeftSideBar.jsx';
 import AdminHeader from './AdminHeader.jsx';
+import { useParams } from 'react-router-dom';
 
 function AdminLayout() {
   return (

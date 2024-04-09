@@ -110,56 +110,56 @@ const AdminLeftSideBar = () => {
             <ListItemButton
               sx={style}
               selected={selectedIndex === 2}
-              onClick={() => handleOnClick(2, 'admin')}
+              onClick={() => handleOnClick(2, '/admin/admin')}
             >
               <ListItemText primary="Quản lý Admin" />
             </ListItemButton>
             <ListItemButton
               sx={style}
               selected={selectedIndex === 3}
-              onClick={() => handleOnClick(3, 'head')}
+              onClick={() => handleOnClick(3, '/admin/head')}
             >
               <ListItemText primary="Quản lý Trưởng bộ môn" />
             </ListItemButton>
             <ListItemButton
               sx={style}
               selected={selectedIndex === 4}
-              onClick={() => handleOnClick(4, 'teacher')}
+              onClick={() => handleOnClick(4, '/admin/teacher')}
             >
               <ListItemText primary="Quản lý Giáo viên" />
             </ListItemButton>
             <ListItemButton
               sx={style}
               selected={selectedIndex === 5}
-              onClick={() => handleOnClick(5, 'class')}
+              onClick={() => handleOnClick(5, '/admin/class')}
             >
               <ListItemText primary="Quản lý Lớp" />
             </ListItemButton>
             <ListItemButton
               sx={style}
               selected={selectedIndex === 6}
-              onClick={() => handleOnClick(6, 'student')}
+              onClick={() => handleOnClick(6, '/admin/student')}
             >
               <ListItemText primary="Quản lý Học sinh" />
             </ListItemButton>
             <ListItemButton
               sx={style}
               selected={selectedIndex === 7}
-              onClick={() => handleOnClick(7, 'question')}
+              onClick={() => handleOnClick(7, '/admin/question')}
             >
               <ListItemText primary="Quản lý Câu hỏi" />
             </ListItemButton>
             <ListItemButton
               sx={style}
               selected={selectedIndex === 8}
-              onClick={() => handleOnClick(8, 'exam')}
+              onClick={() => handleOnClick(8, '/admin/exam')}
             >
               <ListItemText primary="Quản lý Đề thi" />
             </ListItemButton>
             <ListItemButton
               sx={style}
               selected={selectedIndex === 9}
-              onClick={() => handleOnClick(9, 'statistic')}
+              onClick={() => handleOnClick(9, '/admin/statistic')}
             >
               <ListItemText primary="Thống kê" />
             </ListItemButton>

@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
 const FileUpload = ({ handleFileSubmit }) => {
   return (
     <div id="_add_via_file" className="col-span-12">
       <div className=" p-4 rounded-md">
-        <span className="block mb-4">Lưu Ý:</span>
+        <span className="block mb-4">Lưu ý:</span>
         <ul className="list-disc pl-6 mb-4">
           <li>Không sửa file mẫu tránh gây lỗi khi nhập dữ liệu.</li>
           <li>
@@ -20,20 +20,13 @@ const FileUpload = ({ handleFileSubmit }) => {
           onSubmit={handleFileSubmit}
           className="items-center"
         >
-          <label
-            for="file_data"
-            class="btn text-white bg-customPurple hover:bg-purple-700 py-2 px-4 input-field mb-4 md:mb-0 mr-0 md:mr-4"
-          >
-            <span>Chọn File</span>
-            <input
-              type="file"
-              name="file_data"
-              id="file_data"
-              required
-              class="hidden"
-            />
-          </label>
-          <div></div>
+          <input
+            type="file"
+            name="file_data"
+            id="file_data"
+            required
+            className="btn text-white bg-customPurple hover:bg-purple-700 py-2 px-4 input-field mb-4 md:mb-0 mr-0 md:mr-4"
+          />
         </form>
       </div>
     </div>
