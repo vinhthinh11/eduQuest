@@ -48,7 +48,7 @@ export default function ModalCreate({ open, setOpen }) {
             color: 'grey.800',
           }}
         >
-          THÊM MỚI ADMIN
+          THÊM MỚI LỚP
         </Typography>
         <InputDefault
           label="Tên lớp"
