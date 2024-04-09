@@ -21,8 +21,8 @@ const ClassTable = () => {
     async function fetchUser() {
       try {
         const { data } = await getUser("/admin/classes/get");
-        console.log(data.data);
         setUsers(data.data);
+        usersData.current = data.data;
       } catch (err) {
         toast.log(err.message);
       }
@@ -49,6 +49,8 @@ const ClassTable = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
+  
+
   return (
     <div className="content">
       <div className="preload hidden" id="preload">
@@ -63,7 +65,11 @@ const ClassTable = () => {
             <option value={30}>30</option>
           </select>
         </div>
-        <SearchComponent />
+        <SearchComponent 
+          usersData={usersData.current} 
+          users={users} 
+          setUsers={setUsers}
+        />
       </div>
       <div className="overflow-x-auto">
         <table

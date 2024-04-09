@@ -21,6 +21,7 @@ const HeadTable = () => {
         const { data } = await getUser('/admin/truongbomon/get');
         setUsers(data.data);
         usersData.current = data.data;
+        
       } catch (err) {
         toast.error(err.message);
       }
@@ -62,7 +63,11 @@ const HeadTable = () => {
             <option value={30}>30</option>
           </select>
         </div>
-        <SearchComponent />
+        <SearchComponent
+          usersData={usersData.current}
+          users={users}
+          setUsers={setUsers}
+        />
       </div>
       <div className="overflow-x-auto">
         <table
