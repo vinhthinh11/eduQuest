@@ -9,6 +9,7 @@ const AdminTable = () => {
   const [users, setUsers] = useState([]);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [update, setUpdate] = useState(false);
   // State để mở modal edit và delete
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -26,7 +27,7 @@ const AdminTable = () => {
       }
     }
     fetchUser();
-  }, []);
+  }, [update]);
 
   const handlePerPageChange = e => {
     setPerPage(parseInt(e.target.value));
@@ -187,11 +188,17 @@ const AdminTable = () => {
             ))}
           </tbody>
         </table>
-        <ModalEdit open={openEdit} setOpen={setOpenEdit} user={currentUser} />
+        <ModalEdit
+          open={openEdit}
+          setOpen={setOpenEdit}
+          user={currentUser}
+          setUpdate={setUpdate}
+        />
         <ModalDelete
           open={openDelete}
           setOpen={setOpenDelete}
           user={currentUser}
+          setUpdate={setUpdate}
         />
       </div>
       <div className="flex justify-end px-10 border-t-2 border-black pt-4">

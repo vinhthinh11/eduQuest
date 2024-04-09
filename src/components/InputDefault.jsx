@@ -13,6 +13,7 @@ const InputDefault = ({
   onChange = () => {},
   register = {},
   errors = {},
+  show = true,
 }) => {
   return (
     <div className="flex flex-col gap-2 mb-2">
@@ -42,12 +43,20 @@ const InputDefault = ({
             </option>
           ))}
         </select>
-      ) : (
+      ) : show ? (
         <input
           type={type}
           id={name}
           name={name}
           value={value}
+          onChange={onChange}
+          className="px-3 py-1 w-full border-2 border-slate-300 focus:border-slate-400 bg-slate-200 rounded-md focus:outline-none"
+        />
+      ) : (
+        <input
+          type={type}
+          id={name}
+          name={name}
           onChange={onChange}
           className="px-3 py-1 w-full border-2 border-slate-300 focus:border-slate-400 bg-slate-200 rounded-md focus:outline-none"
         />

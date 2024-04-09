@@ -2,29 +2,54 @@ import { useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import InputField from '../InputField';
-import SelectInput from '../SelectInput';
+import { updateUser } from '../../services/apiUser.js';
+import InputDefault from '../InputDefault.jsx';
+import toast from 'react-hot-toast';
 
 const genderOptions = [
   { value: '1', label: 'Nam' },
   { value: '2', label: 'Nữ' },
   { value: '3', label: 'Không xác định' },
 ];
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  minWidth: 400,
+  display: 'flex',
+  flexDirection: 'column',
+  bgcolor: '#fff',
+  border: '1px solid #000',
+  borderRadius: '20px',
+  boxShadow: 24,
+  p: 4,
+};
 
-export default function ModalEdit({ open, setOpen, user }) {
+export default function ModalEdit({
+  open,
+  setOpen,
+  user,
+  setUpdate = () => {},
+}) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
 
   const handleInputChange = event => {
-    const { name, value } = event.target;
-    setUserEdit({ ...userEdit, [name]: value });
-    console.log(userEdit);
+    setUserEdit({ ...userEdit, [event.target.name]: event.target.value });
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     // setUserEdit(userEdit);
     console.log(userEdit);
-    setOpen(false);
+    try {
+      await updateUser('/admin/update-admin', userEdit);
+      setOpen(false);
+      toast.success('Cập nhật thành công');
+      setUpdate(pre => !pre);
+    } catch (error) {
+      toast.error('Cập nhật thất bại');
+    }
   };
   useEffect(() => {
     setUserEdit(user);
@@ -37,39 +62,42 @@ export default function ModalEdit({ open, setOpen, user }) {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8">
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Chỉnh sửa thông tin
+      <Box sx={style}>
+        <Typography
+          id="modal-modal-title"
+          sx={{
+            textAlign: 'center',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            color: 'grey.800',
+            textTransform: 'uppercase',
+          }}
+        >
+          thêm mới admin
         </Typography>
-        <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10 whitespace-nowrap">
-          <InputField
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-y-10 md:gap-x-10 whitespace-nowrap">
+          <InputDefault
             label="Tên"
             name="name"
             type="text"
             value={userEdit?.name}
             onChange={handleInputChange}
           />
-          <InputField
+          <InputDefault
             label="Mật khẩu"
             name="password"
             type="password"
-            value={userEdit?.password}
+            show={false}
             onChange={handleInputChange}
           />
-          <div className="mb-4 flex items-center border-b-2">
-            <label htmlFor="birthday" className="text-gray-700 font-bold mr-2">
-              Ngày sinh
-            </label>
-            <input
-              type="date"
-              name="birthday"
-              id="birthday"
-              className="input-field w-full border-none outline-none ml-5"
-              required
-              defaultValue="1997-01-01"
-            />
-          </div>
-          <SelectInput
+          <InputDefault
+            label="Ngày sinh"
+            type="date"
+            name="birthday"
+            id="birthday"
+            className="input-field w-full border-none outline-none ml-5"
+          />
+          <InputDefault
             label="Giới tính"
             name="gender_id"
             value={userEdit?.gender_id}

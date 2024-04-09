@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { USER_URL } from './config.js';
-import { data } from 'autoprefixer';
 export const getUser = async endpoint => {
   try {
     const bearerToken = localStorage.getItem('token');
@@ -30,6 +29,18 @@ export const deleteUser = async (endpoint, id) => {
   }
 };
 export const createUser = async (endpoint, user) => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    await axios.post(`${USER_URL}${endpoint}`, user, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+export const updateUser = async (endpoint, user) => {
   try {
     const bearerToken = localStorage.getItem('token');
     await axios.post(`${USER_URL}${endpoint}`, user, {

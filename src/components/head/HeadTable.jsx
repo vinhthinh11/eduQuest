@@ -22,7 +22,7 @@ const HeadTable = () => {
         setUsers(data.data);
         usersData.current = data.data;
       } catch (err) {
-        toast.log(err.message);
+        toast.error(err.message);
       }
     }
     fetchUser();
@@ -139,7 +139,9 @@ const HeadTable = () => {
           >
             {visibleUsers?.map(user => (
               <tr key={user.subject_head_id}>
-                <td className="px-3 py-4 whitespace-wrap">{user.subject_head_id}</td>
+                <td className="px-3 py-4 whitespace-wrap">
+                  {user.subject_head_id}
+                </td>
                 <td className="px-3 py-4 whitespace-wrap">
                   <img
                     className="w-10 h-10 rounded-full"
