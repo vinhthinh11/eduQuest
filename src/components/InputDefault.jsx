@@ -11,7 +11,6 @@ const InputDefault = ({
   type = '',
   value = '',
   onChange = () => {},
-  register = {},
   errors = {},
   show = true,
 }) => {
@@ -27,7 +26,7 @@ const InputDefault = ({
           </p>
         )}
       </div>
-      {name === 'gender' ? (
+      {name.includes('gender') ? (
         <select
           className="px-3 py-1 w-full border-2 border-slate-300 focus:border-slate-400 bg-slate-200 rounded-md focus:outline-none"
           value={value}

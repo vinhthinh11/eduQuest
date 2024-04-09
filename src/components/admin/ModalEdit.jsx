@@ -35,8 +35,8 @@ export default function ModalEdit({
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
 
-  const handleInputChange = event => {
-    setUserEdit({ ...userEdit, [event.target.name]: event.target.value });
+  const handleInputChange = (e, field) => {
+    setUserEdit(pre => ({ ...pre, [field]: e.target.value }));
   };
 
   const handleConfirm = async () => {
@@ -75,7 +75,7 @@ export default function ModalEdit({
             textTransform: 'uppercase',
           }}
         >
-          thêm mới admin
+          Chỉnh sửa người dùng
         </Typography>
         <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-y-10 md:gap-x-10 whitespace-nowrap">
           <InputDefault
@@ -100,11 +100,11 @@ export default function ModalEdit({
             className="input-field w-full border-none outline-none ml-5"
           />
           <InputDefault
-            label="Giới tính"
+            label="Gender"
             name="gender_id"
-            value={userEdit?.gender_id}
-            onChange={handleInputChange}
-            options={genderOptions}
+            type="text"
+            onChange={e => handleInputChange(e, 'gender_id')}
+            value={userEdit.gender_id}
           />
         </div>
         <div className="flex justify-between mt-8">
