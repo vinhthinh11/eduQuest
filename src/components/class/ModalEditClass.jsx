@@ -6,9 +6,9 @@ import InputField from '../InputField';
 import SelectInput from '../SelectInput';
 
 const gradeOptions = [
-  { value: '1', label: 'Khối 10' },
-  { value: '2', label: 'Khối 11' },
-  { value: '3', label: 'Khối 12' },
+  { value: '10', label: 'Khối 10' },
+  { value: '11', label: 'Khối 11' },
+  { value: '12', label: 'Khối 12' },
 ];
 export default function ModalEditClass({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
@@ -53,7 +53,7 @@ export default function ModalEditClass({ open, setOpen, user }) {
           />
           <SelectInput
             label="Khối"
-            name="gender"
+            name="grade_id"
             value={userEdit?.grade_id}
             onChange={handleInputChange}
             options={gradeOptions}
@@ -64,7 +64,7 @@ export default function ModalEditClass({ open, setOpen, user }) {
           name="teacher_id"
           value={userEdit?.teacher_id}
           onChange={handleInputChange}
-          // options={gradeOptions}
+          options={gradeOptions}
         />
         </div>
         <div className="flex justify-between mt-8">
