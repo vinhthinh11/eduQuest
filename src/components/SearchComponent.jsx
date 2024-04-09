@@ -28,7 +28,7 @@ const SearchComponent = ({ usersData, setUsers, users }) => {
             return;
           }
           setUsers(
-            users.filter(user =>
+            initialUser.filter(user =>
               user.name.toLowerCase().includes(e.target.value.toLowerCase())
             )
           );
