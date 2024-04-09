@@ -34,8 +34,8 @@ export default function ModalEditHead({
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
 
-  const handleInputChange = (event) => {
-    setUserEdit({ ...userEdit, [event.target.name]: event.target.value });
+  const handleInputChange = (e, field) => {
+    setUserEdit(pre => ({ ...pre, [field]: e.target.value }));
   };
 
   const handleConfirm = async () => {
@@ -91,18 +91,18 @@ export default function ModalEditHead({
             className="input-field w-full border-none outline-none ml-5"
           />
           <InputDefault
-            label="Giới tính"
+            label="Gender"
             name="gender_id"
-            value={userEdit?.gender_id}
-            onChange={handleInputChange}
-            options={genderOptions}
+            type="text"
+            onChange={e => handleInputChange(e, 'gender_id')}
+            value={userEdit.gender_id}
           />
           <InputDefault
             label="Môn"
             name="subject_id"
+            type="text"
             value={userEdit?.subject_id}
-            onChange={handleInputChange}
-            options={subjectOptions}
+            onChange={e => handleInputChange(e, 'subject_id')}
           />
         </div>
         <div className="flex justify-between mt-8">

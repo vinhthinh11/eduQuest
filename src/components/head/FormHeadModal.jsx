@@ -138,8 +138,8 @@ export default function ModalCreate({ open, setOpen }) {
             Quay lại
           </button>
           <button
-            onClick={handleConfirm}
             className="btn bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+            onClick={handleConfirm}
           >
             Đồng ý
           </button>

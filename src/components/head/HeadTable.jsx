@@ -6,6 +6,19 @@ import SearchComponent from "../SearchComponent.jsx";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
+const subjectMap = {
+  1: 'Toán',
+  2: 'Ngữ Văn',
+  3: 'Lịch sử',
+  4: 'Địa Lý',
+  5: 'Vật Lý',
+  6: 'Công nghệ',
+  7: 'GDCD',
+  8: 'Anh',
+  9: 'Hóa học',
+  10: 'Sinh học'
+};
+
 const HeadTable = () => {
   const [users, setUsers] = useState([]);
   const [perPage, setPerPage] = useState(10);
@@ -32,6 +45,8 @@ const HeadTable = () => {
     }
     fetchUser();
   }, [navigate]);
+
+  // const subjectName = subjectMap[user.subject_id]; 
 
   // Các hàm xử lý phân trang và thay đổi số lượng item trên trang
   const handlePerPageChange = (e) => {
@@ -171,7 +186,8 @@ const HeadTable = () => {
                     : "Không xác định"}
                 </td>
                 <td className="px-3 py-4 break-all">{user.birthday}</td>
-                <td className="px-3 py-4 break-all">{user.subject_id}</td>
+                <td className="px-3 py-4 break-all">{subjectMap[user.subject_id]}</td>
+
                 <td className="px-3 py-4 break-all">
                   {new Date(user.last_login).toLocaleDateString("vn-VN")}
                 </td>
