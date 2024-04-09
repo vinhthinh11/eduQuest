@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import InputDefault from "../InputDefault.jsx";
+import { toast } from 'react-hot-toast';
+import { createUser } from '../../services/apiUser.js';
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -17,20 +20,43 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-// const user = { name, username, password, gender, birthday ,email};
+
+const subjectOptions = [
+  { value: "1", label: "Toán" },
+  { value: "2", label: "Ngữ Văn" },
+  { value: "3", label: "Lịch sử" },
+  { value: "4", label: "Địa Lý" },
+  { value: "5", label: "Vật Lý" },
+  { value: "6", label: "Công nghệ" },
+  { value: "7", label: "GDCD" },
+  { value: "8", label: "Anh" },
+  { value: "9", label: "Hóa học" },
+  { value: "10", label: "Sinh học" },
+];
+
+export const FormContext = createContext();
 export default function ModalCreate({ open, setOpen }) {
-  const [user, setUser] = useState({ gender: 1 });
+  const [user, setUser] = useState({
+    gender: 1,
+  });
+
   const handleClose = () => setOpen(false);
 
   const handleInputChange = (e, field) => {
-    setUser((pre) => ({ ...pre, [field]: e.target.value }));
+    setUser((prevUser) => ({ ...prevUser, [field]: e.target.value }));
   };
 
-  const handleConfirm = () => {
-    console.log(user);
-    // setOpen(false);
+  const handleConfirm = async () => {
+    const newUser = { ...user, username: user.name };
+    try {
+      await createUser("/admin/truongbomon/create-tbm", newUser);
+      setOpen(false);
+      toast.success("Thêm mới thành công");
+    } catch (err) {
+      toast.error("Thêm mới thất bại");
+    }
   };
-
+  
   return (
     <Modal
       open={open}
@@ -92,13 +118,18 @@ export default function ModalCreate({ open, setOpen }) {
           onChange={(e) => handleInputChange(e, "birthday")}
           value={user.birthday}
         />
-        <InputDefault
-          label="Môn học"
+        <select
           name="subject"
-          type="text"
+          className="border rounded-md p-2 mt-2"
           onChange={(e) => handleInputChange(e, "subject")}
           value={user.subject}
-        />
+        >
+          {subjectOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
         <div className="flex justify-end gap-4 mt-4">
           <button
             onClick={handleClose}
