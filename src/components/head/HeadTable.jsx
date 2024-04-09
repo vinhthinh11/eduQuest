@@ -4,11 +4,13 @@ import ModalEdit from '../head/ModalEditHead.jsx';
 import ModalDelete from '../ModalDelete.jsx';
 import SearchComponent from '../SearchComponent.jsx';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const HeadTable = () => {
   const [users, setUsers] = useState([]);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
   // State để mở modal edit và delete
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -18,16 +20,16 @@ const HeadTable = () => {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser('/admin/truongbomon/get');
+        const { data } = await getUser('/admin/truongbomon/');
         setUsers(data.data);
         usersData.current = data.data;
-        
       } catch (err) {
         toast.error(err.message);
+        navigate('/login');
       }
     }
     fetchUser();
-  }, []);
+  }, [navigate]);
 
   // Các hàm xử lý phân trang và thay đổi số lượng item trên trang
   const handlePerPageChange = e => {
@@ -142,7 +144,7 @@ const HeadTable = () => {
             className="bg-white divide-y divide-gray-200 "
             id="list_admins"
           >
-            {visibleUsers?.map(user => (
+            {users?.map(user => (
               <tr key={user.subject_head_id}>
                 <td className="px-3 py-4 whitespace-wrap">
                   {user.subject_head_id}
@@ -202,11 +204,11 @@ const HeadTable = () => {
           open={openDelete}
           setOpen={setOpenDelete}
           user={currentUser}
-          // handleDeleteUser={userId => {
-          //   const updatedUsers = users.filter(user => user.id !== userId);
-          //   setUsers(updatedUsers);
-          //   setOpenDelete(false); // Đóng modal delete sau khi xóa
-          // }}
+          handleDeleteUser={userId => {
+            const updatedUsers = users.filter(user => user.id !== userId);
+            setUsers(updatedUsers);
+            setOpenDelete(false); // Đóng modal delete sau khi xóa
+          }}
         />
       </div>
       <div className="flex justify-end px-10 border-t-2 border-black pt-4">
