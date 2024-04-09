@@ -75,7 +75,7 @@ export default function ModalEdit({
             textTransform: 'uppercase',
           }}
         >
-          thêm mới admin
+          Chỉnh sửa người dùng
         </Typography>
         <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-y-10 md:gap-x-10 whitespace-nowrap">
           <InputDefault
@@ -101,7 +101,7 @@ export default function ModalEdit({
           />
           <InputDefault
             label="Giới tính"
-            name="gender_id"
+            name="gender"
             value={userEdit?.gender_id}
             onChange={handleInputChange}
             options={genderOptions}
