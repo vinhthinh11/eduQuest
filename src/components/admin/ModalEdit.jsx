@@ -40,7 +40,9 @@ export default function ModalEdit({
   };
 
   const handleConfirm = async () => {
-    // setUserEdit(userEdit);
+    if (userEdit.password.length > 16) {
+      delete userEdit.password;
+    }
     console.log(userEdit);
     try {
       await updateUser('/admin/update-admin', userEdit);
