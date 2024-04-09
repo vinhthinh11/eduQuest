@@ -1,7 +1,7 @@
 import React from "react";
 import FormComponent from "../FormComponent";
 
-const AdminForm = ({ handleSubmit }) => {
+const TeacherForm = ({ handleSubmit }) => {
   const genderOptions = [
     { value: '1', label: 'Không Xác Định' },
     { value: '2', label: 'Nam' },
@@ -22,4 +22,4 @@ const AdminForm = ({ handleSubmit }) => {
   );
 };
 
-export default AdminForm;
+export default TeacherForm;

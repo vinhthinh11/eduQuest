@@ -1,23 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import InputField from '../InputField';
+import SelectInput from '../SelectInput';
 
-export default function FormModal({ open, setOpen, user }) {
+const gradeOptions = [
+  { value: '10', label: 'Khối 10' },
+  { value: '11', label: 'Khối 11' },
+  { value: '12', label: 'Khối 12' },
+];
+export default function ModalEditClass({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserEdit({ ...userEdit, [name]: value });
   };
 
   const handleConfirm = () => {
-    console.log('Đã nhấn Đồng ý');
+    console.log(userEdit);
 
-    setUserEdit(userEdit);
+    // setUserEdit(userEdit);
     setOpen(false);
   };
+
+  useEffect(() => {
+    setUserEdit(user);
+  }, [user]);
+
+
 
   return (
     <Modal
@@ -28,9 +41,32 @@ export default function FormModal({ open, setOpen, user }) {
     >
       <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8">
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Thêm mới giáo viên
+          Chỉnh sửa thông tin
         </Typography>
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10 whitespace-nowrap">
+          <InputField
+            label="Tên lớp"
+            name="class_name"
+            type="text"
+            value={userEdit?.class_name}
+            onChange={handleInputChange}
+          />
+          <SelectInput
+            label="Khối"
+            name="grade_id"
+            value={userEdit?.grade_id}
+            onChange={handleInputChange}
+            options={gradeOptions}
+          />
 
+          <SelectInput
+          label="Giáo viên"
+          name="teacher_id"
+          value={userEdit?.teacher_id}
+          onChange={handleInputChange}
+          options={gradeOptions}
+        />
+        </div>
         <div className="flex justify-between mt-8">
           <button
             onClick={handleClose}
