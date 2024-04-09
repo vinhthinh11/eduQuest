@@ -35,27 +35,26 @@ export default function ModalEditHead({
   const handleClose = () => setOpen(false);
 
   const handleInputChange = (e, field) => {
-    setUserEdit(pre => ({ ...pre, [field]: e.target.value }));
+    setUserEdit(prevUser => ({ ...prevUser, [field]: e.target.value }));
   };
 
   const handleConfirm = async () => {
     if (userEdit.password.length > 16) {
       delete userEdit.password;
     }
-    console.log(userEdit);
     try {
       await updateUser("/admin/truongbomon/update-tbm", userEdit);
       setOpen(false);
       toast.success('Cập nhật thành công');
-      setUpdate(pre => !pre);
+      setUpdate(prev => !prev);
     } catch (error) {
       toast.error('Cập nhật thất bại');
     }
   };
+
   useEffect(() => {
     setUserEdit(user);
   }, [user]);
-
 
   return (
     <Modal
@@ -74,14 +73,14 @@ export default function ModalEditHead({
             name="name"
             type="text"
             value={userEdit?.name}
-            onChange={handleInputChange}
+            onChange={(e) => handleInputChange(e, 'name')}
           />
           <InputDefault
             label="Mật khẩu"
             name="password"
             type="password"
             show={false}
-            onChange={handleInputChange}
+            onChange={(e) => handleInputChange(e, 'password')}
           />
           <InputDefault
             label="Ngày sinh"
@@ -89,6 +88,8 @@ export default function ModalEditHead({
             name="birthday"
             id="birthday"
             className="input-field w-full border-none outline-none ml-5"
+            value={userEdit?.birthday}
+            onChange={(e) => handleInputChange(e, 'birthday')}
           />
           <InputDefault
             label="Gender"
@@ -97,13 +98,14 @@ export default function ModalEditHead({
             onChange={e => handleInputChange(e, 'gender_id')}
             value={userEdit.gender_id}
           />
-          <InputDefault
+          <SelectInput
             label="Môn"
             name="subject_id"
-            type="text"
             value={userEdit?.subject_id}
-            onChange={e => handleInputChange(e, 'subject_id')}
+            onChange={(value) => handleInputChange({ target: { value } }, 'subject_id')}
+            options={subjectOptions}
           />
+          
         </div>
         <div className="flex justify-between mt-8">
           <button
