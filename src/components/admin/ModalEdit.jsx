@@ -7,7 +7,6 @@ import InputDefault from '../InputDefault.jsx';
 import toast from 'react-hot-toast';
 import { useUserContext } from '../../admin/UserContextProvider.jsx';
 
-
 const style = {
   position: 'absolute',
   top: '50%',
@@ -76,7 +75,7 @@ export default function ModalEdit({ open, setOpen, user, userType = 'admin' }) {
             name="name"
             type="text"
             value={userEdit?.name}
-            onChange={handleInputChange}
+            onChange={e => handleInputChange(e, 'name')}
           />
           <InputDefault
             label="Mật khẩu"
@@ -91,6 +90,8 @@ export default function ModalEdit({ open, setOpen, user, userType = 'admin' }) {
             name="birthday"
             id="birthday"
             className="input-field w-full border-none outline-none ml-5"
+            value={userEdit?.birthday}
+            onChange={e => handleInputChange(e, 'birthday')}
           />
           <InputDefault
             label="Gender"

@@ -3,7 +3,7 @@ import HeadTable from '../../components/head/HeadTable';
 import FormHeadModal from '../../components/head/FormHeadModal';
 import UploadFileHeadModal from '../../components/head/UploadFileHeadModal';
 import { UserContextProvider } from '../UserContextProvider.jsx';
-function UserDetail() {
+function HeadDetail() {
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);
 
