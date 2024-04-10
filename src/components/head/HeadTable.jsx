@@ -35,7 +35,7 @@ const HeadTable = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [isFetching, setIsFetching] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const usersData = useRef([]);
 
   useEffect(() => {

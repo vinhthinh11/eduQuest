@@ -11,7 +11,7 @@ export default function ModalEdit({ open, setOpen, user }) {
   const handleConfirm = async (e) => {
     e.preventDefault();
     try {
-      await uploadUserByFile('/admin/truongbomon/check-add-tbm-via-file', file);
+      await uploadUserByFile('/admin/truongbomon/file', file);
       toast.success("Thêm trưởng bộ môn thành công");
     } catch (error) {
       toast.error("Thêm trưởng bộ môn thất bại");
