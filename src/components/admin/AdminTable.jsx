@@ -1,17 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { getUser } from '../../services/apiUser.js';
 import ModalEdit from '../admin/ModalEdit.jsx';
-import ModalDelete from '../ModalDelete.jsx';
+import ModalDelete from './ModalDelete.jsx';
 import SearchComponent from '../SearchComponent.jsx';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import toast from 'react-hot-toast';
+import { useUserContext } from '../../admin/UserContextProvider.jsx';
 
 const AdminTable = ({ userType = 'admin' }) => {
   const [users, setUsers] = useState([]);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [update, setUpdate] = useState(false);
+  const { update } = useUserContext();
+
   // State để mở modal edit và delete
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
@@ -218,14 +220,12 @@ const AdminTable = ({ userType = 'admin' }) => {
             open={openEdit}
             setOpen={setOpenEdit}
             user={currentUser}
-            setUpdate={setUpdate}
             userType={userType}
           />
           <ModalDelete
             open={openDelete}
             setOpen={setOpenDelete}
             user={currentUser}
-            setUpdate={setUpdate}
             userType={userType}
           />
         </div>

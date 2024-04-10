@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import { getUser } from "../../services/apiUser.js";
-import ModalEditClass from "./ModalEditClass.jsx";
-import ModalDelete from "../ModalDelete.jsx";
-import SearchComponent from "../SearchComponent.jsx";
+import { useEffect, useRef, useState } from 'react';
+import { getUser } from '../../services/apiUser.js';
+import ModalEditClass from './ModalEditClass.jsx';
+import ModalDelete from '../admin/ModalDelete.jsx';
+import SearchComponent from '../SearchComponent.jsx';
 import toast from 'react-hot-toast';
 
 const ClassTable = () => {
@@ -16,11 +16,10 @@ const ClassTable = () => {
   const [currentUser, setCurrentUser] = useState({});
   const usersData = useRef([]);
 
-
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser("/admin/classes/get");
+        const { data } = await getUser('/admin/classes/get');
         setUsers(data.data);
         usersData.current = data.data;
       } catch (err) {
@@ -31,7 +30,7 @@ const ClassTable = () => {
   }, []);
 
   // Các hàm xử lý phân trang và thay đổi số lượng item trên trang
-  const handlePerPageChange = (e) => {
+  const handlePerPageChange = e => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
@@ -42,14 +41,12 @@ const ClassTable = () => {
     currentPage * perPage
   );
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    setCurrentPage(prevPage => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage(prevPage => prevPage + 1);
   };
-
-  
 
   return (
     <div className="content">
@@ -65,9 +62,9 @@ const ClassTable = () => {
             <option value={30}>30</option>
           </select>
         </div>
-        <SearchComponent 
-          usersData={usersData.current} 
-          users={users} 
+        <SearchComponent
+          usersData={usersData.current}
+          users={users}
           setUsers={setUsers}
         />
       </div>
@@ -114,13 +111,13 @@ const ClassTable = () => {
             className="bg-white divide-y divide-gray-200 "
             id="list_admins"
           >
-            {visibleUsers?.map((user) => (
+            {visibleUsers?.map(user => (
               <tr key={user.class_id}>
                 <td className="px-3 py-4 whitespace-wrap">{user.class_id}</td>
                 <td className="px-3 py-4 break-all">{user.class_name}</td>
                 <td className="px-3 py-4 break-all">{user.grade_id}</td>
                 <td className="px-3 py-4 break-all">{user.teacher_id}</td>
-                
+
                 <td className="px-3 py-4 whitespace-nowrap">
                   <div className="flex flex-col">
                     <button
@@ -147,7 +144,11 @@ const ClassTable = () => {
             ))}
           </tbody>
         </table>
-        <ModalEditClass open={openEdit} setOpen={setOpenEdit} user={currentUser} />
+        <ModalEditClass
+          open={openEdit}
+          setOpen={setOpenEdit}
+          user={currentUser}
+        />
         <ModalDelete
           open={openDelete}
           setOpen={setOpenDelete}

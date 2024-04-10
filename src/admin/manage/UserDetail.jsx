@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { createContext, useState } from 'react';
 import AdminTable from '../../components/admin/AdminTable';
 import ModalCreate from '../../components/admin/ModalCreate';
 import ModalUploadFile from '../../components/admin/ModalUploadFile';
 import { useLocation } from 'react-router-dom';
+import { UserContextProvider } from '../UserContextProvider.jsx';
 
 const linkUser = {
   admin: 'admin',
@@ -10,7 +11,6 @@ const linkUser = {
   student: 'admin/student',
   head: 'admin/head',
 };
-
 function UserDetail() {
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);
@@ -19,7 +19,7 @@ function UserDetail() {
   const userType = linkUser[userPath];
 
   return (
-    <div className=" ">
+    <UserContextProvider>
       <div className=" min-h-full flex flex-col">
         <div className="w-full">
           <AdminTable userType={userType} />
@@ -57,7 +57,7 @@ function UserDetail() {
         />
         <ModalUploadFile open={showFileUpload} setOpen={setShowFileUpload} />
       </div>
-    </div>
+    </UserContextProvider>
   );
 }
 

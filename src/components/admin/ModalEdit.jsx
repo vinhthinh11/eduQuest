@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import { updateUser } from '../../services/apiUser.js';
 import InputDefault from '../InputDefault.jsx';
 import toast from 'react-hot-toast';
+import { useUserContext } from '../../admin/UserContextProvider.jsx';
 
 const genderOptions = [
   { value: '1', label: 'Nam' },
@@ -26,15 +27,10 @@ const style = {
   p: 4,
 };
 
-export default function ModalEdit({
-  open,
-  setOpen,
-  user,
-  userType = 'admin',
-  setUpdate = () => {},
-}) {
+export default function ModalEdit({ open, setOpen, user, userType = 'admin' }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
+  const { setUpdate } = useUserContext();
 
   const handleInputChange = (e, field) => {
     setUserEdit(pre => ({ ...pre, [field]: e.target.value }));
@@ -51,7 +47,7 @@ export default function ModalEdit({
       toast.success('Cập nhật thành công');
       setUpdate(pre => !pre);
     } catch (error) {
-      toast.error('Cập nhật thất bại');
+      toast.error(error.message);
     }
   };
   useEffect(() => {

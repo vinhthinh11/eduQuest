@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import InputDefault from '../InputDefault.jsx';
 import { toast } from 'react-hot-toast';
 import { createUser } from '../../services/apiUser.js';
+import { useUserContext } from '../../admin/UserContextProvider.jsx';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -20,10 +21,12 @@ const style = {
   p: 4,
 };
 // const user = { name, username, password, gender, birthday ,email};
+
 export const FormContext = createContext();
 export default function ModalCreate({ open, setOpen, userType = 'admin' }) {
   const [user, setUser] = useState({ gender: 1 });
   const handleClose = () => setOpen(false);
+  const { setUpdate } = useUserContext();
 
   const handleInputChange = (e, field) => {
     setUser(pre => ({ ...pre, [field]: e.target.value }));
@@ -35,6 +38,7 @@ export default function ModalCreate({ open, setOpen, userType = 'admin' }) {
       await createUser(`/${userType}/create`, newUser);
       setOpen(false);
       toast.success('Thêm mới thành công');
+      setUpdate(pre => !pre);
     } catch (err) {
       toast.error('Thêm mới thất bại');
     }

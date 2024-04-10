@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import HeadTable from '../../components/head/HeadTable';
 import FormHeadModal from '../../components/head/FormHeadModal';
 import UploadFileHeadModal from '../../components/head/UploadFileHeadModal';
+import { UserContextProvider } from '../UserContextProvider.jsx';
 function UserDetail() {
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);
 
   return (
-    <div className=" ">
+    <UserContextProvider>
       <div className=" min-h-full flex flex-col">
         <div className="w-full">
           <HeadTable />
@@ -39,9 +40,12 @@ function UserDetail() {
           </div>
         </div>
         <FormHeadModal open={showAdminForm} setOpen={setShowAdminForm} />
-        <UploadFileHeadModal open={showFileUpload} setOpen={setShowFileUpload} />
+        <UploadFileHeadModal
+          open={showFileUpload}
+          setOpen={setShowFileUpload}
+        />
       </div>
-    </div>
+    </UserContextProvider>
   );
 }
 

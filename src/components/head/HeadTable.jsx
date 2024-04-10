@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import { getUser } from "../../services/apiUser.js";
-import ModalEdit from "../head/ModalEditHead.jsx";
-import ModalDelete from "../ModalDelete.jsx";
-import SearchComponent from "../SearchComponent.jsx";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from 'react';
+import { getUser } from '../../services/apiUser.js';
+import ModalEdit from '../head/ModalEditHead.jsx';
+import ModalDelete from '../admin/ModalDelete.jsx';
+import SearchComponent from '../SearchComponent.jsx';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const subjectMap = {
   1: 'Toán',
@@ -16,7 +16,7 @@ const subjectMap = {
   7: 'GDCD',
   8: 'Anh',
   9: 'Hóa học',
-  10: 'Sinh học'
+  10: 'Sinh học',
 };
 
 const HeadTable = () => {
@@ -35,21 +35,21 @@ const HeadTable = () => {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser("/admin/truongbomon/");
+        const { data } = await getUser('/admin/truongbomon/');
         setUsers(data.data);
         usersData.current = data.data;
       } catch (err) {
         toast.error(err.message);
-        navigate("/login");
+        navigate('/login');
       }
     }
     fetchUser();
   }, [navigate]);
 
-  // const subjectName = subjectMap[user.subject_id]; 
+  // const subjectName = subjectMap[user.subject_id];
 
   // Các hàm xử lý phân trang và thay đổi số lượng item trên trang
-  const handlePerPageChange = (e) => {
+  const handlePerPageChange = e => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
@@ -61,11 +61,11 @@ const HeadTable = () => {
   );
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    setCurrentPage(prevPage => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage(prevPage => prevPage + 1);
   };
 
   return (
@@ -161,13 +161,13 @@ const HeadTable = () => {
             className="bg-white divide-y divide-gray-200 "
             id="list_admins"
           >
-            {users?.map((user) => (
+            {users?.map(user => (
               <tr key={user.subject_head_id}>
                 <td className="px-3 py-4 whitespace-wrap">
                   {user.subject_head_id}
                 </td>
                 <td className="px-3 py-4 whitespace-wrap">
-                <img
+                  <img
                     className="w-10 h-10 rounded-full"
                     src={`https://i.pravatar.cc/${
                       Math.floor(Math.random() * 500) + 1
@@ -180,16 +180,18 @@ const HeadTable = () => {
                 <td className="px-3 py-4 break-all">{user.email}</td>
                 <td className="px-3 py-4 break-all">
                   {user.gender_id === 1
-                    ? "Nam"
+                    ? 'Nam'
                     : user.gender_id === 2
-                    ? "Nữ"
-                    : "Không xác định"}
+                    ? 'Nữ'
+                    : 'Không xác định'}
                 </td>
                 <td className="px-3 py-4 break-all">{user.birthday}</td>
-                <td className="px-3 py-4 break-all">{subjectMap[user.subject_id]}</td>
+                <td className="px-3 py-4 break-all">
+                  {subjectMap[user.subject_id]}
+                </td>
 
                 <td className="px-3 py-4 break-all">
-                  {new Date(user.last_login).toLocaleDateString("vn-VN")}
+                  {new Date(user.last_login).toLocaleDateString('vn-VN')}
                 </td>
                 <td className="px-3 py-4 whitespace-nowrap">
                   <div className="flex flex-col">

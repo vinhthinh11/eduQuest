@@ -1,8 +1,9 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { deleteUser } from '../services/apiUser.js';
+import { deleteUser } from '../../services/apiUser.js';
 import toast from 'react-hot-toast';
+import { useUserContext } from '../../admin/UserContextProvider.jsx';
 
 const style = {
   position: 'absolute',
@@ -17,24 +18,21 @@ const style = {
   p: 3,
 };
 
-const ModalDelete = ({
-  open,
-  setOpen,
-  user,
-  setUpdate,
-  userType = 'admin',
-}) => {
+const ModalDelete = ({ open, setOpen, user, userType = 'admin' }) => {
+  const { setUpdate } = useUserContext();
   const handleClose = () => setOpen(false);
 
   const handleDelete = async () => {
     try {
-      console.log('thực hien delete admin');
-      await deleteUser(`/${userType}/delete`, { admin_id: user.admin_id });
+      const data = await deleteUser(
+        `/${userType}/delete`,
+        user[`${userType}_id`]
+      );
       setUpdate(pre => !pre);
       handleClose();
-      toast.success('Xoá tài khoản thành công');
+      toast.success(data.data.message);
     } catch (err) {
-      toast.error('Xoá tài khoản không thành công');
+      toast.error(err.message);
     }
   };
 
