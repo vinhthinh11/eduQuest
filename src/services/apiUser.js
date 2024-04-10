@@ -44,13 +44,13 @@ export const createUser = async (endpoint, user) => {
 export const updateUser = async (endpoint, user) => {
   try {
     const bearerToken = localStorage.getItem('token');
-    await axios.post(`${USER_URL}${endpoint}`, user, {
+    await axios.put(`${USER_URL}${endpoint}`, user, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
       },
     });
   } catch (err) {
-    throw new Error(err.message);
+    throw new Error(err.response.data.message);
   }
 };
 export const uploadUserByFile = async (endpoint, file) => {

@@ -10,6 +10,9 @@ const linkUser = {
   teacher: 'admin/teacher',
   student: 'admin/student',
   head: 'admin/head',
+  class: 'admin/class',
+  question: 'admin/question',
+  exam: 'admin/exam',
 };
 function UserDetail() {
   const [showAdminForm, setShowAdminForm] = useState(false);

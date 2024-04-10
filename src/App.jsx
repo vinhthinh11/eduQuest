@@ -46,9 +46,9 @@ const App = () => (
           <Route path="admin" element={<UserDetail />} />
           <Route path="head" element={<HeadDetail />} />
           <Route path="teacher" element={<UserDetail />} />
-          <Route path="student" element={<User />} />
-          <Route path="class" element={<ClassDetail />} />
-          <Route path="exam" element={<User />} />
+          <Route path="student" element={<UserDetail />} />
+          <Route path="class" element={<UserDetail />} />
+          <Route path="exam" element={<UserDetail />} />
           <Route path="statistic" element={<Statistic />} />
           <Route path="question" element={<Question />} />
           <Route path="profile" element={<ProfileForm />} />

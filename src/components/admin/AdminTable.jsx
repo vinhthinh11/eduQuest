@@ -26,6 +26,7 @@ const AdminTable = ({ userType = 'admin' }) => {
       try {
         setIsFetching(true);
         const { data } = await getUser(`/${userType}/get`);
+        console.log('fecth admin', data);
         setUsers(data.data);
         usersData.current = data.data;
       } catch (err) {
@@ -126,12 +127,6 @@ const AdminTable = ({ userType = 'admin' }) => {
                   scope="col"
                   className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
                 >
-                  Tài Khoản
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
-                >
                   Email
                 </th>
                 <th
@@ -145,12 +140,6 @@ const AdminTable = ({ userType = 'admin' }) => {
                   className="px-3 py-3 text-left text-xs font-medium  uppercase tracking-wider"
                 >
                   Ngày Sinh
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
-                >
-                  Online Cuối
                 </th>
                 <th
                   scope="col"
@@ -177,7 +166,6 @@ const AdminTable = ({ userType = 'admin' }) => {
                     />
                   </td>
                   <td className="px-3 py-4 break-all">{user.name}</td>
-                  <td className="px-3 py-4 break-all">{user.username}</td>
                   <td className="px-3 py-4 break-all">{user.email}</td>
                   <td className="px-3 py-4 break-all">
                     {user.gender_id === 1
@@ -187,9 +175,6 @@ const AdminTable = ({ userType = 'admin' }) => {
                       : 'Không xác định'}
                   </td>
                   <td className="px-3 py-4 break-all">{user.birthday}</td>
-                  <td className="px-3 py-4 break-all">
-                    {new Date(user.last_login).toLocaleDateString('vn-VN')}
-                  </td>
                   <td className="px-3 py-4 whitespace-nowrap">
                     <div className="flex flex-col">
                       <button
