@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import HeadTable from '../../components/head/HeadTable';
 import FormHeadModal from '../../components/head/FormHeadModal';
 import UploadFileHeadModal from '../../components/head/UploadFileHeadModal';
-function UserDetail() {
+function HeadDetail() {
   const [showAdminForm, setShowAdminForm] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);
 
@@ -45,4 +45,4 @@ function UserDetail() {
   );
 }
 
-export default UserDetail;
+export default HeadDetail;
