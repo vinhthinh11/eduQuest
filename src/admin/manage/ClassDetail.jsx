@@ -8,7 +8,7 @@ function UserDetail() {
 
   return (
     <div className=" ">
-      <div className=" min-h-full flex flex-col">
+      <div className=" flex flex-col">
         <div className="w-full">
           <ClassTable />
         </div>

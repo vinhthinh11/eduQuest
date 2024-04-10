@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { getUser } from '../../services/apiUser.js';
 import ModalEdit from '../head/ModalEditHead.jsx';
-import ModalDelete from '../admin/ModalDelete.jsx';
 import SearchComponent from '../SearchComponent.jsx';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useUserContext } from '../../admin/UserContextProvider.jsx';
+import ModalDeleteHead from './ModalDeleteHead.jsx';
+
 
 const subjectMap = {
   1: 'Toán',
@@ -23,7 +26,8 @@ const HeadTable = () => {
   const [users, setUsers] = useState([]);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [update, setUpdate] = useState(false);
+  const { update } = useUserContext();
+
 
   // const navigate = useNavigate();
   // State để mở modal edit và delete
@@ -42,7 +46,8 @@ const HeadTable = () => {
         usersData.current = data.data;
       } catch (err) {
         toast.error(err.message);
-        navigate('/login');
+      } finally {
+        setIsFetching(false);
       }
     }
     fetchUser();
@@ -71,6 +76,27 @@ const HeadTable = () => {
     setCurrentPage(prevPage => prevPage + 1);
   };
 
+  if (isFetching)
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100vw',
+        height: '100vh',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <CircularProgress
+        size={80}
+        sx={{
+          translateX: '-10px',
+          translateY: '-10px',
+        }}
+      />
+    </Box>
+  );
+else
   return (
     <div className="content">
       <div className="preload hidden" id="preload">
@@ -164,7 +190,7 @@ const HeadTable = () => {
             className="bg-white divide-y divide-gray-200 "
             id="list_admins"
           >
-            {users?.map(user => (
+            {visibleUsers?.map(user => (
               <tr key={user.subject_head_id}>
                 <td className="px-3 py-4 whitespace-wrap">
                   {user.subject_head_id}
@@ -223,17 +249,15 @@ const HeadTable = () => {
           </tbody>
         </table>
         <ModalEdit
-          open={openEdit}
-          setOpen={setOpenEdit}
-          user={currentUser}
-          setUpdate={setUpdate}
+             open={openEdit}
+             setOpen={setOpenEdit}
+             user={currentUser}
         />
 
-        <ModalDelete
+        <ModalDeleteHead
           open={openDelete}
           setOpen={setOpenDelete}
           user={currentUser}
-          setUpdate={setUpdate}
         />
       </div>
       <div className="flex justify-center px-10 border-t-2 border-black pt-4">

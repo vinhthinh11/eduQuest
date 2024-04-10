@@ -23,7 +23,7 @@ function UserDetail() {
 
   return (
     <UserContextProvider>
-      <div className=" min-h-full flex flex-col">
+      <div className=" flex flex-col">
         <div className="w-full">
           <AdminTable userType={userType} />
         </div>

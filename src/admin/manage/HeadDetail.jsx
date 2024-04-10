@@ -9,7 +9,7 @@ function HeadDetail() {
 
   return (
     <UserContextProvider>
-      <div className=" min-h-full flex flex-col">
+      <div className=" flex flex-col">
         <div className="w-full">
           <HeadTable />
         </div>
