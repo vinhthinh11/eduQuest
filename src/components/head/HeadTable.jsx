@@ -1,15 +1,30 @@
-import { useEffect, useRef, useState } from 'react';
-import { getUser } from '../../services/apiUser.js';
-import ModalEdit from '../head/ModalEditHead.jsx';
-import ModalDelete from '../ModalDelete.jsx';
-import SearchComponent from '../SearchComponent.jsx';
-import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from "react";
+import { getUser } from "../../services/apiUser.js";
+import ModalEdit from "../head/ModalEditHead.jsx";
+import ModalDelete from "../ModalDelete.jsx";
+import SearchComponent from "../SearchComponent.jsx";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+
+const subjectMap = {
+  1: 'Toán',
+  2: 'Ngữ Văn',
+  3: 'Lịch sử',
+  4: 'Địa Lý',
+  5: 'Vật Lý',
+  6: 'Công nghệ',
+  7: 'GDCD',
+  8: 'Anh',
+  9: 'Hóa học',
+  10: 'Sinh học'
+};
 
 const HeadTable = () => {
   const [users, setUsers] = useState([]);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [update, setUpdate] = useState(false);
+
   const navigate = useNavigate();
   // State để mở modal edit và delete
   const [openEdit, setOpenEdit] = useState(false);
@@ -20,19 +35,21 @@ const HeadTable = () => {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser('/admin/truongbomon/');
+        const { data } = await getUser("/admin/truongbomon/");
         setUsers(data.data);
         usersData.current = data.data;
       } catch (err) {
         toast.error(err.message);
-        navigate('/login');
+        navigate("/login");
       }
     }
     fetchUser();
   }, [navigate]);
 
+  // const subjectName = subjectMap[user.subject_id]; 
+
   // Các hàm xử lý phân trang và thay đổi số lượng item trên trang
-  const handlePerPageChange = e => {
+  const handlePerPageChange = (e) => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
@@ -44,11 +61,11 @@ const HeadTable = () => {
   );
 
   const handlePrevPage = () => {
-    setCurrentPage(prevPage => prevPage - 1);
+    setCurrentPage((prevPage) => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage(prevPage => prevPage + 1);
+    setCurrentPage((prevPage) => prevPage + 1);
   };
 
   return (
@@ -144,13 +161,13 @@ const HeadTable = () => {
             className="bg-white divide-y divide-gray-200 "
             id="list_admins"
           >
-            {users?.map(user => (
+            {users?.map((user) => (
               <tr key={user.subject_head_id}>
                 <td className="px-3 py-4 whitespace-wrap">
                   {user.subject_head_id}
                 </td>
                 <td className="px-3 py-4 whitespace-wrap">
-                  <img
+                <img
                     className="w-10 h-10 rounded-full"
                     src={`https://i.pravatar.cc/${
                       Math.floor(Math.random() * 500) + 1
@@ -163,15 +180,16 @@ const HeadTable = () => {
                 <td className="px-3 py-4 break-all">{user.email}</td>
                 <td className="px-3 py-4 break-all">
                   {user.gender_id === 1
-                    ? 'Nam'
+                    ? "Nam"
                     : user.gender_id === 2
-                    ? 'Nữ'
-                    : 'Không xác định'}
+                    ? "Nữ"
+                    : "Không xác định"}
                 </td>
                 <td className="px-3 py-4 break-all">{user.birthday}</td>
-                <td className="px-3 py-4 break-all">{user.subject_id}</td>
+                <td className="px-3 py-4 break-all">{subjectMap[user.subject_id]}</td>
+
                 <td className="px-3 py-4 break-all">
-                  {new Date(user.last_login).toLocaleDateString('vn-VN')}
+                  {new Date(user.last_login).toLocaleDateString("vn-VN")}
                 </td>
                 <td className="px-3 py-4 whitespace-nowrap">
                   <div className="flex flex-col">
@@ -199,16 +217,18 @@ const HeadTable = () => {
             ))}
           </tbody>
         </table>
-        <ModalEdit open={openEdit} setOpen={setOpenEdit} user={currentUser} />
+        <ModalEdit
+          open={openEdit}
+          setOpen={setOpenEdit}
+          user={currentUser}
+          setUpdate={setUpdate}
+        />
+
         <ModalDelete
           open={openDelete}
           setOpen={setOpenDelete}
           user={currentUser}
-          handleDeleteUser={userId => {
-            const updatedUsers = users.filter(user => user.id !== userId);
-            setUsers(updatedUsers);
-            setOpenDelete(false); // Đóng modal delete sau khi xóa
-          }}
+          setUpdate={setUpdate}
         />
       </div>
       <div className="flex justify-end px-10 border-t-2 border-black pt-4">

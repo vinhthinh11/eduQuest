@@ -1,34 +1,43 @@
-import { useState } from "react";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import InputDefault from "../InputDefault.jsx";
+import { createContext, useState } from 'react';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import InputDefault from '../InputDefault.jsx';
+import { toast } from 'react-hot-toast';
+import { createUser } from '../../services/apiUser.js';
+// import { useForm } from 'react-hook-form';
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
   width: 400,
-  display: "flex",
-  flexDirection: "column",
-  bgcolor: "#fff",
-  border: "1px solid #000",
-  borderRadius: "20px",
+  display: 'flex',
+  flexDirection: 'column',
+  bgcolor: '#fff',
+  border: '1px solid #000',
+  borderRadius: '20px',
   boxShadow: 24,
   p: 4,
 };
-// const user = { name, username, password, gender, birthday ,email};
+export const FormContext = createContext();
 export default function ModalCreate({ open, setOpen }) {
   const [user, setUser] = useState({ gender: 1 });
   const handleClose = () => setOpen(false);
 
   const handleInputChange = (e, field) => {
-    setUser((pre) => ({ ...pre, [field]: e.target.value }));
+    setUser(pre => ({ ...pre, [field]: e.target.value }));
   };
 
-  const handleConfirm = () => {
-    console.log(user);
-    // setOpen(false);
+  const handleSubmit = async () => {
+    const newUser = { ...user, username: user.name };
+    try {
+      await createUser('/admin/truongbomon/create-tbm', newUser);
+      setOpen(false);
+      toast.success('Thêm mới thành công');
+    } catch (err) {
+      toast.error('Thêm mới thất bại');
+    }
   };
 
   return (
@@ -42,10 +51,10 @@ export default function ModalCreate({ open, setOpen }) {
         <Typography
           id="modal-modal-title"
           sx={{
-            textAlign: "center",
-            fontSize: "16px",
-            fontWeight: "bold",
-            color: "grey.800",
+            textAlign: 'center',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            color: 'grey.800',
           }}
         >
           THÊM MỚI TRƯỞNG BỘ MÔN
@@ -54,52 +63,45 @@ export default function ModalCreate({ open, setOpen }) {
           label="Tên"
           name="name"
           type="text"
-          onChange={(e) => handleInputChange(e, "name")}
+          onChange={e => handleInputChange(e, 'name')}
           value={user.name}
         />
         <InputDefault
           label="Email"
           name="email"
           type="email"
-          onChange={(e) => handleInputChange(e, "email")}
+          onChange={e => handleInputChange(e, 'email')}
           value={user.email}
-        />
-        <InputDefault
-          label="Tài khoản"
-          name="username"
-          type="text"
-          onChange={(e) => handleInputChange(e, "username")}
-          value={user.username}
         />
         <InputDefault
           label="Password"
           name="password"
           type="password"
-          onChange={(e) => handleInputChange(e, "password")}
+          onChange={e => handleInputChange(e, 'password')}
           value={user.password}
         />
         <InputDefault
-          label="Giới tính"
+          label="Gender"
           name="gender"
           type="text"
-          onChange={(e) => handleInputChange(e, "gender")}
+          onChange={e => handleInputChange(e, 'gender')}
           value={user.gender}
         />
         <InputDefault
-          label="Ngày sinh"
+          label="Birthday"
           name="birthday"
           type="date"
-          onChange={(e) => handleInputChange(e, "birthday")}
+          onChange={e => handleInputChange(e, 'birthday')}
           value={user.birthday}
         />
         <InputDefault
-          label="Môn học"
+          label="Môn"
           name="subject"
           type="text"
-          onChange={(e) => handleInputChange(e, "subject")}
+          onChange={e => handleInputChange(e, 'subject')}
           value={user.subject}
         />
-        <div className="flex justify-end gap-4 mt-4">
+        <div className="flex justify-end gap-6 mt-4">
           <button
             onClick={handleClose}
             className="btn bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
@@ -107,8 +109,8 @@ export default function ModalCreate({ open, setOpen }) {
             Quay lại
           </button>
           <button
-            onClick={handleConfirm}
             className="btn bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+            onClick={handleSubmit}
           >
             Đồng ý
           </button>
