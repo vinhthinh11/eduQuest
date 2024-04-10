@@ -7,11 +7,7 @@ import SelectInput from "../SelectInput";
 import { updateUser } from '../../services/apiUser.js';
 import toast from 'react-hot-toast';
 
-const genderOptions = [
-  { value: "1", label: "Không Xác Định" },
-  { value: "2", label: "Nam" },
-  { value: "3", label: "Nữ" },
-];
+
 const subjectOptions = [
   { value: "1", label: "Toán" },
   { value: "2", label: "Ngữ Văn" },

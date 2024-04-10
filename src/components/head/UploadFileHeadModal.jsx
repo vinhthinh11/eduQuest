@@ -2,26 +2,20 @@ import { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import FileUpload from "../UploadFile";
-
+import { uploadUserByFile } from "../../services/apiUser.js";
+import toast from "react-hot-toast";
 export default function ModalEdit({ open, setOpen, user }) {
-  const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
+  const [file, setFile] = useState(null);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setUserEdit({ ...userEdit, [name]: value });
-  };
-
-  const handleFileInputChange = (event) => {
-    const file = event.target.files[0];
-  };
-
-  const handleConfirm = () => {
-    console.log("Đã nhấn Đồng ý");
-
-    setUserEdit(userEdit);
-    setOpen(false);
+  const handleConfirm = async (e) => {
+    e.preventDefault();
+    try {
+      await uploadUserByFile('/admin/truongbomon/check-add-tbm-via-file', file);
+      toast.success("Thêm trưởng bộ môn thành công");
+    } catch (error) {
+      toast.error("Thêm trưởng bộ môn thất bại");
+    }
   };
 
   return (
@@ -36,23 +30,51 @@ export default function ModalEdit({ open, setOpen, user }) {
           Thêm trưởng bộ môn bằng file
         </Typography>
 
-        {/* Use FileUpload component here */}
-        <FileUpload handleFileSubmit={handleFileInputChange} />
-
-        <div className="flex justify-between mt-8">
-          <button
-            onClick={handleClose}
-            className="btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
-          >
-            Quay lại
-          </button>
-          <button
-            onClick={handleConfirm}
-            className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-          >
-            Đồng ý
-          </button>
-        </div>
+        <span className="block mb-4">Lưu ý:</span>
+        <ul className="list-disc pl-6 mb-4">
+          <li>Không sửa file mẫu tránh gây lỗi khi nhập dữ liệu.</li>
+          <li>
+            Tài khoản và email của mỗi tài khoản là duy nhất, không thể trùng
+            nhau.
+          </li>
+          <li>Ngày sinh phải đúng định dạng Y-m-d, ví dụ: 2008-10-29.</li>
+        </ul>
+        <span id="error" className="block text-red-500 mb-4"></span>
+        <form
+          encType="multipart/form-data"
+          className="items-center"
+          onSubmit={handleConfirm}
+        >
+          <input
+            type="file"
+            name="file_data"
+            id="file_data"
+            required
+            className="block w-full text-sm text-slate-700
+            file:mr-4 file:py-2 file:px-4
+            file:rounded-full file:border-0
+            file:text-sm file:font-semibold
+            file:bg-customPurple file:text-white
+          hover:file:bg-customPurpleLight"
+            onChange={(e) => {
+              setFile(e.target?.files?.[0]);
+            }}
+          />
+          <div className="flex justify-between mt-8">
+            <button
+              onClick={handleClose}
+              className="btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+            >
+              Quay lại
+            </button>
+            <button
+              type="submit"
+              className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+            >
+              Đồng ý
+            </button>
+          </div>
+        </form>
       </Box>
     </Modal>
   );

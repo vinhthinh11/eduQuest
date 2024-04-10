@@ -25,11 +25,13 @@ const HeadTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [update, setUpdate] = useState(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // State để mở modal edit và delete
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [isFetching, setIsFetching] = useState(false);
+
   const usersData = useRef([]);
 
   useEffect(() => {
@@ -44,8 +46,9 @@ const HeadTable = () => {
       }
     }
     fetchUser();
-  }, [navigate]);
+  }, [update]);
 
+  // const subjectName = subjectMap[user.subject_id];
   // const subjectName = subjectMap[user.subject_id];
 
   // Các hàm xử lý phân trang và thay đổi số lượng item trên trang
@@ -233,7 +236,7 @@ const HeadTable = () => {
           setUpdate={setUpdate}
         />
       </div>
-      <div className="flex justify-end px-10 border-t-2 border-black pt-4">
+      <div className="flex justify-center px-10 border-t-2 border-black pt-4">
         <div className="pagination pb-3 flex gap-2">
           <button
             className="min-w-20 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"

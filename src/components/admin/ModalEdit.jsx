@@ -7,11 +7,7 @@ import InputDefault from '../InputDefault.jsx';
 import toast from 'react-hot-toast';
 import { useUserContext } from '../../admin/UserContextProvider.jsx';
 
-const genderOptions = [
-  { value: '1', label: 'Nam' },
-  { value: '2', label: 'Nữ' },
-  { value: '3', label: 'Không xác định' },
-];
+
 const style = {
   position: 'absolute',
   top: '50%',

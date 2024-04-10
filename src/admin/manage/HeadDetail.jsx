@@ -49,4 +49,4 @@ function UserDetail() {
   );
 }
 
-export default UserDetail;
+export default HeadDetail;
