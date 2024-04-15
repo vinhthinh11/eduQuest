@@ -1,7 +1,8 @@
 import { Button, Input } from '@mui/joy';
 import { MenuItem, Select } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
+
 
 const style = {
   maxHeight: '2rem',
@@ -10,16 +11,20 @@ const style = {
   ':hover': { backgroundColor: '#624afd' },
 };
 
-const QuesttionHeader = () => {
+const QuesttionHeader = ({ setPerPage }) => {
   const [grade, setGrade] = useState(10);
   const [level, setLevel] = useState('Easy');
 
   const handleChangeGrade = event => {
-    setGrade(() => event.target.value);
+    setGrade(event.target.value);
   };
+
   const handleChangeLevel = event => {
-    setLevel(() => event.target.value);
+    setLevel(event.target.value);
   };
+
+  
+
   return (
     <div>
       <div className="flex items-center py-6 justify-between px-4">

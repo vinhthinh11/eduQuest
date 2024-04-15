@@ -20,6 +20,8 @@ import Chat from './pages/Chat.jsx';
 import Statistic from './pages/Statistic.jsx';
 import ProfileForm from './components/ProfileForm.jsx';
 
+
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

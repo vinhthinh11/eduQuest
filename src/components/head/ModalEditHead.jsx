@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from 'react';
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -6,7 +6,22 @@ import InputDefault from  '../InputDefault.jsx';
 import SelectInput from "../SelectInput";
 import { updateUser } from '../../services/apiUser.js';
 import toast from 'react-hot-toast';
+import { useUserContext } from '../../admin/UserContextProvider.jsx';
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  minWidth: 400,
+  display: 'flex',
+  flexDirection: 'column',
+  bgcolor: '#fff',
+  border: '1px solid #000',
+  borderRadius: '20px',
+  boxShadow: 24,
+  p: 4,
+};
 
 const subjectOptions = [
   { value: "1", label: "Toán" },
@@ -21,33 +36,29 @@ const subjectOptions = [
   { value: "10", label: "Sinh học" },
 ];
 
-export default function ModalEditHead({ 
-  open, 
-  setOpen, 
-  user,
-  setUpdate = () => {},
-}) {
+export default function ModalEdit({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
   const handleClose = () => setOpen(false);
+  const { setUpdate } = useUserContext();
 
   const handleInputChange = (e, field) => {
-    setUserEdit(prevUser => ({ ...prevUser, [field]: e.target.value }));
+    setUserEdit(pre => ({ ...pre, [field]: e.target.value }));
   };
 
   const handleConfirm = async () => {
     if (userEdit.password.length > 16) {
       delete userEdit.password;
     }
+    console.log(userEdit);
     try {
-      await updateUser("/admin/truongbomon/update-tbm", userEdit);
+      await updateUser('/admin/truongbomon/update-tbm', userEdit);
       setOpen(false);
       toast.success('Cập nhật thành công');
-      setUpdate(prev => !prev);
+      setUpdate(pre => !pre);
     } catch (error) {
-      toast.error('Cập nhật thất bại');
+      toast.error(error.message);
     }
   };
-
   useEffect(() => {
     setUserEdit(user);
   }, [user]);
@@ -59,24 +70,33 @@ export default function ModalEditHead({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8">
-        <Typography id="modal-modal-title" variant="h6" component="h2">
+      <Box sx={style}>
+        <Typography
+          id="modal-modal-title"
+          sx={{
+            textAlign: 'center',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            color: 'grey.800',
+            textTransform: 'uppercase',
+          }}
+        >
           Chỉnh sửa thông tin {userEdit?.name}
         </Typography>
-        <div className="grid grid-cols-1 md:grid-cols-2 mt-14 gap-y-10 md:gap-x-10 whitespace-nowrap">
+        <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-y-10 md:gap-x-10 whitespace-nowrap">
           <InputDefault
             label="Tên"
             name="name"
             type="text"
             value={userEdit?.name}
-            onChange={(e) => handleInputChange(e, 'name')}
+            onChange={e => handleInputChange(e, 'name')}
           />
           <InputDefault
             label="Mật khẩu"
             name="password"
             type="password"
             show={false}
-            onChange={(e) => handleInputChange(e, 'password')}
+            onChange={handleInputChange}
           />
           <InputDefault
             label="Ngày sinh"
@@ -85,7 +105,7 @@ export default function ModalEditHead({
             id="birthday"
             className="input-field w-full border-none outline-none ml-5"
             value={userEdit?.birthday}
-            onChange={(e) => handleInputChange(e, 'birthday')}
+            onChange={e => handleInputChange(e, 'birthday')}
           />
           <InputDefault
             label="Gender"
@@ -101,9 +121,8 @@ export default function ModalEditHead({
             onChange={(value) => handleInputChange({ target: { value } }, 'subject_id')}
             options={subjectOptions}
           />
-          
         </div>
-        <div className="flex justify-between mt-8">
+        <div className="flex justify-end mt-4 gap-6">
           <button
             onClick={handleClose}
             className="btn bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
