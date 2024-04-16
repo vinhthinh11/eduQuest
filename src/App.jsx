@@ -20,8 +20,6 @@ import Chat from './pages/Chat.jsx';
 import Statistic from './pages/Statistic.jsx';
 import ProfileForm from './components/ProfileForm.jsx';
 
-
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -55,6 +53,7 @@ const App = () => (
           <Route path="question" element={<Question />} />
           <Route path="profile" element={<ProfileForm />} />
         </Route>
+        <Route path="reset-password" element={<ResetPassword />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

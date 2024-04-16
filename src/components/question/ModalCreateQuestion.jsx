@@ -19,34 +19,39 @@ const style = {
   border: '1px solid #000',
   borderRadius: '20px',
   boxShadow: 24,
+  height: '80vh',
+  overflow: 'auto',
   p: 4,
+  '&::-webkit-scrollbar': {
+    width: '0.4em',
+  },
 };
 const subjectOptions = [
-  { value: "1", label: "Toán" },
-  { value: "2", label: "Ngữ Văn" },
-  { value: "3", label: "Lịch sử" },
-  { value: "4", label: "Địa Lý" },
-  { value: "5", label: "Vật Lý" },
-  { value: "6", label: "Công nghệ" },
-  { value: "7", label: "GDCD" },
-  { value: "8", label: "Anh" },
-  { value: "9", label: "Hóa học" },
-  { value: "10", label: "Sinh học" },
+  { value: '1', label: 'Toán' },
+  { value: '2', label: 'Ngữ Văn' },
+  { value: '3', label: 'Lịch sử' },
+  { value: '4', label: 'Địa Lý' },
+  { value: '5', label: 'Vật Lý' },
+  { value: '6', label: 'Công nghệ' },
+  { value: '7', label: 'GDCD' },
+  { value: '8', label: 'Anh' },
+  { value: '9', label: 'Hóa học' },
+  { value: '10', label: 'Sinh học' },
 ];
 
 const levelOptions = [
-  { value: "1", label: "Dễ" },
-  { value: "2", label: "Trung bình" },
-  { value: "3", label: "Khó" },
+  { value: '1', label: 'Dễ' },
+  { value: '2', label: 'Trung bình' },
+  { value: '3', label: 'Khó' },
 ];
 
 const gradeOptions = [
-  { value: "10", label: "Khối 10" },
-  { value: "11", label: "Khối 11" },
-  { value: "12", label: "Khối 12" },
+  { value: '10', label: 'Khối 10' },
+  { value: '11', label: 'Khối 11' },
+  { value: '12', label: 'Khối 12' },
 ];
 export const FormContext = createContext();
-export default function ModalCreate({ open, setOpen,}) {
+export default function ModalCreate({ open, setOpen }) {
   const [user, setUser] = useState({ gender: 1 });
   const handleClose = () => setOpen(false);
   const { setUpdate } = useUserContext();
@@ -56,7 +61,7 @@ export default function ModalCreate({ open, setOpen,}) {
   };
 
   const handleSubmit = async () => {
-    const newUser = { ...user, username: user.question_content  };
+    const newUser = { ...user, username: user.question_content };
     try {
       await createUser('/admin/question/check-add-question', newUser);
       setOpen(false);
@@ -68,7 +73,6 @@ export default function ModalCreate({ open, setOpen,}) {
     }
   };
   console.log('««««« user »»»»»', user);
-  
 
   return (
     <Modal
@@ -76,9 +80,8 @@ export default function ModalCreate({ open, setOpen,}) {
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
-      
     >
-      <Box sx={{ ...style, width: { width: '60%' }, }}>
+      <Box sx={{ ...style, width: { width: '50%' } }}>
         <Typography
           id="modal-modal-title"
           sx={{
@@ -133,7 +136,7 @@ export default function ModalCreate({ open, setOpen,}) {
           onChange={e => handleInputChange(e, 'correct_answer')}
           value={user.correct_answer}
         />
-        
+
         <InputDefault
           label="Chương"
           name="unit"
@@ -141,30 +144,36 @@ export default function ModalCreate({ open, setOpen,}) {
           onChange={e => handleInputChange(e, 'unit')}
           value={user.unit}
         />
-        <div className='flex justify-around pt-3'>
-        <SelectInput
+        <div className="flex justify-around pt-3">
+          <SelectInput
             label="Môn"
             name="subject_id"
             value={user?.subject_id}
-            onChange={(value) => handleInputChange({ target: { value } }, 'subject_id')}
+            onChange={value =>
+              handleInputChange({ target: { value } }, 'subject_id')
+            }
             options={subjectOptions}
           />
           <SelectInput
             label="Cấp độ"
             name="level_id"
             value={user?.level_id}
-            onChange={(value) => handleInputChange({ target: { value } }, 'level_id')}
+            onChange={value =>
+              handleInputChange({ target: { value } }, 'level_id')
+            }
             options={levelOptions}
           />
           <SelectInput
             label="Khối"
             name="grade_id"
             value={user?.grade_id}
-            onChange={(value) => handleInputChange({ target: { value } }, 'grade_id')}
+            onChange={value =>
+              handleInputChange({ target: { value } }, 'grade_id')
+            }
             options={gradeOptions}
           />
         </div>
-  
+
         <div className="flex justify-end gap-6 mt-4">
           <button
             onClick={handleClose}

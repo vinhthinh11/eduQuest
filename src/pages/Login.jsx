@@ -1,28 +1,34 @@
 import Button from '@mui/joy/Button';
 import { Checkbox, FormLabel, Input } from '@mui/joy';
+import CircularProgress from '@mui/material/CircularProgress';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 function Login() {
   const { register, formState, handleSubmit } = useForm();
+  const [loading, setLoading] = useState(false);
   const { errors } = formState;
   const navigate = useNavigate();
   const onSubmit = async ({ email, password }) => {
     try {
-      const { data } = await axios.post(
-        'http://127.0.0.1:8000/api/login',
-        { email, password }
-      );
+      setLoading(true);
+      const { data } = await axios.post('http://127.0.0.1:8000/api/login', {
+        email,
+        password,
+      });
       localStorage.setItem('token', data.access_token);
       toast.success('Đăng nhập thành công');
       setTimeout(() => {
-        navigate('/admin');
+        // navigate('/admin');
       }, 1000);
     } catch (error) {
       console.log(error);
       toast.error();
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -75,14 +81,20 @@ function Login() {
               </Link>
             </div>
 
-            <Button
-              variant="solid"
-              color="primary"
-              type="submit"
-              onClick={function () {}}
-            >
-              Sign in
-            </Button>
+            {loading ? (
+              <Button>
+                <CircularProgress color="inherit" size={30} />
+              </Button>
+            ) : (
+              <Button
+                variant="solid"
+                color="primary"
+                type="submit"
+                onClick={function () {}}
+              >
+                Sign in
+              </Button>
+            )}
           </form>
         </div>
         <div className="flex-1 rounded-lg">
