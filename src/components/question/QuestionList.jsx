@@ -1,5 +1,5 @@
 import { useEffect, useState} from "react";
-import { getQuestion, getStatus, getSubjects } from "../../services/apiQuestion.js";
+import { getQuestion, getSubjects } from "../../services/apiQuestion.js";
 import toast from "react-hot-toast";
 import { Box, CircularProgress } from "@mui/material";
 import { UserContextProvider } from "../../admin/UserContextProvider.jsx";
@@ -18,7 +18,7 @@ const status_ids = {
   5: "Không duyệt",
 };
 
-const QuestionItem = ({ question, index, openModal, openDeleteModal, subjects, status }) => {
+const QuestionItem = ({ question, index, openModal, openDeleteModal, subjects}) => {
   return (
     <>
       <tr className="hover:bg-slate-200" key={index}>
@@ -81,15 +81,13 @@ function QuestionList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [subjects, setSubjects] = useState({});
-  const [status, setStatus] = useState({});
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [questionData, subjectsData, statusData] = await Promise.all([
+        const [questionData, subjectsData] = await Promise.all([
           getQuestion(),
           getSubjects(),
-          getStatus()
         ]);
         
         setQuestions(questionData.data?.data);
@@ -99,12 +97,7 @@ function QuestionList() {
           return acc;
         }, {});
         setSubjects(subjectMap);
-        
-        const statusMap = statusData.data.status.reduce((acc, status) => {
-          acc[status.status_id] = status.detail;
-          return acc;
-        }, {});
-        setStatus(statusMap);
+      
         
       } catch (err) {
         toast.error(err.message || "Có lỗi xảy ra");

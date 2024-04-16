@@ -7,20 +7,21 @@ import Box from '@mui/material/Box';
 import toast from 'react-hot-toast';
 import { useUserContext } from '../../admin/UserContextProvider.jsx';
 import ModalDeleteHead from './ModalDeleteHead.jsx';
+import { getSubjects } from '../../services/apiQuestion.js';
 
 
-const subjectMap = {
-  1: 'Toán',
-  2: 'Ngữ Văn',
-  3: 'Lịch sử',
-  4: 'Địa Lý',
-  5: 'Vật Lý',
-  6: 'Công nghệ',
-  7: 'GDCD',
-  8: 'Anh',
-  9: 'Hóa học',
-  10: 'Sinh học',
-};
+// const subjectMap = {
+//   1: 'Toán',
+//   2: 'Ngữ Văn',
+//   3: 'Lịch sử',
+//   4: 'Địa Lý',
+//   5: 'Vật Lý',
+//   6: 'Công nghệ',
+//   7: 'GDCD',
+//   8: 'Anh',
+//   9: 'Hóa học',
+//   10: 'Sinh học',
+// };
 const HeadTable = () => {
   const [users, setUsers] = useState([]);
   const [perPage, setPerPage] = useState(10);
@@ -33,6 +34,8 @@ const HeadTable = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [isFetching, setIsFetching] = useState(false);
   const usersData = useRef([]);
+
+  const [subjects, setSubjects] = useState({});
 
   useEffect(() => {
     async function fetchUser() {
@@ -48,6 +51,27 @@ const HeadTable = () => {
       }
     }
     fetchUser();
+    async function fetchData() {
+      try {
+        const [ subjectsData] = await Promise.all([
+          getSubjects(),
+        ]);
+                
+        const subjectMap = subjectsData.data.subjects.reduce((acc, subject) => {
+          acc[subject.subject_id] = subject.subject_detail;
+          return acc;
+        }, {});
+        setSubjects(subjectMap);
+      
+        
+      } catch (err) {
+        toast.error(err.message || "Có lỗi xảy ra");
+      } finally {
+        setIsFetching(false);
+      }
+    }
+  
+    fetchData();
   }, [update]);
 
   const handlePerPageChange = e => {
@@ -194,7 +218,7 @@ const HeadTable = () => {
                   </td>
                   <td className="px-3 py-4 break-all">{user.birthday}</td>
                   <td className="px-3 py-4 break-all">
-                  {subjectMap[user.subject_id]}
+                  {subjects[user.subject_id]}
                 </td>
                   <td className="px-3 py-4 whitespace-nowrap">
                     <div className="flex flex-col">

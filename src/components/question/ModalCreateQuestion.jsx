@@ -56,12 +56,12 @@ export default function ModalCreate({ open, setOpen,}) {
   };
 
   const handleSubmit = async () => {
-    const newUser = { ...user, username: user.question_content  };
+    const newQuestion = { ...user, username: user.question_content  };
     try {
-      await createUser('/admin/question/check-add-question', newUser);
+      await createUser('/admin/question/check-add-question', newQuestion);
       setOpen(false);
       toast.success('Thêm mới thành công');
-      console.log('««««« newUser »»»»»', newUser);
+      console.log('««««« newQuestion »»»»»', newQuestion);
       setUpdate(pre => !pre);
     } catch (err) {
       toast.error('Thêm mới thất bại');
