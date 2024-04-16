@@ -6,6 +6,7 @@ import { updateUser } from '../../services/apiUser.js';
 import InputDefault from '../InputDefault.jsx';
 import toast from 'react-hot-toast';
 import SelectInput from '../SelectInput.jsx';
+import { updateQuestion } from '../../services/apiQuestion.js';
 
 const style = {
   position: 'absolute',
@@ -19,48 +20,51 @@ const style = {
   border: '1px solid #000',
   borderRadius: '20px',
   boxShadow: 24,
+  height: '80vh',
+  overflow: 'auto',
   p: 4,
+  '&::-webkit-scrollbar': {
+    width: '0.4em',
+  },
 };
 
 const subjectOptions = [
-  { value: "1", label: "Toán" },
-  { value: "2", label: "Ngữ Văn" },
-  { value: "3", label: "Lịch sử" },
-  { value: "4", label: "Địa Lý" },
-  { value: "5", label: "Vật Lý" },
-  { value: "6", label: "Công nghệ" },
-  { value: "7", label: "GDCD" },
-  { value: "8", label: "Anh" },
-  { value: "9", label: "Hóa học" },
-  { value: "10", label: "Sinh học" },
+  { value: '1', label: 'Toán' },
+  { value: '2', label: 'Ngữ Văn' },
+  { value: '3', label: 'Lịch sử' },
+  { value: '4', label: 'Địa Lý' },
+  { value: '5', label: 'Vật Lý' },
+  { value: '6', label: 'Công nghệ' },
+  { value: '7', label: 'GDCD' },
+  { value: '8', label: 'Anh' },
+  { value: '9', label: 'Hóa học' },
+  { value: '10', label: 'Sinh học' },
 ];
 
 const levelOptions = [
-  { value: "1", label: "Dễ" },
-  { value: "2", label: "Trung bình" },
-  { value: "3", label: "Khó" },
+  { value: '1', label: 'Dễ' },
+  { value: '2', label: 'Trung bình' },
+  { value: '3', label: 'Khó' },
 ];
 
 const gradeOptions = [
-  { value: "10", label: "Khối 10" },
-  { value: "11", label: "Khối 11" },
-  { value: "12", label: "Khối 12" },
+  { value: '10', label: 'Khối 10' },
+  { value: '11', label: 'Khối 11' },
+  { value: '12', label: 'Khối 12' },
 ];
 
-export default function ModalEditQuestion({  open, setOpen, question, }) {
+export default function ModalEditQuestion({ open, setOpen, question }) {
   const [userEdit, setUserEdit] = useState(question);
   const handleClose = () => setOpen(false);
-  
 
   const handleInputChange = (e, field) => {
     setUserEdit(pre => ({ ...pre, [field]: e.target.value }));
   };
-  
-  const handleConfirm = async () => {
 
+  const handleConfirm = async () => {
     console.log(userEdit);
     try {
-      await updateUser('/admin/question/update', userEdit);
+      await updateQuestion('/admin/question/update', userEdit);
       setOpen(false);
       toast.success('Cập nhật thành công');
       // setUpdate(pre => !pre);
@@ -79,7 +83,7 @@ export default function ModalEditQuestion({  open, setOpen, question, }) {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={{ ...style, width: { width: '60%' }, }}>
+      <Box sx={{ ...style, width: { width: '60%' } }}>
         <Typography
           id="modal-modal-title"
           sx={{
@@ -90,7 +94,7 @@ export default function ModalEditQuestion({  open, setOpen, question, }) {
             textTransform: 'uppercase',
           }}
         >
-          Chỉnh sửa thông tin 
+          Chỉnh sửa thông tin
         </Typography>
         <InputDefault
           label="Câu hỏi"
@@ -134,7 +138,7 @@ export default function ModalEditQuestion({  open, setOpen, question, }) {
           onChange={e => handleInputChange(e, 'correct_answer')}
           value={userEdit?.correct_answer}
         />
-        
+
         <InputDefault
           label="Chương"
           name="unit"
@@ -142,30 +146,36 @@ export default function ModalEditQuestion({  open, setOpen, question, }) {
           onChange={e => handleInputChange(e, 'unit')}
           value={userEdit?.unit}
         />
-        <div className='flex justify-around pt-3'>
-        <SelectInput
+        <div className="flex justify-around pt-3">
+          <SelectInput
             label="Môn"
             name="subject_id"
             value={userEdit?.subject_id}
-            onChange={(value) => handleInputChange({ target: { value } }, 'subject_id')}
+            onChange={value =>
+              handleInputChange({ target: { value } }, 'subject_id')
+            }
             options={subjectOptions}
           />
           <SelectInput
             label="Cấp độ"
             name="level_id"
             value={userEdit?.level_id}
-            onChange={(value) => handleInputChange({ target: { value } }, 'level_id')}
+            onChange={value =>
+              handleInputChange({ target: { value } }, 'level_id')
+            }
             options={levelOptions}
           />
           <SelectInput
             label="Khối"
             name="grade_id"
             value={userEdit?.grade_id}
-            onChange={(value) => handleInputChange({ target: { value } }, 'grade_id')}
+            onChange={value =>
+              handleInputChange({ target: { value } }, 'grade_id')
+            }
             options={gradeOptions}
           />
         </div>
-  
+
         <div className="flex justify-end gap-6 mt-4">
           <button
             onClick={handleClose}

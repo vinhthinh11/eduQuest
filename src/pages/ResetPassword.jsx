@@ -2,6 +2,8 @@ import Button from '@mui/joy/Button';
 import { FormLabel, Input } from '@mui/joy';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function ResetPassword() {
   const { register, formState, handleSubmit } = useForm();
@@ -23,7 +25,7 @@ function ResetPassword() {
           >
             <div className="flex flex-col gap-2">
               <FormLabel htmlFor="email" sx={{ color: 'rgb(24, 165, 236)' }}>
-                Email adress
+                Email address
               </FormLabel>
               <Input
                 color="neutral"
@@ -36,19 +38,28 @@ function ResetPassword() {
                 <p className="text-red-500 mt-1">{errors.email.message}</p>
               )}
             </div>
-            <Button
-              className="self-end"
-              variant="solid"
-              sx={{
-                color: 'white',
-                background: '#068ede',
-                ':hover': { background: '#007bff' },
-              }}
-              type="submit"
-              onClick={function () {}}
-            >
-              Reset password
-            </Button>
+            <div className="flex justify-between items-center">
+              <Link
+                to={'/login'}
+                className="flex gap-2 items-center bg-lime-500 px-2 py-1 rounded-md text-white hover:bg-lime-500 max-h-[42px] text-sm font-medium"
+              >
+                <ArrowBackIcon />
+                <span>Back to login</span>
+              </Link>
+              <Button
+                className="self-end"
+                variant="solid"
+                sx={{
+                  color: 'white',
+                  background: '#068ede',
+                  ':hover': { background: '#007bff' },
+                }}
+                type="submit"
+                onClick={function () {}}
+              >
+                Reset password
+              </Button>
+            </div>
           </form>
         </div>
         <div className="flex-1 rounded-r-lg">

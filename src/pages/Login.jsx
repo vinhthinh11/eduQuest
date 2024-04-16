@@ -22,8 +22,8 @@ function Login() {
       localStorage.setItem('token', data.access_token);
       toast.success('Đăng nhập thành công');
       setTimeout(() => {
-        // navigate('/admin');
-      }, 1000);
+        navigate('/admin');
+      }, 700);
     } catch (error) {
       console.log(error);
       toast.error();
