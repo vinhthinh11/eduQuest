@@ -1,140 +1,241 @@
-import { useEffect, useRef, useState } from 'react';
-import { getUser } from '../../services/apiUser.js';
-import ModalEditClass from './ModalEditClass.jsx';
-import ModalDelete from '../admin/ModalDelete.jsx';
-import SearchComponent from '../SearchComponent.jsx';
-import toast from 'react-hot-toast';
+import React, { useState, useEffect, useRef } from "react";
+import { getClass, getTeachers } from "../../services/apiClass";
+import { Box, Button, CircularProgress, Input } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import ModalEditClass from "../class/ModalEditClass";
+import ModalDeleteClass from "./ModalDeleteClass";
+import { useUserContext } from '../../admin/UserContextProvider.jsx';
+import FormClassModal from '../../components/class/FormClassModal';
+
+import toast from "react-hot-toast";
 
 const ClassTable = () => {
-  const [users, setUsers] = useState([]);
+  const [classes, setClasses] = useState([]);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  // State để mở modal edit và delete
+  const { update } = useUserContext();
+
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  // State để lưu thông tin user cần sửa hoặc xoá
-  const [currentUser, setCurrentUser] = useState({});
-  const usersData = useRef([]);
+  const [currentClass, setCurrentClass] = useState({});
+  const [isFetching, setIsFetching] = useState(false);
+  const [teachers, setTeachers] = useState([]);
+  const classesData = useRef([]);
+
+  const [showAdminForm, setShowAdminForm] = useState(false);
+
+
 
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser('/admin/classes/get');
-        setUsers(data.data);
-        usersData.current = data.data;
+        setIsFetching(true);
+        const { data } = await getClass();
+        setClasses(data.data);
+        classesData.current = data.data;
       } catch (err) {
-        toast.log(err.message);
+        toast.error(err.message);
+      } finally {
+        setIsFetching(false);
       }
     }
     fetchUser();
+  }, [update]);
+
+  useEffect(() => {
+    async function fetchTeacheres() {
+      try {
+        const { data } = await getTeachers();
+        setTeachers(data.data);
+      } catch (err) {
+        toast.error(err.message);
+      }
+    }
+    fetchTeacheres();
   }, []);
 
-  // Các hàm xử lý phân trang và thay đổi số lượng item trên trang
-  const handlePerPageChange = e => {
+  const handlePerPageChange = (e) => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
 
-  const totalPages = Math.ceil(users?.length / perPage) || 1;
-  const visibleUsers = users?.slice(
+  const totalPages = Math.ceil(classesData.current?.length / perPage) || 1;
+
+  const visibleClasses = classes?.slice(
     (currentPage - 1) * perPage,
     currentPage * perPage
   );
+
   const handlePrevPage = () => {
-    setCurrentPage(prevPage => prevPage - 1);
+    setCurrentPage((prevPage) => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage(prevPage => prevPage + 1);
+    setCurrentPage((prevPage) => prevPage + 1);
   };
 
-  return (
-    <div className="content">
-      <div className="preload hidden" id="preload">
-        <img src="#" alt="" />
-      </div>
-      <div className="flex justify-between items-center border-b-2 border-edu py-3 pl-3 pr-3">
-        <div>
-          <label htmlFor="perPage">Hiển thị </label>
-          <select id="perPage" value={perPage} onChange={handlePerPageChange}>
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={30}>30</option>
-          </select>
-        </div>
-        <SearchComponent
-          usersData={usersData.current}
-          users={users}
-          setUsers={setUsers}
+  // const handleSearch = async (keySearch) => {
+  //   try {
+  //     console.log("Search query:", keySearch);
+  //     setIsFetching(true);
+  //     const { data } = await searchClass(keySearch);
+  //     setClasses(data.list);
+  //     classesData.current = data.list;
+  //   } catch (err) {
+  //     console.error(err);
+  //   } finally {
+  //     setIsFetching(false);
+  //   }
+  // };
+
+  if (isFetching)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          width: "100vw",
+          height: "100vh",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <CircularProgress
+          size={80}
+          sx={{
+            translateX: "-10px",
+            translateY: "-10px",
+          }}
         />
-      </div>
-      <div className="overflow-x-auto">
+      </Box>
+    );
+  return (
+    <>
+      <div className="content">
+        <div className="preload hidden" id="preload">
+          <img src="#" alt="" />
+        </div>
+        <div className="flex justify-between items-center border-b-2 border-edu py-3 pl-3 pr-3">
+          <div>
+            <label htmlFor="perPage">Hiển thị </label>
+            <select id="perPage" value={perPage} onChange={handlePerPageChange}>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={30}>30</option>
+            </select>
+          </div>
+
+          <div className="title-content">
+          <div className="text-center  w-full">
+            <div >
+              <button
+                className="text-sm font-medium bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
+                onClick={() => {
+                  setShowAdminForm(true);
+                }}
+              >
+                Thêm mới lớp
+              </button>
+            </div>
+           
+          </div>
+        </div>
+        <FormClassModal open={showAdminForm} setOpen={setShowAdminForm} />
+          <div className="flex max-h-2 gap-3 items-center">
+            <Input
+              endDecorator={<SearchIcon />}
+              slotProps={{
+                input: {
+                  placeholder: "Enter here to search ...",
+                  type: "text",
+                },
+              }}
+              sx={{
+                "--Input-minHeight": "30px",
+                "--Input-radius": "10px",
+                ":focus": { outline: "none" },
+                ":active": { outline: "none" },
+              }}
+            />
+            <Button
+              // onClick={handleSearch}
+              variant="contained"
+              sx={{
+                backgroundColor: "#836FFF",
+                "&:hover": { backgroundColor: "#624afd" },
+              }}
+            >
+              Search
+            </Button>
+          </div>
+        </div>
+
         <table
           className="min-w-full divide-y divide-gray-200"
-          id="table_admins"
+          id="table_classes"
         >
           <thead className="bg-gray-50 text-slate-700">
             <tr>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
               >
                 ID
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
               >
                 Tên lớp
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
               >
                 Khối
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
               >
                 Chủ nhiệm
               </th>
               <th
                 scope="col"
-                className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
               >
                 <p className="material-icons">settings</p>
               </th>
             </tr>
           </thead>
-          <tbody
-            className="bg-white divide-y divide-gray-200 "
-            id="list_admins"
-          >
-            {visibleUsers?.map(user => (
-              <tr key={user.class_id}>
-                <td className="px-3 py-4 whitespace-wrap">{user.class_id}</td>
-                <td className="px-3 py-4 break-all">{user.class_name}</td>
-                <td className="px-3 py-4 break-all">{user.grade_id}</td>
-                <td className="px-3 py-4 break-all">{user.teacher_id}</td>
+          <tbody>
+            {visibleClasses?.map((multiClass, index) => (
+              <tr className="hover:bg-slate-200" key={index}>
+                <td className="px-3 py-4 text-center">{multiClass.class_id}</td>
+                <td className="px-3 py-4 text-center">
+                  {multiClass.class_name}
+                </td>
+                <td className="px-3 py-4 text-center">{multiClass.grade_id}</td>
+                <td className="px-3 py-4 text-center">
+                  {teachers.find(
+                    (teacher) => teacher.teacher_id === multiClass.teacher_id
+                  )?.name || "Unknown"}
+                </td>
 
                 <td className="px-3 py-4 whitespace-nowrap">
                   <div className="flex flex-col">
-                    <button
-                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2"
-                      onClick={() => {
-                        setCurrentUser(user);
-                        setOpenEdit(true);
-                      }}
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2"
+                    onClick={() => {
+                      setCurrentClass(multiClass);
+                      setOpenEdit(true);
+                    }}
                     >
                       Sửa
                     </button>
-                    <button
-                      className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
-                      onClick={() => {
-                        setCurrentUser(user);
-                        setOpenDelete(true); // Mở modal delete khi ấn vào nút "Xoá"
-                      }}
+                    <button className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+                    onClick={() => {
+                      setCurrentClass(multiClass);
+                      setOpenDelete(true);
+                    }}
                     >
                       Xoá
                     </button>
@@ -145,22 +246,17 @@ const ClassTable = () => {
           </tbody>
         </table>
         <ModalEditClass
-          open={openEdit}
-          setOpen={setOpenEdit}
-          user={currentUser}
+          open={openEdit} 
+          setOpen={setOpenEdit} 
+          user={currentClass} 
         />
-        <ModalDelete
-          open={openDelete}
-          setOpen={setOpenDelete}
-          user={currentUser}
-          // handleDeleteUser={(userId) => {
-          //   const updatedUsers = users.filter((user) => user.id !== userId);
-          //   setUsers(updatedUsers);
-          //   setOpenDelete(false); // Đóng modal delete sau khi xóa
-          // }}
-        />
+          <ModalDeleteClass
+            open={openDelete}
+            setOpen={setOpenDelete}
+            user={currentClass}
+          />
       </div>
-      <div className="flex justify-end px-10 border-t-2 border-black pt-4">
+      <div className="flex justify-center px-10 border-t-2 border-black pt-4">
         <div className="pagination pb-3 flex gap-2">
           <button
             className="min-w-20 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
@@ -184,7 +280,7 @@ const ClassTable = () => {
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -144,6 +144,13 @@ const AdminLeftSideBar = () => {
             </ListItemButton>
             <ListItemButton
               sx={style}
+              selected={selectedIndex === 11}
+              onClick={() => handleOnClick(11, '/admin/subject')}
+            >
+              <ListItemText primary="Quản lý môn" />
+            </ListItemButton>
+            <ListItemButton
+              sx={style}
               selected={selectedIndex === 7}
               onClick={() => handleOnClick(7, '/admin/question')}
             >

@@ -43,7 +43,7 @@ const QuestionItem = ({ question, index, openModal, openDeleteModal, subjects}) 
           <span>Khối {question?.grade_id}</span>
           <br />
         </td>
-        <td className="px-3 py-4 text-center w-1/6">{question?.teacher_id}</td>
+        <td className="px-3 py-4 text-center w-1/6">{question?.teacher.name}</td>
         <td className="px-3 py-4 text-center w-1/6">
           {status_ids[question?.status_id]}
         </td>

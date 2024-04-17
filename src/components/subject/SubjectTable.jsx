@@ -1,19 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { getUser } from "../../services/apiUser.js";
 import { getSubject } from "../../services/apiSubject.js";
-import ModalEdit from "../head/ModalEditHead.jsx";
+import ModalEditSubject from "../subject/ModalEditSubject.jsx";
 import SearchComponent from "../SearchComponent.jsx";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import toast from "react-hot-toast";
 import { useUserContext } from "../../admin/UserContextProvider.jsx";
-import ModalDeleteHead from "./ModalDeleteHead.jsx";
+import ModalDeleteSubject from "./ModalDeleteSubject.jsx";
 
-const HeadTable = () => {
+const SubjectHead = () => {
   const [users, setUsers] = useState([]);
   const [perPage, setPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [subjects, setSubjects] = useState([]);
   const { update } = useUserContext();
 
   // State to manage modal visibility and current user
@@ -24,32 +22,19 @@ const HeadTable = () => {
   const usersData = useRef([]);
 
   useEffect(() => {
-    async function fetchUser() {
+    setIsFetching(true);
+    async function fetchSubjects() {
       try {
-        setIsFetching(true);
-        const { data } = await getUser("/admin/truongbomon/get");
-        setUsers(data.data);
-        usersData.current = data.data;
+        const { data } = await getSubject();
+        setUsers(data.data); 
       } catch (err) {
         toast.error(err.message);
       } finally {
         setIsFetching(false);
       }
     }
-    fetchUser();
-  }, [update]);
-
-  useEffect(() => {
-    async function fetchSubjects() {
-      try {
-        const { data } = await getSubject();
-        setSubjects(data.data);
-      } catch (err) {
-        toast.error(err.message);
-      }
-    }
     fetchSubjects();
-  }, []);
+  }, [update]);
 
   const handlePerPageChange = (e) => {
     setPerPage(parseInt(e.target.value));
@@ -120,91 +105,37 @@ const HeadTable = () => {
               <tr>
                 <th
                   scope="col"
-                  className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                  className="w-1/4 px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
                 >
                   ID
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                  className="w-1/4 px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
                 >
-                  Avatar
+                  Tên Môn
                 </th>
                 <th
                   scope="col"
-                  className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
-                >
-                  Tên
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
-                >
-                  Email
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
-                >
-                  Giới Tính
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3 text-left text-xs font-medium  uppercase tracking-wider"
-                >
-                  Ngày Sinh
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3 text-left text-xs font-medium  uppercase tracking-wider"
-                >
-                  Môn
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                  className="w-1/4 px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
                 >
                   <p className="material-icons">settings</p>
                 </th>
               </tr>
             </thead>
-            <tbody
-              className="bg-white divide-y divide-gray-200 "
-              id="list_admins"
-            >
+            <tbody className="bg-white divide-y divide-gray-200 ">
               {visibleUsers?.map((user, index) => (
                 <tr className="hover:bg-slate-200" key={index}>
-                  <td className="px-3 py-4 whitespace-wrap">
-                    {user.subject_head_id}
+                  <td className="w-1/4 px-3 py-4 text-center">
+                    {user.subject_id}
                   </td>
-                  <td className="px-3 py-4 whitespace-wrap">
-                    <img
-                      className="w-10 h-10 rounded-full"
-                      src={`https://i.pravatar.cc/${
-                        Math.floor(Math.random() * 500) + 1
-                      }`}
-                      alt={user.name}
-                    />
+                  <td className="w-1/4 px-3 py-4 text-center">
+                    {user.subject_detail}
                   </td>
-                  <td className="px-3 py-4 break-all">{user.name}</td>
-                  <td className="px-3 py-4 break-all">{user.email}</td>
-                  <td className="px-3 py-4 break-all">
-                    {user.gender_id === 1
-                      ? "Nam"
-                      : user.gender_id === 2
-                      ? "Nữ"
-                      : "Không xác định"}
-                  </td>
-                  <td className="px-3 py-4 break-all">{user.birthday}</td>
-                  <td className="px-3 py-4 break-all">
-                    {subjects.find(
-                      (subject) => subject.subject_id === user.subject_id
-                    )?.subject_detail || "Unknown"}
-                  </td>
-                  <td className="px-3 py-4 whitespace-nowrap">
-                    <div className="flex flex-col">
+                  <td className="w-1/4 px-3 py-4 text-center">
+                    <div className="flex justify-center items-center">
                       <button
-                        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2"
+                        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded mb-2 !important"
                         onClick={() => {
                           setCurrentUser(user);
                           setOpenEdit(true);
@@ -213,7 +144,7 @@ const HeadTable = () => {
                         Sửa
                       </button>
                       <button
-                        className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+                        className="bg-red-500 hover:bg-red-600 text-white py-2 px-3 rounded ml-5 !important"
                         onClick={() => {
                           setCurrentUser(user);
                           setOpenDelete(true);
@@ -227,8 +158,13 @@ const HeadTable = () => {
               ))}
             </tbody>
           </table>
-          <ModalEdit open={openEdit} setOpen={setOpenEdit} user={currentUser} />
-          <ModalDeleteHead
+
+          <ModalEditSubject
+            open={openEdit}
+            setOpen={setOpenEdit}
+            user={currentUser}
+          />
+          <ModalDeleteSubject
             open={openDelete}
             setOpen={setOpenDelete}
             user={currentUser}
@@ -262,4 +198,4 @@ const HeadTable = () => {
     );
 };
 
-export default HeadTable;
+export default SubjectHead;

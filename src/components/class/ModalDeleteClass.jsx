@@ -18,17 +18,17 @@ const style = {
   p: 3,
 };
 
-const ModalDelete = ({ open, setOpen, user, userType = 'subject_head' }) => {
+const ModalDeleteClass = ({ open, setOpen, user, userType = 'class' }) => {
   const { setUpdate } = useUserContext();
   const handleClose = () => setOpen(false);
 
   const handleDelete = async () => {
     try {
       const data = await deleteUser(
-        `/admin/truongbomon/delete`,
-        user[`${userType}_id`] 
+        '/admin/class/delete',
+        user[`${userType}_id`]
       );
-      setUpdate(prev => !prev);
+      setUpdate(pre => !pre);
       handleClose();
       toast.success(data.data.message);
     } catch (err) {
@@ -48,7 +48,7 @@ const ModalDelete = ({ open, setOpen, user, userType = 'subject_head' }) => {
           Cảnh báo
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          {user && `Xác nhận xoá tài khoản ${user.name}?`} 
+          Xác nhận xoá tài khoản 
         </Typography>
         <Box
           sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2, gap: 1 }}
@@ -71,4 +71,4 @@ const ModalDelete = ({ open, setOpen, user, userType = 'subject_head' }) => {
   );
 };
 
-export default ModalDelete;
+export default ModalDeleteClass;

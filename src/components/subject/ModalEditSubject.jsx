@@ -3,11 +3,9 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import InputDefault from  '../InputDefault.jsx';
-import SelectInput from "../SelectInput";
-import { updateUser } from '../../services/apiUser.js';
-import { getSubject } from '../../services/apiSubject.js'; 
 import toast from 'react-hot-toast';
 import { useUserContext } from '../../admin/UserContextProvider.jsx';
+import { updateUser } from '../../services/apiUser.js';
 
 const style = {
   position: 'absolute',
@@ -25,9 +23,8 @@ const style = {
 };
 
 
-export default function ModalEdit({ open, setOpen, user }) {
+export default function ModalEditSubject({ open, setOpen, user }) {
   const [userEdit, setUserEdit] = useState(user);
-  const [subjectOptions, setSubjectOptions] = useState([]);
   const handleClose = () => setOpen(false);
   const { setUpdate } = useUserContext();
 
@@ -41,7 +38,7 @@ export default function ModalEdit({ open, setOpen, user }) {
     }
     console.log(userEdit);
     try {
-      await updateUser('/admin/truongbomon/update', userEdit);
+      await updateUser('/admin/mon/update', userEdit);
       setOpen(false);
       toast.success('Cập nhật thành công');
       setUpdate(pre => !pre);
@@ -49,20 +46,7 @@ export default function ModalEdit({ open, setOpen, user }) {
       toast.error(error.message);
     }
   };
-  useEffect(() => {
-    async function fetchSubjects() {
-      try {
-        const { data } = await getSubject(); 
-        setSubjectOptions(data.data.map(subject => ({
-          value: subject.subject_id.toString(),
-          label: subject.subject_detail
-        })));
-      } catch (error) {
-        toast.error(error.message);
-      }
-    }
-    fetchSubjects();
-  }, []);
+ 
 
   useEffect(() => {
     setUserEdit(user);
@@ -85,45 +69,15 @@ export default function ModalEdit({ open, setOpen, user }) {
             textTransform: 'uppercase',
           }}
         >
-          Chỉnh sửa thông tin {userEdit?.name}
+          Chỉnh sửa thông tin 
         </Typography>
         <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-y-10 md:gap-x-10 whitespace-nowrap">
           <InputDefault
-            label="Tên"
-            name="name"
+            label="Tên môn"
+            name="subject_detail"
             type="text"
-            value={userEdit?.name}
-            onChange={e => handleInputChange(e, 'name')}
-          />
-          <InputDefault
-            label="Mật khẩu"
-            name="password"
-            type="password"
-            show={false}
-            onChange={handleInputChange}
-          />
-          <InputDefault
-            label="Ngày sinh"
-            type="date"
-            name="birthday"
-            id="birthday"
-            className="input-field w-full border-none outline-none ml-5"
-            value={userEdit?.birthday}
-            onChange={e => handleInputChange(e, 'birthday')}
-          />
-          <InputDefault
-            label="Gender"
-            name="gender_id"
-            type="text"
-            onChange={e => handleInputChange(e, 'gender_id')}
-            value={userEdit.gender_id}
-          />
-          <SelectInput
-            label="Môn"
-            name="subject_id"
-            value={userEdit?.subject_id}
-            onChange={(value) => handleInputChange({ target: { value } }, 'subject_id')}
-            options={subjectOptions}
+            value={userEdit?.subject_detail}
+            onChange={e => handleInputChange(e, 'subject_detail')}
           />
         </div>
         <div className="flex justify-end mt-4 gap-6">

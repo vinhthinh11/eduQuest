@@ -1,8 +1,14 @@
-import { useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import InputDefault from '../InputDefault.jsx';
+import { createClass, getTeachers } from '../../services/apiClass.js';
+import SelectInput from "../SelectInput.jsx";
+import toast from "react-hot-toast";
+import { useUserContext } from '../../admin/UserContextProvider.jsx';
+
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -17,19 +23,60 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-// const user = { name, username, password, gender, birthday ,email};
+
+const gradeOptions = [
+  { value: '9', label: 'Hãy chọn khối' },
+  { value: '10', label: 'Khối 10' },
+  { value: '11', label: 'Khối 11' },
+  { value: '12', label: 'Khối 12' },
+];
+
+export const FormContext = createContext();
+
 export default function ModalCreate({ open, setOpen }) {
-  const [user, setUser] = useState({ gender: 1 });
+  const [classes, setClasses] = useState({});
+  const [teachers, setTeachers] = useState([]);
+  const { setUpdate } = useUserContext();
+
   const handleClose = () => setOpen(false);
 
   const handleInputChange = (e, field) => {
-    setUser(pre => ({ ...pre, [field]: e.target.value }));
+    setClasses(prevClasses => ({ ...prevClasses, [field]: e.target.value }));
   };
 
-  const handleConfirm = () => {
-    console.log(user);
-    // setOpen(false);
+  const handleConfirm = async () => {
+    const newClass = { ...classes, classname: classes?.class_name  };
+    try {
+      await createClass(newClass);
+      setOpen(false);
+      toast.success('Thêm mới thành công');
+      console.log('««««« newClass »»»»»', newClass);
+      setUpdate(pre => !pre);
+    } catch (err) {
+      toast.error('Thêm mới thất bại');
+    }
   };
+
+  useEffect(() => {
+    async function fetchTeachers() {
+      try {
+        const teacherData = await getTeachers();
+
+        if (teacherData && teacherData.data && teacherData.data.data) {
+          const teacherOptions = teacherData.data.data.map((teacher) => ({
+            value: teacher.teacher_id,
+            label: teacher.name,
+          }));
+          setTeachers(teacherOptions);
+        } else {
+          toast.error("No teacher found");
+        }
+      } catch (err) {
+        toast.error(err.message);
+      }
+    }
+    fetchTeachers();
+  }, []);
 
   return (
     <Modal
@@ -55,23 +102,26 @@ export default function ModalCreate({ open, setOpen }) {
           name="class_name"
           type="text"
           onChange={e => handleInputChange(e, 'class_name')}
-          value={user.class_name}
+          value={classes?.class_name}
         />
-        <InputDefault
-          label="Khối"
-          name="subject"
-          type="text"
-          onChange={e => handleInputChange(e, 'sublect')}
-          value={user.subject}
-        />
-        <InputDefault
-          label="Giáo Viên"
+        <SelectInput
+            label="Khối"
+            name="grade_id"
+            value={classes?.grade_id}
+            onChange={value =>
+              handleInputChange({ target: { value } }, 'grade_id')
+            }
+            options={gradeOptions}
+          />
+        <SelectInput
+          label="Giáo viên"
           name="teacher_id"
-          type="text"
-          onChange={e => handleInputChange(e, 'teacher_id')}
-          value={user.teacher_id}
+          value={classes?.teacher_id}
+          onChange={(value) =>
+            handleInputChange({ target: { value } }, "teacher_id")
+          }
+          options={teachers}
         />
-      
 
         <div className="flex justify-end gap-4 mt-4">
           <button

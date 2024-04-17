@@ -9,18 +9,16 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import AdminLayout from './admin/AdminLayout.jsx';
 import ResetPassword from './pages/ResetPassword.jsx';
 import AdminPage from './admin/AdminPage.jsx';
-import User from './admin/manage/User.jsx';
 import ClassDetail from './admin/manage/ClassDetail.jsx';
 import Question from './admin/manage/Question.jsx';
 import UserDetail from './admin/manage/UserDetail.jsx';
 import HeadDetail from './admin/manage/HeadDetail.jsx';
+import SubjectDetail from './admin/manage/SubjectDetail.jsx';
 // import TeacherDetail from './admin/manage/TeacherDetail.jsx';
 import Contact from './pages/Contact.jsx';
 import Chat from './pages/Chat.jsx';
 import Statistic from './pages/Statistic.jsx';
 import ProfileForm from './components/ProfileForm.jsx';
-
-
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -49,12 +47,14 @@ const App = () => (
           <Route path="head" element={<HeadDetail />} />
           <Route path="teacher" element={<UserDetail />} />
           <Route path="student" element={<UserDetail />} />
-          <Route path="class" element={<UserDetail />} />
+          <Route path="class" element={<ClassDetail />} />
+          <Route path="subject" element={<SubjectDetail />} />
           <Route path="exam" element={<UserDetail />} />
           <Route path="statistic" element={<Statistic />} />
           <Route path="question" element={<Question />} />
           <Route path="profile" element={<ProfileForm />} />
         </Route>
+        <Route path="reset-password" element={<ResetPassword />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
