@@ -2,6 +2,7 @@ import { Button, Input } from '@mui/joy';
 import { MenuItem, Select } from '@mui/material';
 import { useEffect, useState } from "react";
 import SearchIcon from '@mui/icons-material/Search';
+import SearchComponent from '../../components/SearchComponent';
 
 
 const style = {
@@ -27,29 +28,9 @@ const QuesttionHeader = ({ setPerPage }) => {
 
   return (
     <div>
-      <div className="flex items-center py-6 justify-between px-4">
+      <div className="flex items-center py-6 justify-between px-4 border-b-2 border-edu">
         <div className="flex max-h-2 gap-3 items-center">
-          <Input
-            endDecorator={<SearchIcon />}
-            slotProps={{
-              input: { placeholder: 'Enter here to search ...', type: 'text' },
-            }}
-            sx={{
-              '--Input-minHeight': '30px',
-              '--Input-radius': '10px',
-              ':focus': { outline: 'none' },
-              ':active': { outline: 'none' },
-            }}
-          />
-          <Button
-            sx={{
-              height: '10px',
-              backgroundColor: '#836FFF',
-              ':hover': { backgroundColor: '#624afd' },
-            }}
-          >
-            Search
-          </Button>
+        <SearchComponent/>
         </div>
         <div className="flex gap-2">
           <Select

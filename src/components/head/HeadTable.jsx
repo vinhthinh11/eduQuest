@@ -27,7 +27,7 @@ const HeadTable = () => {
     async function fetchUser() {
       try {
         setIsFetching(true);
-        const { data } = await getUser("/admin/truongbomon/get");
+        const { data } = await getUser("/admin/subject-head/get");
         setUsers(data.data);
         usersData.current = data.data;
       } catch (err) {

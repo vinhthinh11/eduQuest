@@ -41,7 +41,7 @@ export default function ModalEdit({ open, setOpen, user }) {
     }
     console.log(userEdit);
     try {
-      await updateUser('/admin/truongbomon/update', userEdit);
+      await updateUser('/admin/subject-head/update', userEdit);
       setOpen(false);
       toast.success('Cập nhật thành công');
       setUpdate(pre => !pre);

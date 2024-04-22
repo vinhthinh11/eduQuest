@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { deleteUser } from '../../services/apiUser.js';
+import { deleteSubjectById } from '../../services/apiSubject.js';
 import toast from 'react-hot-toast';
 import { useUserContext } from '../../admin/UserContextProvider.jsx';
 
@@ -24,8 +24,7 @@ const ModalDeleteClass = ({ open, setOpen, user, userType = 'class' }) => {
 
   const handleDelete = async () => {
     try {
-      const data = await deleteUser(
-        '/admin/class/delete',
+      const data = await deleteSubjectById(
         user[`${userType}_id`]
       );
       setUpdate(pre => !pre);

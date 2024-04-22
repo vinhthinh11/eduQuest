@@ -33,10 +33,6 @@ export default function ModalEditSubject({ open, setOpen, user }) {
   };
 
   const handleConfirm = async () => {
-    if (userEdit.password.length > 16) {
-      delete userEdit.password;
-    }
-    console.log(userEdit);
     try {
       await updateUser('/admin/mon/update', userEdit);
       setOpen(false);

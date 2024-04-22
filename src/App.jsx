@@ -19,6 +19,11 @@ import Contact from './pages/Contact.jsx';
 import Chat from './pages/Chat.jsx';
 import Statistic from './pages/Statistic.jsx';
 import ProfileForm from './components/ProfileForm.jsx';
+import TestDetail from './components/TestDetail.jsx';
+import QuizResult from './components/resultTest.jsx';
+import TestListItem from './components/TestListItem.jsx';
+import TeacherTestDetail from './teacher/TeacherTestDetail.jsx';
+import TeacherTestListItem from './teacher/TeacherTestListItem.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -56,6 +61,14 @@ const App = () => (
         </Route>
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="*" element={<PageNotFound />} />
+        <Route path="test1/:id" element={<TestDetail />} /> 
+        <Route path="item1" element={<TestListItem />} />
+        <Route path="result" element={<QuizResult />} />
+
+
+        <Route path="test/:id" element={<TeacherTestDetail/>} />
+        <Route path="item" element={<TeacherTestListItem/>} />
+
       </Routes>
     </BrowserRouter>
     <Toaster

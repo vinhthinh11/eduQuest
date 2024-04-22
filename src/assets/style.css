@@ -1,0 +1,69 @@
+
+.test-content {
+    position: relative;
+    margin-bottom: 5px !important;
+    height: auto;
+    min-height: 505px;
+    background: white;
+}
+
+.testing-left {
+    width: 120px;
+    overflow-y: auto;
+    display: inline-block;
+    position: fixed;
+    transition: 0.5s;
+    height: calc(100% - 88px);
+    background: white;
+    border: 2px solid #836FFF;
+}
+
+.testing-right {
+    display: inline-block;
+    float: right;
+    overflow-y: auto;
+    width: calc(100% - 125px);
+    padding-top: 5px;
+}
+
+.title {
+    height: 100%;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0;
+    margin: 5px 20px;
+    color: white !important;
+}
+
+.brand-logo {
+    color: #fff;
+    display: inline-block;
+    font-size: 2.1rem;
+    padding: 0;
+}
+
+.item-quest {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.tick {
+	color: green;
+	font-size: 1.5rem;
+	margin-right: 10px;
+}
+
+.mt-19 {
+    margin-top: 66px;
+}
+
+.menu-link {
+    display: block;
+    padding-left: 15px;
+    padding-bottom: 3px;
+    font-size: 16px;
+    font-weight: bold;
+}

@@ -25,7 +25,7 @@ const ModalDelete = ({ open, setOpen, user, userType = 'subject_head' }) => {
   const handleDelete = async () => {
     try {
       const data = await deleteUser(
-        `/admin/truongbomon/delete`,
+        `/admin/subject-head/delete`,
         user[`${userType}_id`] 
       );
       setUpdate(prev => !prev);
