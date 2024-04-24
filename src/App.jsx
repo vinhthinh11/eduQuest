@@ -107,12 +107,12 @@ const App = () => (
 
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="*" element={<PageNotFound />} />
-        <Route path="test1/:id" element={<TestDetail />} />
+        {/* <Route path="test1/:id" element={<TestDetail />} />
         <Route path="item1" element={<TestListItem />} />
         <Route path="result" element={<QuizResult />} />
 
         <Route path="test/:id" element={<TeacherTestDetail />} />
-        <Route path="item" element={<TeacherTestListItem />} />
+        <Route path="item" element={<TeacherTestListItem />} /> */}
       </Routes>
     </BrowserRouter>
     <Toaster
