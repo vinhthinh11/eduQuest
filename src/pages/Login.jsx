@@ -6,6 +6,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { getUser } from '../services/apiUser.js';
 
 function Login() {
   const { register, formState, handleSubmit } = useForm();
@@ -21,8 +22,28 @@ function Login() {
       });
       localStorage.setItem('token', data.access_token);
       toast.success('Đăng nhập thành công');
+      // Chuyển trang tai đây
+      const { data: user } = await getUser('/me');
+      let endPoint;
+      switch (user.permission) {
+        case 1:
+          endPoint = '/admin';
+          break;
+        case 2:
+          endPoint = '/teacher';
+          break;
+        case 3:
+          endPoint = '/student';
+          break;
+        case 4:
+          endPoint = '/subject-head';
+          break;
+        default:
+          toast.error('Không xác định quyền truy cập');
+          break;
+      }
       setTimeout(() => {
-        navigate('/admin');
+        navigate(endPoint);
       }, 700);
     } catch (error) {
       console.log(error);

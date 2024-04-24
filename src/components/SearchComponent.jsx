@@ -10,7 +10,6 @@ const SearchComponent = ({ usersData, setUsers, users }) => {
   return (
     <div className="flex max-h-2 gap-3 items-center">
       <Input
-        endDecorator={<SearchIcon />}
         slotProps={{
           input: { placeholder: 'Enter here to search ...', type: 'text' },
         }}

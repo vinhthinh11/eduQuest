@@ -1,8 +1,7 @@
 import { Button, Input } from '@mui/joy';
 import { MenuItem, Select } from '@mui/material';
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-
 
 const style = {
   maxHeight: '2rem',
@@ -23,14 +22,11 @@ const QuesttionHeader = ({ setPerPage }) => {
     setLevel(event.target.value);
   };
 
-  
-
   return (
     <div>
       <div className="flex items-center py-6 justify-between px-4">
         <div className="flex max-h-2 gap-3 items-center">
           <Input
-            endDecorator={<SearchIcon />}
             slotProps={{
               input: { placeholder: 'Enter here to search ...', type: 'text' },
             }}

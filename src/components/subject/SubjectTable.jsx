@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import { getSubject } from "../../services/apiSubject.js";
-import ModalEditSubject from "../subject/ModalEditSubject.jsx";
-import SearchComponent from "../SearchComponent.jsx";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-import toast from "react-hot-toast";
-import { useUserContext } from "../../admin/UserContextProvider.jsx";
-import ModalDeleteSubject from "./ModalDeleteSubject.jsx";
+import { useEffect, useRef, useState } from 'react';
+import { getSubject } from '../../services/apiSubject.js';
+import ModalEditSubject from '../subject/ModalEditSubject.jsx';
+import SearchComponent from '../SearchComponent.jsx';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import toast from 'react-hot-toast';
+import { useUserContext } from '../../admin/UserContextProvider.jsx';
+import ModalDeleteSubject from './ModalDeleteSubject.jsx';
 
 const SubjectHead = () => {
   const [users, setUsers] = useState([]);
@@ -26,7 +26,7 @@ const SubjectHead = () => {
     async function fetchSubjects() {
       try {
         const { data } = await getSubject();
-        setUsers(data.data); 
+        setUsers(data.data);
       } catch (err) {
         toast.error(err.message);
       } finally {
@@ -36,7 +36,7 @@ const SubjectHead = () => {
     fetchSubjects();
   }, [update]);
 
-  const handlePerPageChange = (e) => {
+  const handlePerPageChange = e => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
@@ -48,28 +48,28 @@ const SubjectHead = () => {
   );
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    setCurrentPage(prevPage => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage(prevPage => prevPage + 1);
   };
   if (isFetching)
     return (
       <Box
         sx={{
-          display: "flex",
-          width: "100vw",
-          height: "100vh",
-          alignItems: "center",
-          justifyContent: "center",
+          display: 'flex',
+          width: '100vw',
+          height: '100vh',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <CircularProgress
           size={80}
           sx={{
-            translateX: "-10px",
-            translateY: "-10px",
+            translateX: '-10px',
+            translateY: '-10px',
           }}
         />
       </Box>

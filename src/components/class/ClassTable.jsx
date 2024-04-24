@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
-import { getClass, getTeachers } from "../../services/apiClass";
-import { Box, Button, CircularProgress, Input } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import ModalEditClass from "../class/ModalEditClass";
-import ModalDeleteClass from "./ModalDeleteClass";
+import React, { useState, useEffect, useRef } from 'react';
+import { getClass, getTeachers } from '../../services/apiClass';
+import { Box, Button, CircularProgress, Input } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import ModalEditClass from '../class/ModalEditClass';
+import ModalDeleteClass from './ModalDeleteClass';
 import { useUserContext } from '../../admin/UserContextProvider.jsx';
 import FormClassModal from '../../components/class/FormClassModal';
 
-import toast from "react-hot-toast";
+import toast from 'react-hot-toast';
 
 const ClassTable = () => {
   const [classes, setClasses] = useState([]);
@@ -23,8 +23,6 @@ const ClassTable = () => {
   const classesData = useRef([]);
 
   const [showAdminForm, setShowAdminForm] = useState(false);
-
-
 
   useEffect(() => {
     async function fetchUser() {
@@ -54,7 +52,7 @@ const ClassTable = () => {
     fetchTeacheres();
   }, []);
 
-  const handlePerPageChange = (e) => {
+  const handlePerPageChange = e => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
@@ -67,11 +65,11 @@ const ClassTable = () => {
   );
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    setCurrentPage(prevPage => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage(prevPage => prevPage + 1);
   };
 
   // const handleSearch = async (keySearch) => {
@@ -92,18 +90,18 @@ const ClassTable = () => {
     return (
       <Box
         sx={{
-          display: "flex",
-          width: "100vw",
-          height: "100vh",
-          alignItems: "center",
-          justifyContent: "center",
+          display: 'flex',
+          width: '100vw',
+          height: '100vh',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <CircularProgress
           size={80}
           sx={{
-            translateX: "-10px",
-            translateY: "-10px",
+            translateX: '-10px',
+            translateY: '-10px',
           }}
         />
       </Box>
@@ -125,43 +123,41 @@ const ClassTable = () => {
           </div>
 
           <div className="title-content">
-          <div className="text-center  w-full">
-            <div >
-              <button
-                className="text-sm font-medium bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
-                onClick={() => {
-                  setShowAdminForm(true);
-                }}
-              >
-                Thêm mới lớp
-              </button>
+            <div className="text-center  w-full">
+              <div>
+                <button
+                  className="text-sm font-medium bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
+                  onClick={() => {
+                    setShowAdminForm(true);
+                  }}
+                >
+                  Thêm mới lớp
+                </button>
+              </div>
             </div>
-           
           </div>
-        </div>
-        <FormClassModal open={showAdminForm} setOpen={setShowAdminForm} />
+          <FormClassModal open={showAdminForm} setOpen={setShowAdminForm} />
           <div className="flex max-h-2 gap-3 items-center">
             <Input
-              endDecorator={<SearchIcon />}
               slotProps={{
                 input: {
-                  placeholder: "Enter here to search ...",
-                  type: "text",
+                  placeholder: 'Enter here to search ...',
+                  type: 'text',
                 },
               }}
               sx={{
-                "--Input-minHeight": "30px",
-                "--Input-radius": "10px",
-                ":focus": { outline: "none" },
-                ":active": { outline: "none" },
+                '--Input-minHeight': '30px',
+                '--Input-radius': '10px',
+                ':focus': { outline: 'none' },
+                ':active': { outline: 'none' },
               }}
             />
             <Button
               // onClick={handleSearch}
               variant="contained"
               sx={{
-                backgroundColor: "#836FFF",
-                "&:hover": { backgroundColor: "#624afd" },
+                backgroundColor: '#836FFF',
+                '&:hover': { backgroundColor: '#624afd' },
               }}
             >
               Search
@@ -217,25 +213,27 @@ const ClassTable = () => {
                 <td className="px-3 py-4 text-center">{multiClass.grade_id}</td>
                 <td className="px-3 py-4 text-center">
                   {teachers.find(
-                    (teacher) => teacher.teacher_id === multiClass.teacher_id
-                  )?.name || "Unknown"}
+                    teacher => teacher.teacher_id === multiClass.teacher_id
+                  )?.name || 'Unknown'}
                 </td>
 
                 <td className="px-3 py-4 whitespace-nowrap">
                   <div className="flex flex-col">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2"
-                    onClick={() => {
-                      setCurrentClass(multiClass);
-                      setOpenEdit(true);
-                    }}
+                    <button
+                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2"
+                      onClick={() => {
+                        setCurrentClass(multiClass);
+                        setOpenEdit(true);
+                      }}
                     >
                       Sửa
                     </button>
-                    <button className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
-                    onClick={() => {
-                      setCurrentClass(multiClass);
-                      setOpenDelete(true);
-                    }}
+                    <button
+                      className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
+                      onClick={() => {
+                        setCurrentClass(multiClass);
+                        setOpenDelete(true);
+                      }}
                     >
                       Xoá
                     </button>
@@ -246,15 +244,15 @@ const ClassTable = () => {
           </tbody>
         </table>
         <ModalEditClass
-          open={openEdit} 
-          setOpen={setOpenEdit} 
-          user={currentClass} 
+          open={openEdit}
+          setOpen={setOpenEdit}
+          user={currentClass}
         />
-          <ModalDeleteClass
-            open={openDelete}
-            setOpen={setOpenDelete}
-            user={currentClass}
-          />
+        <ModalDeleteClass
+          open={openDelete}
+          setOpen={setOpenDelete}
+          user={currentClass}
+        />
       </div>
       <div className="flex justify-center px-10 border-t-2 border-black pt-4">
         <div className="pagination pb-3 flex gap-2">

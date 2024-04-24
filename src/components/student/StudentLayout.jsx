@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
-import AdminLeftSideBar from './AdminLeftSideBar.jsx';
-import AdminHeader from './AdminHeader.jsx';
+import AdminHeader from '../../admin/AdminHeader.jsx';
+import StudentLeftSideBar from './StudentLeftSideBar.jsx';
 
-function AdminLayout() {
+function TeacherLayout() {
   return (
     <div className="flex w-full min-h-full">
-      <AdminLeftSideBar />
+      <StudentLeftSideBar />
       <div className="basis-3/4 w-full min-h-full flex flex-col">
         <AdminHeader />
         <Outlet />
@@ -14,4 +14,4 @@ function AdminLayout() {
   );
 }
 
-export default AdminLayout;
+export default TeacherLayout;
