@@ -2,12 +2,7 @@ import { useEffect, useState } from 'react';
 import ModalDelete from './ModalDelete.jsx';
 import ModalEdit from './ModalEdit.jsx';
 
-function UserComponent({
-  userType = 'admin',
-  users,
-  perPage = 10,
-  currentPage = 1,
-}) {
+function UserComponent({ userType, users, perPage = 10, currentPage = 1 }) {
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [currentUser, setCurrentUser] = useState({});

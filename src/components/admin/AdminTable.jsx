@@ -27,9 +27,7 @@ const AdminTable = ({ userType = { userType: 'admin', userPath: '' } }) => {
       dynamicComponent = <ClassComponent classes={users} />;
       break;
     default:
-      dynamicComponent = (
-        <UserComponent userType={userType?.userType} users={users} />
-      );
+      dynamicComponent = <UserComponent userType={userType} users={users} />;
       break;
   }
 
