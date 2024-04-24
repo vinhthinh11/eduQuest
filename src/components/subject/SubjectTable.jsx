@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import toast from 'react-hot-toast';
 import { useUserContext } from '../../admin/UserContextProvider.jsx';
 import ModalDeleteSubject from './ModalDeleteSubject.jsx';
+import FormSubjectModal from '../../components/subject/FormSubJectModal.jsx';
 
 const SubjectHead = () => {
   const [users, setUsers] = useState([]);
@@ -20,6 +21,8 @@ const SubjectHead = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [isFetching, setIsFetching] = useState(false);
   const usersData = useRef([]);
+
+  const [showAdminForm, setShowAdminForm] = useState(false);
 
   useEffect(() => {
     setIsFetching(true);
@@ -89,6 +92,22 @@ const SubjectHead = () => {
               <option value={30}>30</option>
             </select>
           </div>
+          <div className="title-content">
+            <div className="text-center  w-full">
+              <div>
+                <button
+                  className="text-sm font-medium  bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
+                  onClick={() => {
+                    setShowAdminForm(true);
+                  }}
+                >
+                  Thêm mới trưởng bộ môn
+                </button>
+              </div>
+            </div>
+          </div>
+          <FormSubjectModal open={showAdminForm} setOpen={setShowAdminForm} />
+
           <SearchComponent
             usersData={usersData.current}
             users={users}
@@ -135,7 +154,7 @@ const SubjectHead = () => {
                   <td className="w-1/4 px-3 py-4 text-center">
                     <div className="flex justify-center items-center">
                       <button
-                        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded mb-2 !important"
+                        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-3 rounded !important"
                         onClick={() => {
                           setCurrentUser(user);
                           setOpenEdit(true);

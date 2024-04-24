@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SUBJECT_HEAD } from './config.js';
+import { SUBJECT_URL, DELETE_SUBJECT_URL } from './config.js';
 
 export const getSubject = async () => {
   try {

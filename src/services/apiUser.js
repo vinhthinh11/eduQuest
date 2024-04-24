@@ -21,7 +21,7 @@ export const deleteUser = async (endpoint, id) => {
         Authorization: `Bearer ${bearerToken}`,
       },
       data: {
-        id: id,
+        id
       },
     });
     return result;

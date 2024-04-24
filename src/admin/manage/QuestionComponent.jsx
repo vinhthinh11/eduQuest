@@ -2,6 +2,7 @@ import { Button, Input } from '@mui/joy';
 import { MenuItem, Select } from '@mui/material';
 import { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
+import SearchComponent from '../../components/SearchComponent';
 
 const style = {
   maxHeight: '2rem',
@@ -24,7 +25,7 @@ const QuesttionHeader = ({ setPerPage }) => {
 
   return (
     <div>
-      <div className="flex items-center py-6 justify-between px-4">
+      <div className="flex items-center py-6 justify-between px-4 border-b-2 border-edu">
         <div className="flex max-h-2 gap-3 items-center">
           <Input
             slotProps={{
@@ -46,6 +47,7 @@ const QuesttionHeader = ({ setPerPage }) => {
           >
             Search
           </Button>
+          <SearchComponent />
         </div>
         <div className="flex gap-2">
           <Select

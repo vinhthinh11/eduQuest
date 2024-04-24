@@ -28,7 +28,7 @@ export default function ModalUploadFileQuestion({ open, setOpen, type }) {
   const handleConfirm = async (e) => {
     e.preventDefault();
     try {
-      await uploadUserByFile("/admin/check-add-admin-via-file", file);
+      await uploadUserByFile("/admin/question/check-add-question-via-file", file);
       toast.success("Thêm câu hỏi thành công");
     } catch (error) {
       toast.error("Thêm câu hỏi thất bại");

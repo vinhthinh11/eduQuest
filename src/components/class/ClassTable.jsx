@@ -8,6 +8,7 @@ import { useUserContext } from '../../admin/UserContextProvider.jsx';
 import FormClassModal from '../../components/class/FormClassModal';
 
 import toast from 'react-hot-toast';
+import SearchComponent from '../SearchComponent.jsx';
 
 const ClassTable = () => {
   const [classes, setClasses] = useState([]);
@@ -138,30 +139,7 @@ const ClassTable = () => {
           </div>
           <FormClassModal open={showAdminForm} setOpen={setShowAdminForm} />
           <div className="flex max-h-2 gap-3 items-center">
-            <Input
-              slotProps={{
-                input: {
-                  placeholder: 'Enter here to search ...',
-                  type: 'text',
-                },
-              }}
-              sx={{
-                '--Input-minHeight': '30px',
-                '--Input-radius': '10px',
-                ':focus': { outline: 'none' },
-                ':active': { outline: 'none' },
-              }}
-            />
-            <Button
-              // onClick={handleSearch}
-              variant="contained"
-              sx={{
-                backgroundColor: '#836FFF',
-                '&:hover': { backgroundColor: '#624afd' },
-              }}
-            >
-              Search
-            </Button>
+            <SearchComponent />
           </div>
         </div>
 
