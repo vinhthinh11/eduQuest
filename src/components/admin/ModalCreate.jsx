@@ -24,7 +24,7 @@ const style = {
 
 export const FormContext = createContext();
 export default function ModalCreate({ open, setOpen, userType = 'admin' }) {
-  const [user, setUser] = useState({ gender: 1 });
+  const [user, setUser] = useState({ gender: 3 });
   const handleClose = () => setOpen(false);
   const { setUpdate } = useUserContext();
 
@@ -33,7 +33,8 @@ export default function ModalCreate({ open, setOpen, userType = 'admin' }) {
   };
 
   const handleSubmit = async () => {
-    const newUser = { ...user, username: user.name };
+    // Chuyển đổi giới tính sang kiểu số
+    const newUser = { ...user, username: user.name, gender: parseInt(user.gender) };
     try {
       await createUser(`/${userType}/create`, newUser);
       setOpen(false);
@@ -88,7 +89,7 @@ export default function ModalCreate({ open, setOpen, userType = 'admin' }) {
         <InputDefault
           label="Gender"
           name="gender"
-          type="text"
+          type="number" 
           onChange={e => handleInputChange(e, 'gender')}
           value={user.gender}
         />

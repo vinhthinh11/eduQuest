@@ -24,3 +24,5 @@ export const DELETE_SUBJECT_URL = 'http://127.0.0.1:8000/api/admin/subject/delet
 
 
 export const TEST_DETAIL_URL = 'http://127.0.0.1:8000/api/admin/test/detail/{test_code}';
+
+
