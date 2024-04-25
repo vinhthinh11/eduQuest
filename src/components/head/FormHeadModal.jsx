@@ -37,9 +37,9 @@ export default function ModalCreate({ open, setOpen }) {
   };
 
   const handleSubmit = async () => {
-    const newHead = { ...user, username: user.name };
+    const newHead = { ...user, username: user.name, gender_id: user.gender };
     try {
-      await createUser("/admin/subject-head/create", newHead);
+      await createUser('/admin/subject-head/create', newHead);
       setOpen(false);
       toast.success("Thêm mới thành công");
       setUpdate((prev) => !prev);
@@ -47,13 +47,12 @@ export default function ModalCreate({ open, setOpen }) {
       toast.error("Thêm mới thất bại");
     }
   };
-
+  
   useEffect(() => {
     async function fetchData() {
       try {
         setLoading(true);
         const subjectsData = await getSubject();
-        console.log("Subjects data:", subjectsData);
 
         if (subjectsData && subjectsData.data && subjectsData.data.data) {
           const subjectOptions = subjectsData.data.data.map((subject) => ({

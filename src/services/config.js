@@ -15,6 +15,7 @@ export const UPDATE_CLASS_URL = 'http://127.0.0.1:8000/api/admin/class/update';
 export const TEACHER_URL = 'http://127.0.0.1:8000/api/admin/teacher/get';
 
 export const SUBJECT_URL = 'http://127.0.0.1:8000/api/admin/subject/get';
+export const SUBJECT_HEAD = 'http://127.0.0.1:8000/api/admin/subject-head/get';
 export const DELETE_SUBJECT_URL =
   'http://127.0.0.1:8000/api/admin/subject/delete';
 

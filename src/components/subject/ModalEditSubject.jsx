@@ -34,7 +34,7 @@ export default function ModalEditSubject({ open, setOpen, user }) {
 
   const handleConfirm = async () => {
     try {
-      await updateUser('/admin/mon/update', userEdit);
+      await updateUser('/admin/subject/update', userEdit);
       setOpen(false);
       toast.success('Cập nhật thành công');
       setUpdate(pre => !pre);

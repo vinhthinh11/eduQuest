@@ -30,14 +30,13 @@ export default function ModalEdit({ open, setOpen, user, userType = 'admin' }) {
     setUserEdit(pre => ({ ...pre, [field]: e.target.value }));
   };
 
-  console.log(userType);
   const handleConfirm = async () => {
     try {
-      console.log(userEdit);
-      // await updateUser(
-      //   `/${userType.userType}/${userType.userPath}/update`,
-      //   userEdit
-      // );
+       console.log(userEdit);
+       await updateUser(
+        `/${userType.userType}/${userType.userPath}/update`,
+        userEdit
+       );
       setOpen(false);
       toast.success('Cập nhật thành công');
       setUpdate(pre => !pre);

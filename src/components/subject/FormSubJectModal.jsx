@@ -37,7 +37,7 @@ export default function ModalCreate({ open, setOpen }) {
   const handleSubmit = async () => {
     const newHead = { ...user, username: user.name };
     try {
-      await createUser("/admin/mon/create", newHead);
+      await createUser('/admin/subject/create', newHead);
       setOpen(false);
       toast.success("Thêm mới thành công");
       setUpdate((prev) => !prev);

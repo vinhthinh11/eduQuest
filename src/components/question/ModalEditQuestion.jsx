@@ -47,9 +47,10 @@ export default function ModalEditQuestion({ open, setOpen, question }) {
   const handleClose = () => setOpen(false);
 
   const handleInputChange = (e, field) => {
-    setUserEdit((pre) => ({ ...pre, [field]: e.target.value }));
+    const value = typeof e === 'object' ? e.target.value : e;
+    setUserEdit((pre) => ({ ...pre, [field]: value }));
   };
-
+  
   const handleConfirm = async () => {
     console.log(userEdit);
     try {
@@ -147,6 +148,14 @@ export default function ModalEditQuestion({ open, setOpen, question }) {
           onChange={(e) => handleInputChange(e, "unit")}
           value={userEdit?.unit}
         />
+        <InputDefault
+          label="Gợi ý"
+          name="suggest"
+          type="text"
+          onChange={(e) => handleInputChange(e, 'suggest')}
+          value={userEdit?.suggest}
+        />
+       
         <div className="flex justify-around pt-3">
           <SelectInput
             label="Môn"
