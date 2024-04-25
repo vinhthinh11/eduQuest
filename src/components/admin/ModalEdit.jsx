@@ -32,12 +32,12 @@ export default function ModalEdit({ open, setOpen, user, userType = 'admin' }) {
   };
 
   const handleConfirm = async () => {
-    if (userEdit.password.length > 16) {
-      delete userEdit.password;
-    }
-    console.log(userEdit);
     try {
-      await updateUser(`/${userType}/update`, userEdit);
+       console.log(userEdit);
+       await updateUser(
+        `/${userType.userType}/${userType.userPath}/update`,
+        userEdit
+       );
       setOpen(false);
       toast.success('Cập nhật thành công');
       setUpdate(pre => !pre);
@@ -67,7 +67,7 @@ export default function ModalEdit({ open, setOpen, user, userType = 'admin' }) {
             textTransform: 'uppercase',
           }}
         >
-          {`Chỉnh sửa ${userType}`}
+          {`Chỉnh sửa ${userType?.userType}`}
         </Typography>
         <div className="grid grid-cols-1 md:grid-cols-2 mt-8 gap-y-10 md:gap-x-10 whitespace-nowrap">
           <InputDefault

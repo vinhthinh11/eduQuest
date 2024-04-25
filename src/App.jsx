@@ -19,11 +19,11 @@ import Contact from './pages/Contact.jsx';
 import Chat from './pages/Chat.jsx';
 import Statistic from './pages/Statistic.jsx';
 import ProfileForm from './components/ProfileForm.jsx';
-import TestDetail from './components/TestDetail.jsx';
-import QuizResult from './components/resultTest.jsx';
-import TestListItem from './components/TestListItem.jsx';
-import TeacherTestDetail from './teacher/TeacherTestDetail.jsx';
-import TeacherTestListItem from './teacher/TeacherTestListItem.jsx';
+import ProtectedRoute from './pages/ProtectedRoute.jsx';
+import SubjectHeadLayout from './components/head/SubjectHeadLayout.jsx';
+import TeacherLayout from './components/teacher/TeacherLayout.jsx';
+import StudentLayout from './components/student/StudentLayout.jsx';
+import StudentDoTest from './components/test/StudentDoTest.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,32 +43,76 @@ const App = () => (
       <Routes>
         <Route path="/" element={<Navigate replace to="/login" />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/reset" element={<ResetPassword />} />
         <Route path="contact" element={<Contact />} />
         <Route path="chat" element={<Chat />} />
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute permissions={1}>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<AdminPage />} />
           <Route path="admin" element={<UserDetail />} />
           <Route path="head" element={<HeadDetail />} />
           <Route path="teacher" element={<UserDetail />} />
           <Route path="student" element={<UserDetail />} />
           <Route path="class" element={<ClassDetail />} />
+          <Route path="subject-head" element={<UserDetail />} />
           <Route path="subject" element={<SubjectDetail />} />
-          <Route path="exam" element={<UserDetail />} />
+          <Route path="test" element={<UserDetail />} />
           <Route path="statistic" element={<Statistic />} />
           <Route path="question" element={<Question />} />
           <Route path="profile" element={<ProfileForm />} />
         </Route>
+
+        <Route
+          path="/subject-head"
+          element={
+            <ProtectedRoute permissions={4}>
+              <SubjectHeadLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="test" element={<UserDetail />} />
+        </Route>
+        <Route
+          path="/teacher"
+          element={
+            <ProtectedRoute permissions={2}>
+              <TeacherLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="test" element={<UserDetail />} />
+
+          <Route path="question" element={<UserDetail />} />
+          <Route path="student" element={<UserDetail />} />
+          <Route path="class" element={<UserDetail />} />
+        </Route>
+        <Route
+          path="/student"
+          element={
+            <ProtectedRoute permissions={3}>
+              <StudentLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="test" element={<UserDetail />} />
+          <Route path="test/:test_code" element={<StudentDoTest />} />
+          <Route path="practice" element={<UserDetail />} />
+          <Route path="score" element={<UserDetail />} />
+        </Route>
+
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="*" element={<PageNotFound />} />
-        <Route path="test1/:id" element={<TestDetail />} /> 
+        {/* <Route path="test1/:id" element={<TestDetail />} />
         <Route path="item1" element={<TestListItem />} />
         <Route path="result" element={<QuizResult />} />
 
-
-        <Route path="test/:id" element={<TeacherTestDetail/>} />
-        <Route path="item" element={<TeacherTestListItem/>} />
-
+        <Route path="test/:id" element={<TeacherTestDetail />} />
+        <Route path="item" element={<TeacherTestListItem />} /> */}
       </Routes>
     </BrowserRouter>
     <Toaster

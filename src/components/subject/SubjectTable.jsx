@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import { getSubject } from "../../services/apiSubject.js";
-import ModalEditSubject from "../subject/ModalEditSubject.jsx";
-import SearchComponent from "../SearchComponent.jsx";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
-import toast from "react-hot-toast";
-import { useUserContext } from "../../admin/UserContextProvider.jsx";
-import ModalDeleteSubject from "./ModalDeleteSubject.jsx";
+import { useEffect, useRef, useState } from 'react';
+import { getSubject } from '../../services/apiSubject.js';
+import ModalEditSubject from '../subject/ModalEditSubject.jsx';
+import SearchComponent from '../SearchComponent.jsx';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import toast from 'react-hot-toast';
+import { useUserContext } from '../../admin/UserContextProvider.jsx';
+import ModalDeleteSubject from './ModalDeleteSubject.jsx';
 import FormSubjectModal from '../../components/subject/FormSubJectModal.jsx';
 
 const SubjectHead = () => {
@@ -29,7 +29,7 @@ const SubjectHead = () => {
     async function fetchSubjects() {
       try {
         const { data } = await getSubject();
-        setUsers(data.data); 
+        setUsers(data.data);
       } catch (err) {
         toast.error(err.message);
       } finally {
@@ -39,7 +39,7 @@ const SubjectHead = () => {
     fetchSubjects();
   }, [update]);
 
-  const handlePerPageChange = (e) => {
+  const handlePerPageChange = e => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
@@ -51,28 +51,28 @@ const SubjectHead = () => {
   );
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    setCurrentPage(prevPage => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage(prevPage => prevPage + 1);
   };
   if (isFetching)
     return (
       <Box
         sx={{
-          display: "flex",
-          width: "100vw",
-          height: "100vh",
-          alignItems: "center",
-          justifyContent: "center",
+          display: 'flex',
+          width: '100vw',
+          height: '100vh',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         <CircularProgress
           size={80}
           sx={{
-            translateX: "-10px",
-            translateY: "-10px",
+            translateX: '-10px',
+            translateY: '-10px',
           }}
         />
       </Box>
@@ -93,22 +93,21 @@ const SubjectHead = () => {
             </select>
           </div>
           <div className="title-content">
-          <div className="text-center  w-full">
-            <div>
-              <button
-                className="text-sm font-medium  bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
-                onClick={() => {
-                  setShowAdminForm(true);
-                }}
-              >
-                Thêm mới môn
-              </button>
+            <div className="text-center  w-full">
+              <div>
+                <button
+                  className="text-sm font-medium  bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
+                  onClick={() => {
+                    setShowAdminForm(true);
+                  }}
+                >
+                  Thêm mới trưởng bộ môn
+                </button>
+              </div>
             </div>
-            
           </div>
-        </div>
-        <FormSubjectModal open={showAdminForm} setOpen={setShowAdminForm} />
-       
+          <FormSubjectModal open={showAdminForm} setOpen={setShowAdminForm} />
+
           <SearchComponent
             usersData={usersData.current}
             users={users}

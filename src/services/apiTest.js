@@ -1,43 +1,42 @@
 import axios from 'axios';
-import { TEST_DETAIL_URL } from './config.js';
+import { USER_URL } from './config.js';
 
+export const createTest = async (endpoint, test) => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    await axios.post(`${USER_URL}/${endpoint}`, test, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+  } catch (err) {
+    console.log(err.response.data);
+    throw new Error(err.response.data.error);
+  }
+};
 export const getTestDetail = async endpoint => {
-    try {
-      const bearerToken = localStorage.getItem('token');
-      const users = await axios.get(`${TEST_DETAIL_URL}${endpoint}`, {
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-      });
-      return users;
-    } catch (err) {
-      throw new Error(err);
-    }
-  };
-
-export const fetchTestDetail  = async () => {
-    try {
-      const bearerToken = localStorage.getItem('token');
-      const users = await axios.get('http://127.0.0.1:8000/api/admin/test/detail/204521', {
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-      });
-      return users;
-    } catch (err) {
-      throw new Error(err);
-    }
-  };
-export const fetchTestTime   = async () => {
-    try {
-      const bearerToken = localStorage.getItem('token');
-      const users = await axios.get('http://127.0.0.1:8000/api/admin/test/get', {
-        headers: {
-          Authorization: `Bearer ${bearerToken}`,
-        },
-      });
-      return users;
-    } catch (err) {
-      throw new Error(err);
-    }
-  };
+  try {
+    const bearerToken = localStorage.getItem('token');
+    return await axios.get(`${USER_URL}/${endpoint}`, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+  } catch (err) {
+    console.log(err.response.data);
+    throw new Error(err.response.data.error);
+  }
+};
+export const updateTest = async (endpoint, data) => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    return await axios.put(`${USER_URL}/${endpoint}`, data, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+  } catch (err) {
+    console.log(err.response.data);
+    throw new Error(err.response.data.error);
+  }
+};

@@ -5,37 +5,44 @@ import ModalUploadFile from '../../components/admin/ModalUploadFile';
 import { useLocation } from 'react-router-dom';
 import { UserContextProvider } from '../UserContextProvider.jsx';
 
-const linkUser = {
-  admin: 'admin',
-  teacher: 'admin/teacher',
-  student: 'admin/student',
-  head: 'admin/head',
-  class: 'admin/class',
-  question: 'admin/question',
-  exam: 'admin/exam',
-};
 function UserDetail() {
-  const [showAdminForm, setShowAdminForm] = useState(false);
+  const [showAdminForm, setShowAdminForm] = useState(0);
   const [showFileUpload, setShowFileUpload] = useState(false);
   const location = useLocation();
+  // get current user type
+  const userType = location.pathname.split('/').at(-2); // student, teacher, admin, head
+  // get current user path
   const userPath = location.pathname.split('/').at(-1);
-  const userType = linkUser[userPath];
+  const userLink = { userPath, userType };
+  const handleShowDynamicForm = () => {
+    switch (userPath) {
+      case 'test':
+        setShowAdminForm(1);
+        break;
+      case 'question':
+        setShowAdminForm(2);
+        break;
+      case 'class':
+        setShowAdminForm(3);
+        break;
+      default:
+        setShowAdminForm(4);
+        break;
+    }
+  };
 
   return (
     <UserContextProvider>
       <div className=" flex flex-col">
         <div className="w-full">
-          <AdminTable userType={userType} />
+          <AdminTable userType={userLink} />
         </div>
         <div className="title-content">
           <div className="text-center grid grid-cols-2 gap-4 w-full border-t-2 border-edu">
             <div className={showAdminForm ? 'border-b-2 border-edu' : ''}>
               <button
                 className="text-sm font-medium my-4 bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
-                onClick={() => {
-                  setShowAdminForm(true);
-                  setShowFileUpload(false);
-                }}
+                onClick={handleShowDynamicForm}
               >
                 {`Thêm mới ${userPath}`}
               </button>
@@ -55,7 +62,7 @@ function UserDetail() {
         </div>
         <ModalCreate
           open={showAdminForm}
-          userType={userPath}
+          userType={userLink}
           setOpen={setShowAdminForm}
         />
         <ModalUploadFile open={showFileUpload} setOpen={setShowFileUpload} />

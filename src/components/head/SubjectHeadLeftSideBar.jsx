@@ -12,7 +12,7 @@ import MessageIcon from '@mui/icons-material/Message';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useState } from 'react';
-import { HomeIcon } from './AdminPage';
+import { HomeIcon } from '../../admin/AdminPage';
 import { useNavigate } from 'react-router-dom';
 import { grey } from '@mui/material/colors';
 const style = {
@@ -41,8 +41,7 @@ const style1 = {
   },
 };
 
-const AdminLeftSideBar = () => {
-  const [open, setOpen] = useState(false);
+const SubjectHeadLeftSideBar = () => {
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(1);
 
@@ -54,10 +53,6 @@ const AdminLeftSideBar = () => {
     navigate(to);
   };
 
-  const handleClick = () => {
-    setOpen(!open);
-    setSelectedIndex(12);
-  };
   return (
     <div className="basis-1/4 w-full flex flex-col min-h-full border-r-2 border-edu">
       <div className="flex flex-col justify-center items-center py-4">
@@ -87,95 +82,29 @@ const AdminLeftSideBar = () => {
         <ListItemButton
           sx={style1}
           selected={selectedIndex === 1}
-          onClick={() => handleOnClick(1, '/')}
+          onClick={() => handleOnClick(1, '/subject-head')}
         >
           <ListItemIcon>
             <HomeIcon sx={{ color: '#6b6465' }} />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItemButton>
+
         <ListItemButton
           sx={style1}
-          selected={selectedIndex === 12}
-          onClick={handleClick}
+          selected={selectedIndex === 2}
+          onClick={() => handleOnClick(2, 'test')}
         >
           <ListItemIcon>
-            <DehazeIcon />
+            <MessageIcon />
           </ListItemIcon>
-          <ListItemText primary="Menu" />
-          {open ? <ExpandLess /> : <ExpandMore />}
+          <ListItemText primary="Tests" />
         </ListItemButton>
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <ListItemButton
-              sx={style}
-              selected={selectedIndex === 2}
-              onClick={() => handleOnClick(2, 'admin')}
-            >
-              <ListItemText primary="Quản lý Admin" />
-            </ListItemButton>
-            <ListItemButton
-              sx={style}
-              selected={selectedIndex === 3}
-              onClick={() => handleOnClick(3, 'subject-head')}
-            >
-              <ListItemText primary="Quản lý Trưởng bộ môn" />
-            </ListItemButton>
-            <ListItemButton
-              sx={style}
-              selected={selectedIndex === 4}
-              onClick={() => handleOnClick(4, 'teacher')}
-            >
-              <ListItemText primary="Quản lý Giáo viên" />
-            </ListItemButton>
-            <ListItemButton
-              sx={style}
-              selected={selectedIndex === 5}
-              onClick={() => handleOnClick(5, 'class')}
-            >
-              <ListItemText primary="Quản lý Lớp" />
-            </ListItemButton>
-            <ListItemButton
-              sx={style}
-              selected={selectedIndex === 6}
-              onClick={() => handleOnClick(6, 'student')}
-            >
-              <ListItemText primary="Quản lý Học sinh" />
-            </ListItemButton>
-            <ListItemButton
-              sx={style}
-              selected={selectedIndex === 11}
-              onClick={() => handleOnClick(11, 'subject')}
-            >
-              <ListItemText primary="Quản lý Môn" />
-            </ListItemButton>
-            <ListItemButton
-              sx={style}
-              selected={selectedIndex === 7}
-              onClick={() => handleOnClick(7, 'question')}
-            >
-              <ListItemText primary="Quản lý Câu hỏi" />
-            </ListItemButton>
-            <ListItemButton
-              sx={style}
-              selected={selectedIndex === 8}
-              onClick={() => handleOnClick(8, 'test')}
-            >
-              <ListItemText primary="Quản lý Đề thi" />
-            </ListItemButton>
-            <ListItemButton
-              sx={style}
-              selected={selectedIndex === 9}
-              onClick={() => handleOnClick(9, 'statistic')}
-            >
-              <ListItemText primary="Thống kê" />
-            </ListItemButton>
-          </List>
-        </Collapse>
+
         <ListItemButton
           sx={style1}
-          selected={selectedIndex === 10}
-          onClick={() => handleOnClick(10, '/chat')}
+          selected={selectedIndex === 3}
+          onClick={() => handleOnClick(3, '/chat')}
         >
           <ListItemIcon>
             <MessageIcon />
@@ -184,8 +113,8 @@ const AdminLeftSideBar = () => {
         </ListItemButton>
         <ListItemButton
           sx={style1}
-          selected={selectedIndex === 11}
-          onClick={() => handleOnClick(11, '/contact')}
+          selected={selectedIndex === 4}
+          onClick={() => handleOnClick(4, '/contact')}
         >
           <ListItemIcon>
             <DraftsIcon />
@@ -214,4 +143,4 @@ const AdminLeftSideBar = () => {
     </div>
   );
 };
-export default AdminLeftSideBar;
+export default SubjectHeadLeftSideBar;
