@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { updateUser } from '../../services/apiUser.js';
 import InputDefault from '../InputDefault.jsx';
 import toast from 'react-hot-toast';
 import { useUserContext } from '../../admin/UserContextProvider.jsx';

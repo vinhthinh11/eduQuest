@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getClass, getTeachers } from '../../services/apiClass';
-import { Box, Button, CircularProgress, Input } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, CircularProgress } from '@mui/material';
 import ModalEditClass from '../class/ModalEditClass';
 import ModalDeleteClass from './ModalDeleteClass';
 import { useUserContext } from '../../admin/UserContextProvider.jsx';
