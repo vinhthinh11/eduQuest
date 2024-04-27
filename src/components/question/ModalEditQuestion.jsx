@@ -28,7 +28,6 @@ const style = {
   },
 };
 
-
 const levelOptions = [
   { value: "1", label: "Dễ" },
   { value: "2", label: "Trung bình" },
@@ -47,10 +46,10 @@ export default function ModalEditQuestion({ open, setOpen, question }) {
   const handleClose = () => setOpen(false);
 
   const handleInputChange = (e, field) => {
-    const value = typeof e === 'object' ? e.target.value : e;
+    const value = typeof e === "object" ? e.target.value : e;
     setUserEdit((pre) => ({ ...pre, [field]: value }));
   };
-  
+
   const handleConfirm = async () => {
     console.log(userEdit);
     try {
@@ -152,15 +151,16 @@ export default function ModalEditQuestion({ open, setOpen, question }) {
           label="Gợi ý"
           name="suggest"
           type="text"
-          onChange={(e) => handleInputChange(e, 'suggest')}
+          onChange={(e) => handleInputChange(e, "suggest")}
           value={userEdit?.suggest}
         />
-       
+
         <div className="flex justify-around pt-3">
           <SelectInput
             label="Môn"
             name="subject_id"
             value={userEdit?.subject_id}
+            type="number"
             onChange={(value) =>
               handleInputChange(
                 { target: { value: parseInt(value, 10) } },
@@ -175,16 +175,27 @@ export default function ModalEditQuestion({ open, setOpen, question }) {
           <SelectInput
             label="Cấp độ"
             name="level_id"
-            value={userEdit?.level_id}
+            type="number"
+            value={
+              userEdit?.level_id !== undefined
+                ? parseInt(userEdit?.level_id, 10)
+                : ""
+            }
             onChange={(value) =>
               handleInputChange({ target: { value } }, "level_id")
             }
             options={levelOptions}
           />
+
           <SelectInput
             label="Khối"
             name="grade_id"
-            value={userEdit?.grade_id}
+            type="number"
+            value={
+              userEdit?.grade_id !== undefined
+                ? parseInt(userEdit?.grade_id, 10)
+                : ""
+            }
             onChange={(value) =>
               handleInputChange({ target: { value } }, "grade_id")
             }

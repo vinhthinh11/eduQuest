@@ -54,7 +54,7 @@ export default function ModalCreate({ open, setOpen }) {
   };
 
   const handleSubmit = async () => {
-    const newQuestion = { ...user, status_id: 3, username: user.question_content  };
+    const newQuestion = { ...user,subject_id:user.subject_id, status_id: 3, username: user.question_content  };
     try {
       await createQuestion(newQuestion);
       setOpen(false);

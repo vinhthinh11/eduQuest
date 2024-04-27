@@ -36,6 +36,7 @@ export default function ModalEdit({ open, setOpen, user }) {
   };
 
   const handleConfirm = async () => {
+    
     if (userEdit.password.length > 16) {
       delete userEdit.password;
     }
@@ -46,7 +47,7 @@ export default function ModalEdit({ open, setOpen, user }) {
       toast.success('Cập nhật thành công');
       setUpdate(pre => !pre);
     } catch (error) {
-      toast.error(error.message);
+      toast.error('Cập nhật thất bại');
     }
   };
   useEffect(() => {
@@ -58,7 +59,7 @@ export default function ModalEdit({ open, setOpen, user }) {
           label: subject.subject_detail
         })));
       } catch (error) {
-        toast.error(error.message);
+        toast.error('Không thể tải danh sách môn học.');
       }
     }
     fetchSubjects();
@@ -114,7 +115,7 @@ export default function ModalEdit({ open, setOpen, user }) {
           <InputDefault
             label="Gender"
             name="gender_id"
-            type="text"
+            type="number"
             onChange={e => handleInputChange(e, 'gender_id')}
             value={userEdit.gender_id}
           />

@@ -170,18 +170,25 @@ const AdminLeftSideBar = () => {
             >
               <ListItemText primary="Thống kê" />
             </ListItemButton>
+        <ListItemButton
+              sx={style}
+              selected={selectedIndex === 12}
+              onClick={() => handleOnClick(12, 'notification')}
+            >
+              <ListItemText primary="Thông báo" />
+            </ListItemButton>
+            <ListItemButton
+              sx={style1}
+              selected={selectedIndex === 10}
+              onClick={() => handleOnClick(10, 'chat')}
+            >
+              <ListItemIcon>
+                <MessageIcon />
+              </ListItemIcon>
+              <ListItemText primary="Chat" />
+            </ListItemButton>
           </List>
         </Collapse>
-        <ListItemButton
-          sx={style1}
-          selected={selectedIndex === 10}
-          onClick={() => handleOnClick(10, '/chat')}
-        >
-          <ListItemIcon>
-            <MessageIcon />
-          </ListItemIcon>
-          <ListItemText primary="Chat" />
-        </ListItemButton>
         <ListItemButton
           sx={style1}
           selected={selectedIndex === 11}

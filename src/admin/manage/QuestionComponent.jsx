@@ -47,7 +47,7 @@ const QuesttionHeader = ({ setPerPage }) => {
           >
             Search
           </Button>
-          <SearchComponent />
+          {/* <SearchComponent /> */}
         </div>
         <div className="flex gap-2">
           <Select

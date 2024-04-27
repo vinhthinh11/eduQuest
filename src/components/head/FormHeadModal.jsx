@@ -8,6 +8,7 @@ import { createUser } from "../../services/apiUser.js";
 import SelectInput from "../SelectInput.jsx";
 import { useUserContext } from "../../admin/UserContextProvider.jsx";
 import { getSubject } from "../../services/apiSubject.js";
+import LoadingSpinner from "../LoadingSpinner.jsx";
 
 const style = {
   position: "absolute",
@@ -74,7 +75,9 @@ export default function ModalCreate({ open, setOpen }) {
     fetchData();
   }, []);
 
-  return (
+  return loading ? (
+    <LoadingSpinner />
+  ):(
     <Modal
       open={open}
       onClose={handleClose}

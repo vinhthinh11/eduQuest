@@ -16,7 +16,7 @@ import HeadDetail from './admin/manage/HeadDetail.jsx';
 import SubjectDetail from './admin/manage/SubjectDetail.jsx';
 // import TeacherDetail from './admin/manage/TeacherDetail.jsx';
 import Contact from './pages/Contact.jsx';
-import Chat from './pages/Chat.jsx';
+import ChatAdmin from './components/admin/ChatAdmin.jsx';
 import Statistic from './pages/Statistic.jsx';
 import ProfileForm from './components/ProfileForm.jsx';
 import ProtectedRoute from './pages/ProtectedRoute.jsx';
@@ -24,6 +24,8 @@ import SubjectHeadLayout from './components/head/SubjectHeadLayout.jsx';
 import TeacherLayout from './components/teacher/TeacherLayout.jsx';
 import StudentLayout from './components/student/StudentLayout.jsx';
 import StudentDoTest from './components/test/StudentDoTest.jsx';
+import Notification from './components/student/NotificationList.jsx';
+import NotificationDetailPage from './components/student/NotificationDetailPage.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -44,7 +46,6 @@ const App = () => (
         <Route path="/" element={<Navigate replace to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="contact" element={<Contact />} />
-        <Route path="chat" element={<Chat />} />
         <Route
           path="/admin"
           element={
@@ -65,6 +66,9 @@ const App = () => (
           <Route path="statistic" element={<Statistic />} />
           <Route path="question" element={<Question />} />
           <Route path="profile" element={<ProfileForm />} />
+          <Route path="chat" element={<ChatAdmin/>} />
+          <Route path="notification" element={<Notification />} />
+          {/* <Route path="/notification/:id" element={<NotificationDetailPage />} /> */}
         </Route>
 
         <Route
