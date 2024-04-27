@@ -1,5 +1,6 @@
 import { Box, Modal, Typography } from '@mui/material';
 import InputDefault from '../InputDefault.jsx';
+import { useState } from 'react';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -14,14 +15,11 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-function ModalCreateQuestion({
-  open,
-  handleClose,
-  userType,
-  classes,
-  handleInputChange,
-  handleSubmit,
-}) {
+function ModalCreateQuestion({ open, handleClose, userType, handleSubmit }) {
+  const [question, setQuestion] = useState({});
+  const handleInputChange = (e, field) => {
+    setQuestion(pre => ({ ...pre, [field]: e.target.value }));
+  };
   return (
     <Modal
       open={open === 2}
@@ -47,35 +45,35 @@ function ModalCreateQuestion({
           name="name"
           type="text"
           onChange={e => handleInputChange(e, 'name')}
-          value={classes?.name}
+          value={question?.name}
         />
         <InputDefault
           label="Email"
           name="email"
           type="email"
           onChange={e => handleInputChange(e, 'email')}
-          value={classes?.email}
+          value={question?.email}
         />
         <InputDefault
           label="Password"
           name="password"
           type="password"
           onChange={e => handleInputChange(e, 'password')}
-          value={classes?.password}
+          value={question?.password}
         />
         <InputDefault
           label="Gender"
           name="gender"
           type="text"
           onChange={e => handleInputChange(e, 'gender')}
-          value={classes?.gender}
+          value={question?.gender}
         />
         <InputDefault
           label="Birthday"
           name="birthday"
           type="date"
           onChange={e => handleInputChange(e, 'birthday')}
-          value={classes?.birthday}
+          value={question?.birthday}
         />
         <div className="flex justify-end gap-6 mt-4">
           <button

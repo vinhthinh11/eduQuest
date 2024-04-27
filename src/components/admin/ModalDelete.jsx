@@ -21,12 +21,18 @@ const style = {
 const ModalDelete = ({ open, setOpen, user, userType = 'admin' }) => {
   const { setUpdate } = useUserContext();
   const handleClose = () => setOpen(false);
+  let userId;
+  if (userType.userPath === 'subject-head') {
+    userId = { subject_head_id: user.subject_head_id };
+  } else {
+    userId = { [`${userType.userPath}_id`]: user[`${userType.userPath}_id`] };
+  }
 
   const handleDelete = async () => {
     try {
       const data = await deleteUser(
-        `/${userType}/delete`,
-        user[`${userType}_id`]
+        `/${userType.userType}/${userType.userPath}/delete`,
+        userId
       );
       setUpdate(pre => !pre);
       handleClose();

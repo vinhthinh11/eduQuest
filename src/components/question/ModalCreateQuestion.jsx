@@ -6,8 +6,9 @@ import InputDefault from '../InputDefault.jsx';
 import { toast } from 'react-hot-toast';
 import { useUserContext } from '../../admin/UserContextProvider.jsx';
 import SelectInput from '../SelectInput.jsx';
-import { getSubject } from "../../services/apiSubject.js";
+import { getSubject } from '../../services/apiSubject.js';
 import { createQuestion } from '../../services/apiQuestion.js';
+import SubjectInput from '../SubjectInput.jsx';
 
 const style = {
   position: 'absolute',
@@ -35,6 +36,12 @@ const levelOptions = [
   { value: '2', label: 'Trung bình' },
   { value: '3', label: 'Khó' },
 ];
+const correctOptions = [
+  { value: 'a', label: 'A' },
+  { value: 'b', label: 'B' },
+  { value: 'c', label: 'C' },
+  { value: 'd', label: 'D' },
+];
 
 const gradeOptions = [
   { value: '9', label: 'Hãy chọn khối' },
@@ -44,46 +51,44 @@ const gradeOptions = [
 ];
 export const FormContext = createContext();
 export default function ModalCreate({ open, setOpen }) {
-  const [user, setUser] = useState({ });
+  const [question, setQuestion] = useState({
+    subject_id: 1,
+    level_id: 1,
+    grade_id: 10,
+    status_id: 3,
+    correct_answer: 'a',
+    suggest: 'Không có gợi ý',
+  });
+  const [error, setError] = useState({});
   const handleClose = () => setOpen(false);
-  const [subjects, setSubjects] = useState({});
+  const [subjects, setSubjects] = useState([]);
   const { setUpdate } = useUserContext();
 
   const handleInputChange = (e, field) => {
-    setUser(pre => ({ ...pre, [field]: e.target.value }));
+    setQuestion(pre => ({ ...pre, [field]: e.target.value }));
   };
 
   const handleSubmit = async () => {
-    const newQuestion = { ...user,subject_id:user.subject_id, status_id: 3, username: user.question_content  };
     try {
-      await createQuestion(newQuestion);
+      await createQuestion(question);
       setOpen(false);
       toast.success('Thêm mới thành công');
-      console.log('««««« newQuestion »»»»»', newQuestion);
       setUpdate(pre => !pre);
     } catch (err) {
+      setError(err.response.data.errors);
       toast.error('Thêm mới thất bại');
     }
   };
   useEffect(() => {
     async function fetchData() {
       try {
-        const subjectsData = await getSubject();
-
-        if (subjectsData && subjectsData.data && subjectsData.data.data) {
-          const subjectOptions = subjectsData.data.data.map((subject) => ({
-            value: subject.subject_id,
-            label: subject.subject_detail,
-          }));
-          setSubjects(subjectOptions);
-        } else {
-          toast.error("No subjects found");
-        }
+        const {
+          data: { data },
+        } = await getSubject();
+        setSubjects(data);
+        console.log('subjectsData', data);
       } catch (err) {
-        console.error("Fetch subjects error:", err);
-        toast.error(err.message || "Có lỗi xảy ra");
-      } finally {
-        
+        toast.error(err.message || 'Có lỗi xảy ra');
       }
     }
 
@@ -115,42 +120,60 @@ export default function ModalCreate({ open, setOpen }) {
           name="question_content"
           type="text"
           onChange={e => handleInputChange(e, 'question_content')}
-          value={user.question_content}
+          value={question.question_content}
         />
+        {error?.question_content && (
+          <p className="text-red-500">{error?.question_content[0]}</p>
+        )}
         <InputDefault
           label="A"
           name="answer_a"
           type="text"
           onChange={e => handleInputChange(e, 'answer_a')}
-          value={user.answer_a}
+          value={question.answer_a}
         />
+        {error?.answer_a && (
+          <p className="text-red-500">{error?.answer_a[0]}</p>
+        )}
         <InputDefault
           label="B"
           name="answer_b"
           type="text"
           onChange={e => handleInputChange(e, 'answer_b')}
-          value={user.answer_b}
+          value={question.answer_b}
         />
+        {error?.answer_b && (
+          <p className="text-red-500">{error?.answer_b[0]}</p>
+        )}
         <InputDefault
           label="C"
           name="answer_c"
           type="text"
           onChange={e => handleInputChange(e, 'answer_c')}
-          value={user.answer_c}
+          value={question.answer_c}
         />
+        {error?.answer_c && (
+          <p className="text-red-500">{error?.answer_c[0]}</p>
+        )}
         <InputDefault
           label="D"
           name="answer_d"
           type="text"
           onChange={e => handleInputChange(e, 'answer_d')}
-          value={user.answer_d}
+          value={question.answer_d}
         />
-        <InputDefault
-          label="Đúng"
+        {error?.answer_d && (
+          <p className="text-red-400">{error?.answer_d[0]}</p>
+        )}
+        <SelectInput
+          label="Đáp án đúng"
           name="correct_answer"
           type="text"
-          onChange={e => handleInputChange(e, 'correct_answer')}
-          value={user.correct_answer}
+          onChange={value =>
+            handleInputChange({ target: { value } }, 'correct_answer')
+          }
+          value={question.correct_answer}
+          options={correctOptions}
         />
 
         <InputDefault
@@ -158,29 +181,30 @@ export default function ModalCreate({ open, setOpen }) {
           name="suggest"
           type="text"
           onChange={e => handleInputChange(e, 'suggest')}
-          value={user.suggest}
+          value={question.suggest}
         />
+        {error?.suggest && <p className="text-red-500">{error?.suggest[0]}</p>}
         <InputDefault
           label="Chương"
           name="unit"
           type="text"
           onChange={e => handleInputChange(e, 'unit')}
-          value={user.unit}
+          value={question.unit}
         />
-        <div className="flex justify-around pt-3">
-        <SelectInput
-          label="Môn"
-          name="subject_id"
-          value={user.subject_id}
-          onChange={(value) =>
-            handleInputChange({ target: { value } }, "subject_id")
-          }
-          options={subjects}
-        />
+        <div className="flex justify-around pt-3 gap-3">
+          <SubjectInput
+            label="Môn"
+            name="subject_id"
+            value={question.subject_id}
+            onChange={value =>
+              handleInputChange({ target: { value } }, 'subject_id')
+            }
+            options={subjects}
+          />
           <SelectInput
             label="Cấp độ"
             name="level_id"
-            value={user?.level_id}
+            value={question?.level_id}
             onChange={value =>
               handleInputChange({ target: { value } }, 'level_id')
             }
@@ -189,7 +213,7 @@ export default function ModalCreate({ open, setOpen }) {
           <SelectInput
             label="Khối"
             name="grade_id"
-            value={user?.grade_id}
+            value={question?.grade_id}
             onChange={value =>
               handleInputChange({ target: { value } }, 'grade_id')
             }

@@ -3,6 +3,7 @@ import ModalPreviewQuestion from '../question/ModalPreviewQuestion.jsx';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { studentBeginTest } from '../../services/apiTest.js';
 const statuses = {
   1: 'Đóng',
   2: 'Mở',
@@ -26,8 +27,12 @@ function TestComponent({ tests }) {
     setStatus(test?.status_id);
     setOpen(true);
   };
-  const hanldeStudentDoTest = test => {
-    console.log('chuyen trang sang lam bai thi voi ma de', test?.test_code);
+  const hanldeStudentDoTest = async test => {
+    console.log('chuyen trang sang lam bai thi voi ma de', {
+      test_code: test?.test_code,
+    });
+
+    await studentBeginTest({ test_code: test?.test_code });
     toast.success('Chuyển trang sang làm bài thi');
     navigate(`${test?.test_code}`);
   };

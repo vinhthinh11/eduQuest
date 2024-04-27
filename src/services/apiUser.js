@@ -21,7 +21,7 @@ export const deleteUser = async (endpoint, id) => {
         Authorization: `Bearer ${bearerToken}`,
       },
       data: {
-        id
+        ...id,
       },
     });
     return result;
@@ -32,13 +32,13 @@ export const deleteUser = async (endpoint, id) => {
 export const createUser = async (endpoint, user) => {
   try {
     const bearerToken = localStorage.getItem('token');
-    await axios.post(`${USER_URL}${endpoint}`, user, {
+    await axios.post(`${USER_URL}/${endpoint}`, user, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
       },
     });
   } catch (err) {
-    throw new Error(err.message);
+    throw err;
   }
 };
 export const updateUser = async (endpoint, user) => {
