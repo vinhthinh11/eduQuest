@@ -1,24 +1,28 @@
-import { useEffect, useState} from "react";
-import { getQuestion, getSubjects } from "../../services/apiQuestion.js";
-import toast from "react-hot-toast";
-import { Box, CircularProgress } from "@mui/material";
-import { UserContextProvider } from "../../admin/UserContextProvider.jsx";
-import ModalCreateQuestion from "../question/ModalCreateQuestion.jsx";
-import ModalUploadFileQuestion from "../question/ModalUploadFileQuestion.jsx";
-import ModalEditQuestion from "./ModalEditQuestion.jsx";
-import ModalDeleteQuestion from "./ModalDeleteQuestion.jsx";
-
-
+import { useEffect, useState } from 'react';
+import { getQuestion, getSubjects } from '../../services/apiQuestion.js';
+import toast from 'react-hot-toast';
+import { Box, CircularProgress } from '@mui/material';
+import { UserContextProvider } from '../../admin/UserContextProvider.jsx';
+import ModalCreateQuestion from '../question/ModalCreateQuestion.jsx';
+import ModalUploadFileQuestion from '../question/ModalUploadFileQuestion.jsx';
+import ModalEditQuestion from './ModalEditQuestion.jsx';
+import ModalDeleteQuestion from './ModalDeleteQuestion.jsx';
 
 const status_ids = {
-  1: "Đóng",
-  2: "Mở",
-  3: "Chờ duyệt",
-  4: "Đã duyệt",
-  5: "Không duyệt",
+  1: 'Đóng',
+  2: 'Mở',
+  3: 'Chờ duyệt',
+  4: 'Đã duyệt',
+  5: 'Không duyệt',
 };
 
-const QuestionItem = ({ question, index, openModal, openDeleteModal, subjects}) => {
+const QuestionItem = ({
+  question,
+  index,
+  openModal,
+  openDeleteModal,
+  subjects,
+}) => {
   return (
     <>
       <tr className="hover:bg-slate-200" key={index}>
@@ -28,10 +32,10 @@ const QuestionItem = ({ question, index, openModal, openDeleteModal, subjects}) 
         </td>
         <td className="px-3 py-4 text-center w-1/6 whitespace-nowrap">
           {question.level_id === 1
-            ? "Dễ"
+            ? 'Dễ'
             : question.level_id === 2
-            ? "Trung bình"
-            : "Khó"}
+            ? 'Trung bình'
+            : 'Khó'}
         </td>
         <td className="px-3 py-4 text-center w-1/6 whitespace-nowrap">
           <span className="whitespace-nowrap">
@@ -43,7 +47,9 @@ const QuestionItem = ({ question, index, openModal, openDeleteModal, subjects}) 
           <span>Khối {question?.grade_id}</span>
           <br />
         </td>
-        <td className="px-3 py-4 text-center w-1/6">{question?.teacher.name}</td>
+        <td className="px-3 py-4 text-center w-1/6">
+          {question?.teacher?.name ?? 'admin'}
+        </td>
         <td className="px-3 py-4 text-center w-1/6">
           {status_ids[question?.status_id]}
         </td>
@@ -69,7 +75,6 @@ const QuestionItem = ({ question, index, openModal, openDeleteModal, subjects}) 
   );
 };
 
-
 function QuestionList() {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -89,38 +94,34 @@ function QuestionList() {
           getQuestion(),
           getSubjects(),
         ]);
-        
+
         setQuestions(questionData.data?.data);
-        
+
         const subjectMap = subjectsData.data.subjects.reduce((acc, subject) => {
           acc[subject.subject_id] = subject.subject_detail;
           return acc;
         }, {});
         setSubjects(subjectMap);
-      
-        
       } catch (err) {
-        toast.error(err.message || "Có lỗi xảy ra");
+        toast.error(err.message || 'Có lỗi xảy ra');
       } finally {
         setLoading(false);
       }
     }
-  
+
     fetchData();
   }, []);
-  
 
-
-  const openModal = (question) => {
+  const openModal = question => {
     setSelectedQuestion(question);
     setIsModalOpen(true);
   };
 
-  const openDeleteModal = (question) => {
+  const openDeleteModal = question => {
     setSelectedQuestion(question);
     setIsDeleteModalOpen(true);
   };
-  
+
   const totalPages = Math.ceil(questions?.length / perPage) || 1;
   const visibleUsers = questions?.slice(
     (currentPage - 1) * perPage,
@@ -128,11 +129,11 @@ function QuestionList() {
   );
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    setCurrentPage(prevPage => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage(prevPage => prevPage + 1);
   };
 
   return (
@@ -140,18 +141,18 @@ function QuestionList() {
       {loading ? (
         <Box
           sx={{
-            display: "flex",
-            width: "100vw",
-            height: "100vh",
-            alignItems: "center",
-            justifyContent: "center",
+            display: 'flex',
+            width: '100vw',
+            height: '100vh',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           <CircularProgress
             size={80}
             sx={{
-              translateX: "-10px",
-              translateY: "-10px",
+              translateX: '-10px',
+              translateY: '-10px',
             }}
           />
         </Box>
@@ -209,14 +210,13 @@ function QuestionList() {
           >
             {visibleUsers?.map((question, index) => (
               <QuestionItem
-              key={index}
-              question={question}
-              index={index}
-              openModal={openModal}
-              openDeleteModal={openDeleteModal}
-              subjects={subjects}
-            />
-            
+                key={index}
+                question={question}
+                index={index}
+                openModal={openModal}
+                openDeleteModal={openDeleteModal}
+                subjects={subjects}
+              />
             ))}
           </tbody>
           <ModalEditQuestion
@@ -259,7 +259,7 @@ function QuestionList() {
         <div className=" flex flex-col">
           <div className="title-content">
             <div className="text-center grid grid-cols-2 gap-4 w-full border-t-2 border-edu">
-              <div className={showAdminForm ? "border-b-2 border-edu" : ""}>
+              <div className={showAdminForm ? 'border-b-2 border-edu' : ''}>
                 <button
                   className="text-sm font-medium my-4 bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
                   onClick={() => {
@@ -270,7 +270,7 @@ function QuestionList() {
                   Thêm câu hỏi
                 </button>
               </div>
-              <div className={showFileUpload ? "border-b-2 border-edu" : ""}>
+              <div className={showFileUpload ? 'border-b-2 border-edu' : ''}>
                 <button
                   className="text-sm font-medium my-4 bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
                   onClick={() => {

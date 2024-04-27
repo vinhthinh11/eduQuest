@@ -9,6 +9,7 @@ import TestComponent from '../test/TestComponent.jsx';
 import ClassComponent from '../class/ClassComponent.jsx';
 import UserComponent from './UserComponent.jsx';
 import QuestionComponent from '../question/QuestionComponent.jsx';
+import ScoreComponent from '../score/ScoreComponent.jsx';
 
 const AdminTable = ({ userType = { userType: 'admin', userPath: '' } }) => {
   const [users, setUsers] = useState([]);
@@ -25,6 +26,9 @@ const AdminTable = ({ userType = { userType: 'admin', userPath: '' } }) => {
       break;
     case 'class':
       dynamicComponent = <ClassComponent classes={users} />;
+      break;
+    case 'score':
+      dynamicComponent = <ScoreComponent scores={users} />;
       break;
     default:
       dynamicComponent = <UserComponent userType={userType} users={users} />;

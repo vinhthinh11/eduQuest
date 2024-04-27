@@ -14,19 +14,24 @@ function UserDetail() {
   // get current user path
   const userPath = location.pathname.split('/').at(-1);
   const userLink = { userPath, userType };
+  let tablename = 'người dùng';
   const handleShowDynamicForm = () => {
     switch (userPath) {
       case 'test':
         setShowAdminForm(1);
+        tablename = 'bài thi';
         break;
       case 'question':
         setShowAdminForm(2);
+        tablename = 'câu hỏi';
         break;
       case 'class':
         setShowAdminForm(3);
+        tablename = 'lớp học';
         break;
       default:
         setShowAdminForm(4);
+        tablename = 'người dùng';
         break;
     }
   };
@@ -44,7 +49,7 @@ function UserDetail() {
                 className="text-sm font-medium my-4 bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
                 onClick={handleShowDynamicForm}
               >
-                {`Thêm mới ${userPath}`}
+                {`Thêm mới ${tablename}`}
               </button>
             </div>
             <div className={showFileUpload ? 'border-b-2 border-edu' : ''}>

@@ -1,5 +1,9 @@
 import { Box, Modal, Typography } from '@mui/material';
 import InputDefault from '../InputDefault.jsx';
+import { useState } from 'react';
+import { createUser } from '../../services/apiUser.js';
+import toast from 'react-hot-toast';
+import { useUserContext } from '../../admin/UserContextProvider.jsx';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -12,16 +16,69 @@ const style = {
   border: '1px solid #000',
   borderRadius: '20px',
   boxShadow: 24,
+  height: '80vh',
+  overflow: 'auto',
   p: 4,
+  '&::-webkit-scrollbar': {
+    width: '0.4em',
+  },
 };
-function ModalCreateUser({
-  open,
-  handleClose,
-  userType,
-  user,
-  handleInputChange,
-  handleSubmit,
-}) {
+function ModalCreateUser({ open, handleClose, userType }) {
+  let dummyUser = { gender_id: 1, username: 'unknown' };
+  let tablename;
+  switch (userType.userPath) {
+    case 'admin':
+      tablename = 'admin';
+      break;
+    case 'teacher':
+      tablename = 'Giáo viên';
+      dummyUser = { ...dummyUser, subject_id: 1 };
+      break;
+    case 'subject-head':
+      tablename = 'Trưởng bộ môn';
+      dummyUser = { ...dummyUser, subject_id: 1 };
+      break;
+    default:
+      tablename = 'Học sinh';
+      dummyUser = { ...dummyUser, class_id: 1 };
+      break;
+  }
+  const [user, setUser] = useState(dummyUser);
+  const [error, setError] = useState({});
+  const { setUpdate } = useUserContext();
+  const handleInputChange = (e, field) => {
+    setUser(pre => ({ ...pre, [field]: e.target.value }));
+  };
+  switch (userType.userPath) {
+    case 'admin':
+      tablename = 'admin';
+      break;
+    case 'teacher':
+      tablename = 'Giáo viên';
+      break;
+    case 'subject-head':
+      tablename = 'Trưởng bộ môn';
+      break;
+    default:
+      tablename = 'Học sinh';
+      break;
+  }
+  async function handleSubmit() {
+    try {
+      await createUser(
+        `${userType.userType}/${userType.userPath}/create`,
+        user
+      );
+      handleClose();
+      setUser(dummyUser);
+      setUpdate(pre => !pre);
+      toast.success(`Thêm mới ${userType.userPath} thành công`);
+    } catch (err) {
+      console.log(err.response.data.errors);
+      toast.error(`Thêm mới ${userType.userPath} thất bại`);
+      setError(err.response.data.errors);
+    }
+  }
   return (
     <Modal
       open={open === 4}
@@ -40,7 +97,7 @@ function ModalCreateUser({
             textTransform: 'uppercase',
           }}
         >
-          {`THÊM MỚI ${userType}`}
+          {`THÊM MỚI ${tablename}`}
         </Typography>
         <InputDefault
           label="Tên"
@@ -49,6 +106,11 @@ function ModalCreateUser({
           onChange={e => handleInputChange(e, 'name')}
           value={user?.name}
         />
+        {error?.name && (
+          <p className="border-2 border-red-500 px-3 py-1 rounded-lg text-red-400">
+            {error?.name[0]}
+          </p>
+        )}
         <InputDefault
           label="Email"
           name="email"
@@ -56,6 +118,11 @@ function ModalCreateUser({
           onChange={e => handleInputChange(e, 'email')}
           value={user?.email}
         />
+        {error?.email && (
+          <p className="border-2 border-red-500 px-3 py-1 rounded-lg text-red-400">
+            {error?.email[0]}
+          </p>
+        )}
         <InputDefault
           label="Password"
           name="password"
@@ -63,13 +130,23 @@ function ModalCreateUser({
           onChange={e => handleInputChange(e, 'password')}
           value={user?.password}
         />
+        {error?.password && (
+          <p className="border-2 border-red-500 px-3 py-1 rounded-lg text-red-400">
+            {error?.password[0]}
+          </p>
+        )}
         <InputDefault
-          label="Gender"
-          name="gender"
+          label="Giới tính"
+          name="gender_id"
           type="text"
-          onChange={e => handleInputChange(e, 'gender')}
-          value={user?.gender}
+          onChange={e => handleInputChange(e, 'gerder_id')}
+          value={user?.gender_id}
         />
+        {error?.gender_id && (
+          <p className="border-2 border-red-500 px-3 py-1 rounded-lg text-red-400">
+            {error?.gender_id[0]}
+          </p>
+        )}
         <InputDefault
           label="Birthday"
           name="birthday"
@@ -77,9 +154,29 @@ function ModalCreateUser({
           onChange={e => handleInputChange(e, 'birthday')}
           value={user?.birthday}
         />
+        {userType.userPath === 'student' ? (
+          <InputDefault
+            label="class"
+            name="class_id"
+            type="number  "
+            onChange={e => handleInputChange(e, 'class_id')}
+            value={user?.class_id}
+          />
+        ) : ['teacher', 'subject-head'].includes(userType.userPath) ? (
+          <InputDefault
+            label="Môn"
+            name="subject_id"
+            type="number  "
+            onChange={e => handleInputChange(e, 'class_id')}
+            value={user?.subject_id}
+          />
+        ) : null}
         <div className="flex justify-end gap-6 mt-4">
           <button
-            onClick={handleClose}
+            onClick={() => {
+              handleClose();
+              setError({});
+            }}
             className="btn bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
           >
             Quay lại

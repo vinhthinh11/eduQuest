@@ -1,7 +1,13 @@
 import axios from 'axios';
-import { CREATE_QUESTION_URL, QUESTION_URL, STATUS_URL, SUBJECTS_URL, USER_URL } from './config.js';
+import {
+  CREATE_QUESTION_URL,
+  QUESTION_URL,
+  STATUS_URL,
+  SUBJECTS_URL,
+  USER_URL,
+} from './config.js';
 
-export const createQuestion = async (question) => {
+export const createQuestion = async question => {
   try {
     const bearerToken = localStorage.getItem('token');
     await axios.post(CREATE_QUESTION_URL, question, {
@@ -10,7 +16,7 @@ export const createQuestion = async (question) => {
       },
     });
   } catch (err) {
-    throw new Error(err.message);
+    throw err;
   }
 };
 export const getQuestion = async () => {

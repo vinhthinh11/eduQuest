@@ -40,3 +40,42 @@ export const updateTest = async (endpoint, data) => {
     throw new Error(err.response.data.error);
   }
 };
+export const studentBeginTest = async test_code => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    return await axios.post(`${USER_URL}/student/test/start`, test_code, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+export const studentAnswer = async student_answer => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    return await axios.post(`${USER_URL}/student/test/answer`, student_answer, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+export const studentSubmit = async () => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    return await axios.post(`${USER_URL}/student/test/submit`, null, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};

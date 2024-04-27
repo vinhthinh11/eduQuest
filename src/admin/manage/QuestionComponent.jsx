@@ -75,7 +75,6 @@ const QuesttionHeader = ({ setPerPage }) => {
           </Select>
         </div>
       </div>
-      <div></div>
     </div>
   );
 };
