@@ -21,6 +21,10 @@ function UserDetail() {
         setShowAdminForm(1);
         tablename = 'bài thi';
         break;
+      case 'practice':
+        setShowAdminForm(5);
+        tablename = 'bài kiểm tra';
+        break;
       case 'question':
         setShowAdminForm(2);
         tablename = 'câu hỏi';

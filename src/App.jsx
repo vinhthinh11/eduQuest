@@ -24,6 +24,8 @@ import SubjectHeadLayout from './components/head/SubjectHeadLayout.jsx';
 import TeacherLayout from './components/teacher/TeacherLayout.jsx';
 import StudentLayout from './components/student/StudentLayout.jsx';
 import StudentDoTest from './components/test/StudentDoTest.jsx';
+import Nofitication from './components/admin/Nofitication.jsx';
+import StudentDoPractice from './components/test/StudentDoPractice.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -65,6 +67,7 @@ const App = () => (
           <Route path="statistic" element={<Statistic />} />
           <Route path="question" element={<Question />} />
           <Route path="profile" element={<ProfileForm />} />
+          <Route path="nofitication" element={<Nofitication />} />
         </Route>
 
         <Route
@@ -102,17 +105,19 @@ const App = () => (
           <Route path="test" element={<UserDetail />} />
           <Route path="test/:test_code" element={<StudentDoTest />} />
           <Route path="practice" element={<UserDetail />} />
+          <Route
+            path="practice/:practice_code"
+            element={<StudentDoPractice />}
+          />
+          <Route
+            path="practice/result/:practice_code"
+            element={<StudentDoPractice />}
+          />
           <Route path="score" element={<UserDetail />} />
         </Route>
 
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="*" element={<PageNotFound />} />
-        {/* <Route path="test1/:id" element={<TestDetail />} />
-        <Route path="item1" element={<TestListItem />} />
-        <Route path="result" element={<QuizResult />} />
-
-        <Route path="test/:id" element={<TeacherTestDetail />} />
-        <Route path="item" element={<TeacherTestListItem />} /> */}
       </Routes>
     </BrowserRouter>
     <Toaster

@@ -10,6 +10,7 @@ import ClassComponent from '../class/ClassComponent.jsx';
 import UserComponent from './UserComponent.jsx';
 import QuestionComponent from '../question/QuestionComponent.jsx';
 import ScoreComponent from '../score/ScoreComponent.jsx';
+import PracticeComponent from '../test/PracticeComponent.jsx';
 
 const AdminTable = ({ userType = { userType: 'admin', userPath: '' } }) => {
   const [users, setUsers] = useState([]);
@@ -20,6 +21,9 @@ const AdminTable = ({ userType = { userType: 'admin', userPath: '' } }) => {
   switch (userType?.userPath) {
     case 'test':
       dynamicComponent = <TestComponent tests={users} />;
+      break;
+    case 'practice':
+      dynamicComponent = <PracticeComponent practices={users} />;
       break;
     case 'question':
       dynamicComponent = <QuestionComponent questions={users} />;
