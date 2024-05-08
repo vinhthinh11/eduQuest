@@ -7,7 +7,7 @@ const NotificationDetailPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(false); // Không cần gọi API lại vì đã có thông tin từ trang trước
+    setIsLoading(false); 
   }, []);
 
   return (

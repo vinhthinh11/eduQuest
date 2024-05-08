@@ -25,7 +25,9 @@ import TeacherLayout from './components/teacher/TeacherLayout.jsx';
 import StudentLayout from './components/student/StudentLayout.jsx';
 import StudentDoTest from './components/test/StudentDoTest.jsx';
 import Notification from './components/student/NotificationList.jsx';
-import NotificationDetailPage from './components/student/NotificationDetailPage.jsx';
+import TeacherPage from './components/teacher/TeacherPage.jsx';
+import DetailStudentClass from './components/teacher/DetailStudentClass.jsx';
+// import NotificationDetailPage from './components/student/NotificationDetailPage.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -67,8 +69,6 @@ const App = () => (
           <Route path="question" element={<Question />} />
           <Route path="profile" element={<ProfileForm />} />
           <Route path="chat" element={<ChatAdmin/>} />
-          <Route path="notification" element={<Notification />} />
-          {/* <Route path="/notification/:id" element={<NotificationDetailPage />} /> */}
         </Route>
 
         <Route
@@ -89,11 +89,15 @@ const App = () => (
             </ProtectedRoute>
           }
         >
+          <Route index element={<TeacherPage />} />
           <Route path="test" element={<UserDetail />} />
 
           <Route path="question" element={<UserDetail />} />
           <Route path="student" element={<UserDetail />} />
           <Route path="class" element={<UserDetail />} />
+          {/* <Route path="/teacher-page" element={<TeacherPage />} /> */}
+        <Route path="detail-student-class" element={<DetailStudentClass />} />
+
         </Route>
         <Route
           path="/student"
@@ -107,16 +111,22 @@ const App = () => (
           <Route path="test/:test_code" element={<StudentDoTest />} />
           <Route path="practice" element={<UserDetail />} />
           <Route path="score" element={<UserDetail />} />
+          <Route path="notification" element={<Notification />} />
+          {/* <Route path="/notification/:id" element={<NotificationDetailPage />} /> */}
+
         </Route>
 
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="*" element={<PageNotFound />} />
+
         {/* <Route path="test1/:id" element={<TestDetail />} />
         <Route path="item1" element={<TestListItem />} />
         <Route path="result" element={<QuizResult />} />
 
         <Route path="test/:id" element={<TeacherTestDetail />} />
         <Route path="item" element={<TeacherTestListItem />} /> */}
+
+        
       </Routes>
     </BrowserRouter>
     <Toaster

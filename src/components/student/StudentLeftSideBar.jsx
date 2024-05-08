@@ -10,6 +10,8 @@ import { useState } from 'react';
 import { HomeIcon } from '../../admin/AdminPage';
 import { useNavigate } from 'react-router-dom';
 import { grey } from '@mui/material/colors';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBell } from '@fortawesome/free-solid-svg-icons';
 
 const style1 = {
   '&.Mui-selected': {
@@ -45,7 +47,7 @@ const StudentLeftSideBar = () => {
           alt="logo"
         />
         <p className="capitalize">Edu Quest</p>
-        <p className="font-semibold text-xl">Admin page</p>
+        <p className="font-semibold text-xl">Student page</p>
       </div>
       <List
         sx={{
@@ -113,6 +115,17 @@ const StudentLeftSideBar = () => {
             <DraftsIcon />
           </ListItemIcon>
           <ListItemText primary="Chat" />
+        </ListItemButton>
+
+        <ListItemButton
+          sx={style1}
+          selected={selectedIndex === 6}
+          onClick={() => handleOnClick(6, 'notification')}
+        >
+          <ListItemIcon>
+          <FontAwesomeIcon icon={faBell} />
+          </ListItemIcon>
+          <ListItemText primary="Notification" />
         </ListItemButton>
       </List>
 
