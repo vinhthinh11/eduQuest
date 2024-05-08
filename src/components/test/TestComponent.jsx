@@ -36,6 +36,15 @@ function TestComponent({ tests }) {
     toast.success('Chuyển trang sang làm bài thi');
     navigate(`${test?.test_code}`);
   };
+  if (tests.length === 0)
+    return (
+      <div className="text-center py-4">
+        <p className="font-medium text-lg text-pink-500">
+          Hiện giờ chưa có bài thi
+        </p>
+        <p>😕😕😕</p>
+      </div>
+    );
   return (
     <>
       <div className="grid grid-cols-5 px-4 py-2 bg-slate-300">
