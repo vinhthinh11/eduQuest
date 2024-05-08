@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { getPracticeDetail } from '../../services/apiPractice.js';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Button } from '@mui/joy';
 
 function PracticeResultDetail() {
   const [questions, setQuestions] = useState([]);
   const [student_answers, setStudentAnswers] = useState([]);
   const { practice_code } = useParams();
+  const navigate = useNavigate();
   console.log(questions, student_answers);
   useEffect(() => {
     async function fetchQuestions() {
@@ -19,7 +21,7 @@ function PracticeResultDetail() {
     fetchQuestions();
   }, [practice_code]);
   return (
-    <div className="px-3">
+    <div className="px-3 flex flex-col py-3">
       {questions.map((question, index) => (
         <div key={question?.question_id}>
           <div className="flex justify-between">
@@ -88,6 +90,9 @@ function PracticeResultDetail() {
           </div>
         </div>
       ))}
+      <Button className="w-fit self-center" onClick={() => navigate(-1)}>
+        Quay lại
+      </Button>
     </div>
   );
 }

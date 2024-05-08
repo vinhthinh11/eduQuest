@@ -31,8 +31,9 @@ function PracticeComponent({ practices }) {
   };
   return (
     <>
-      <div className="grid grid-cols-4 px-4 py-2 bg-slate-300">
+      <div className="grid grid-cols-5 px-4 py-2 bg-slate-300">
         <p>Mã đề</p>
+        <p>Môn</p>
         <p>Tên đề</p>
         <p>SL câu hỏi</p>
         <p>Actions</p>
@@ -40,9 +41,10 @@ function PracticeComponent({ practices }) {
       {practices?.map((test, index) => (
         <div
           key={index}
-          className="grid grid-cols-4 px-4 py-2 hover:bg-slate-200"
+          className="grid grid-cols-5 px-4 py-2 hover:bg-slate-200"
         >
           <p>{test?.practice_code}</p>
+          <p>{test?.subject?.subject_detail}</p>
           <p>{test?.practice_name}</p>
           <p>{test?.total_questions}</p>
           <div className="flex flex-col gap-2">
