@@ -1,20 +1,7 @@
 import axios from 'axios';
 import { USER_URL } from './config.js';
 
-export const createTest = async (endpoint, test) => {
-  try {
-    const bearerToken = localStorage.getItem('token');
-    await axios.post(`${USER_URL}/${endpoint}`, test, {
-      headers: {
-        Authorization: `Bearer ${bearerToken}`,
-      },
-    });
-  } catch (err) {
-    console.log(err.response.data);
-    throw new Error(err.response.data.error);
-  }
-};
-export const getTestDetail = async endpoint => {
+export const getPracticeDetail = async endpoint => {
   try {
     const bearerToken = localStorage.getItem('token');
     return await axios.get(`${USER_URL}/${endpoint}`, {
@@ -27,7 +14,7 @@ export const getTestDetail = async endpoint => {
     throw err;
   }
 };
-export const updateTest = async (endpoint, data) => {
+export const updatePractice = async (endpoint, data) => {
   try {
     const bearerToken = localStorage.getItem('token');
     return await axios.put(`${USER_URL}/${endpoint}`, data, {
@@ -40,10 +27,10 @@ export const updateTest = async (endpoint, data) => {
     throw new Error(err.response.data.error);
   }
 };
-export const studentBeginTest = async test_code => {
+export const studentBeginPractice = async test_code => {
   try {
     const bearerToken = localStorage.getItem('token');
-    return await axios.post(`${USER_URL}/student/test/start`, test_code, {
+    return await axios.post(`${USER_URL}/student/practice/start`, test_code, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
       },
@@ -53,10 +40,27 @@ export const studentBeginTest = async test_code => {
     throw err;
   }
 };
-export const studentAnswer = async student_answer => {
+export const studentAnswerPractice = async student_answer => {
   try {
     const bearerToken = localStorage.getItem('token');
-    return await axios.post(`${USER_URL}/student/test/answer`, student_answer, {
+    return await axios.post(
+      `${USER_URL}/student/practice/answer`,
+      student_answer,
+      {
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+      }
+    );
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+export const studentSubmitPractice = async () => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    return await axios.post(`${USER_URL}/student/practice/submit`, null, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
       },
@@ -66,10 +70,10 @@ export const studentAnswer = async student_answer => {
     throw err;
   }
 };
-export const studentSubmit = async () => {
+export const getPracticeResult = async () => {
   try {
     const bearerToken = localStorage.getItem('token');
-    return await axios.post(`${USER_URL}/student/test/submit`, null, {
+    return await axios.get(`${USER_URL}/student/practice/result`, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
       },

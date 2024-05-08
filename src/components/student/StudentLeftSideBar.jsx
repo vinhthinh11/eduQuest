@@ -83,7 +83,7 @@ const StudentLeftSideBar = () => {
           <ListItemIcon>
             <MessageIcon />
           </ListItemIcon>
-          <ListItemText primary="Test" />
+          <ListItemText primary="Tests" />
         </ListItemButton>
         <ListItemButton
           sx={style1}
@@ -104,6 +104,17 @@ const StudentLeftSideBar = () => {
             <MessageIcon />
           </ListItemIcon>
           <ListItemText primary="Scores" />
+        </ListItemButton>
+
+        <ListItemButton
+          sx={style1}
+          selected={selectedIndex === 4}
+          onClick={() => handleOnClick(4, 'practice/result')}
+        >
+          <ListItemIcon>
+            <MessageIcon />
+          </ListItemIcon>
+          <ListItemText primary="Practice Result" />
         </ListItemButton>
 
         <ListItemButton

@@ -5,6 +5,10 @@ import ModalSubmitTest from '../test/ModalSubmitTest.jsx';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import {
+  studentAnswerPractice,
+  studentSubmitPractice,
+} from '../../services/apiPractice.js';
 
 function Questions() {
   const [open, setOpen] = useState(false);
@@ -12,21 +16,42 @@ function Questions() {
   function handleClose() {
     setOpen(false);
   }
-  const { questions } = useQuestionsContext();
+  const {
+    questions,
+    student_answers,
+    setStudentAnswers,
+    test_code,
+    practice_code,
+  } = useQuestionsContext();
   async function handleSubmit() {
     try {
-      await studentSubmit();
+      test_code ? await studentSubmit() : studentSubmitPractice();
       toast.success('Nộp bài thành công');
       setTimeout(() => {
-        navigate('/student/score');
+        test_code
+          ? navigate('/student/test/score')
+          : navigate(`/student/practice/result`);
       }, 700);
     } catch (err) {
       console.log(err);
       toast.error('Nộp bài không thành công');
     }
   }
-  async function handleAnswer(e, id) {
-    await studentAnswer({ question_id: id, student_answer: e.target.value });
+  function handleAnswer(e, id, index) {
+    test_code
+      ? studentAnswer({ question_id: id, student_answer: e.target.value })
+      : studentAnswerPractice({
+          question_id: id,
+          student_answer: e.target.value,
+        });
+    setStudentAnswers(prevState => {
+      const updatedAnswers = [...prevState];
+      updatedAnswers[index] = {
+        ...updatedAnswers[index],
+        student_answer: e.target.value,
+      };
+      return updatedAnswers;
+    });
   }
   return (
     <div className="px-3">
@@ -44,7 +69,8 @@ function Questions() {
                 name={question.question_id}
                 value="a"
                 id={index + 'a'}
-                onClick={async e => await handleAnswer(e, question.question_id)}
+                checked={student_answers[index]?.student_answer === 'a'}
+                onChange={e => handleAnswer(e, question.question_id, index)}
               />
               <label htmlFor={index + 'a'}>{question?.answer_a}</label>
             </div>
@@ -54,7 +80,8 @@ function Questions() {
                 name={question.question_id}
                 value="b"
                 id={index + 'b'}
-                onClick={async e => await handleAnswer(e, question.question_id)}
+                checked={student_answers[index]?.student_answer === 'b'}
+                onChange={e => handleAnswer(e, question.question_id, index)}
               />
               <label htmlFor={index + 'b'}>{question?.answer_b}</label>
             </div>
@@ -64,7 +91,8 @@ function Questions() {
                 name={question.question_id}
                 value="c"
                 id={index + 'c'}
-                onClick={async e => await handleAnswer(e, question.question_id)}
+                checked={student_answers[index]?.student_answer === 'c'}
+                onChange={e => handleAnswer(e, question.question_id, index)}
               />
               <label htmlFor={index + 'c'}>{question?.answer_c}</label>
             </div>
@@ -74,7 +102,8 @@ function Questions() {
                 name={question.question_id}
                 value="d"
                 id={index + 'd'}
-                onClick={async e => await handleAnswer(e, question.question_id)}
+                checked={student_answers[index]?.student_answer === 'd'}
+                onChange={e => handleAnswer(e, question.question_id, index)}
               />
               <label htmlFor={index + 'd'}>{question?.answer_d}</label>
             </div>

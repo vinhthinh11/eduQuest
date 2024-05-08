@@ -13,7 +13,11 @@ function ScoreComponent({ scores }) {
           <p>{score?.test_code}</p>
           <p>{score?.score_number}</p>
           <p>{score?.score_detail}</p>
-          <p>{score?.time_to_do ?? 'Không có dữ liệu'}</p>
+          <p>
+            {score?.completion_time
+              ? new Date(score.completion_time).toLocaleString('vi-VN')
+              : 'Không có dữ liệu'}
+          </p>
         </div>
       ))}
     </div>

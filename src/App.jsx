@@ -24,10 +24,11 @@ import SubjectHeadLayout from './components/head/SubjectHeadLayout.jsx';
 import TeacherLayout from './components/teacher/TeacherLayout.jsx';
 import StudentLayout from './components/student/StudentLayout.jsx';
 import StudentDoTest from './components/test/StudentDoTest.jsx';
-import Notification from './components/student/NotificationList.jsx';
-import TeacherPage from './components/teacher/TeacherPage.jsx';
-import DetailStudentClass from './components/teacher/DetailStudentClass.jsx';
-// import NotificationDetailPage from './components/student/NotificationDetailPage.jsx';
+import Nofitication from './components/admin/Nofitication.jsx';
+import StudentDoPractice from './components/test/StudentDoPractice.jsx';
+import ScoreComponent from './components/score/ScoreComponent.jsx';
+import PracticeResult from './components/test/PracticeResult.jsx';
+import PracticeResultDetail from './components/test/PracticeResultDetail.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -68,7 +69,7 @@ const App = () => (
           <Route path="statistic" element={<Statistic />} />
           <Route path="question" element={<Question />} />
           <Route path="profile" element={<ProfileForm />} />
-          <Route path="chat" element={<ChatAdmin/>} />
+          <Route path="nofitication" element={<Nofitication />} />
         </Route>
 
         <Route
@@ -110,6 +111,15 @@ const App = () => (
           <Route path="test" element={<UserDetail />} />
           <Route path="test/:test_code" element={<StudentDoTest />} />
           <Route path="practice" element={<UserDetail />} />
+          <Route
+            path="practice/:practice_code"
+            element={<StudentDoPractice />}
+          />
+          <Route path="practice/result" element={<PracticeResult />} />
+          <Route
+            path="practice/result/:practice_code"
+            element={<PracticeResultDetail />}
+          />
           <Route path="score" element={<UserDetail />} />
           <Route path="notification" element={<Notification />} />
           {/* <Route path="/notification/:id" element={<NotificationDetailPage />} /> */}
@@ -118,15 +128,6 @@ const App = () => (
 
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="*" element={<PageNotFound />} />
-
-        {/* <Route path="test1/:id" element={<TestDetail />} />
-        <Route path="item1" element={<TestListItem />} />
-        <Route path="result" element={<QuizResult />} />
-
-        <Route path="test/:id" element={<TeacherTestDetail />} />
-        <Route path="item" element={<TeacherTestListItem />} /> */}
-
-        
       </Routes>
     </BrowserRouter>
     <Toaster
