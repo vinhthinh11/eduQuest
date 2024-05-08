@@ -23,7 +23,7 @@ function Timer() {
           setTimeout(() => {
             test_code
               ? navigate('/student/score')
-              : navigate(`/student/practice/result/${practice_code}`);
+              : navigate(`/student/practice/result`);
           }, 700);
         } catch (err) {
           console.log(err);

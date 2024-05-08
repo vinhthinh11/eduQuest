@@ -30,7 +30,7 @@ function Questions() {
       setTimeout(() => {
         test_code
           ? navigate('/student/test/score')
-          : navigate(`/student/practice/score`);
+          : navigate(`/student/practice/result`);
       }, 700);
     } catch (err) {
       console.log(err);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { USER_URL } from './config.js';
 
-export const getPraceDetail = async endpoint => {
+export const getPracticeDetail = async endpoint => {
   try {
     const bearerToken = localStorage.getItem('token');
     return await axios.get(`${USER_URL}/${endpoint}`, {
@@ -61,6 +61,19 @@ export const studentSubmitPractice = async () => {
   try {
     const bearerToken = localStorage.getItem('token');
     return await axios.post(`${USER_URL}/student/practice/submit`, null, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
+export const getPracticeResult = async () => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    return await axios.get(`${USER_URL}/student/practice/result`, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
       },

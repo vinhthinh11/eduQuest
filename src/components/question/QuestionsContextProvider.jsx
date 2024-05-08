@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { getTestDetail } from '../../services/apiTest.js';
-import { getPraceDetail } from '../../services/apiPractice.js';
+import { getPracticeDetail } from '../../services/apiPractice.js';
 
 const QuestionsContext = createContext();
 function QuestionsContextProvider({ children }) {
@@ -25,7 +25,7 @@ function QuestionsContextProvider({ children }) {
         data: { data },
       } = test_code
         ? await getTestDetail(endPoint)
-        : await getPraceDetail(endPoint);
+        : await getPracticeDetail(endPoint);
       console.log(data);
       setTime(+data.time_remaining);
       setQuestions(data.questions);

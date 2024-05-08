@@ -26,6 +26,9 @@ import StudentLayout from './components/student/StudentLayout.jsx';
 import StudentDoTest from './components/test/StudentDoTest.jsx';
 import Nofitication from './components/admin/Nofitication.jsx';
 import StudentDoPractice from './components/test/StudentDoPractice.jsx';
+import ScoreComponent from './components/score/ScoreComponent.jsx';
+import PracticeResult from './components/test/PracticeResult.jsx';
+import PracticeResultDetail from './components/test/PracticeResultDetail.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -109,9 +112,10 @@ const App = () => (
             path="practice/:practice_code"
             element={<StudentDoPractice />}
           />
+          <Route path="practice/result" element={<PracticeResult />} />
           <Route
             path="practice/result/:practice_code"
-            element={<StudentDoPractice />}
+            element={<PracticeResultDetail />}
           />
           <Route path="score" element={<UserDetail />} />
         </Route>
