@@ -16,7 +16,7 @@ import HeadDetail from './admin/manage/HeadDetail.jsx';
 import SubjectDetail from './admin/manage/SubjectDetail.jsx';
 // import TeacherDetail from './admin/manage/TeacherDetail.jsx';
 import Contact from './pages/Contact.jsx';
-import ChatAdmin from './components/admin/ChatAdmin.jsx';
+import SendNotification from './components/admin/SendNotification.jsx';
 import Statistic from './pages/Statistic.jsx';
 import ProfileForm from './components/ProfileForm.jsx';
 import ProtectedRoute from './pages/ProtectedRoute.jsx';
@@ -25,10 +25,12 @@ import TeacherLayout from './components/teacher/TeacherLayout.jsx';
 import StudentLayout from './components/student/StudentLayout.jsx';
 import StudentDoTest from './components/test/StudentDoTest.jsx';
 import Nofitication from './components/admin/Nofitication.jsx';
+import NofiticationAdmin from './components/admin/NofiticationAdmin.jsx';
 import StudentDoPractice from './components/test/StudentDoPractice.jsx';
-import ScoreComponent from './components/score/ScoreComponent.jsx';
+// import ScoreComponent from './components/score/ScoreComponent.jsx';
 import PracticeResult from './components/test/PracticeResult.jsx';
 import PracticeResultDetail from './components/test/PracticeResultDetail.jsx';
+import Chat from './components/student/Chat.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -69,7 +71,8 @@ const App = () => (
           <Route path="statistic" element={<Statistic />} />
           <Route path="question" element={<Question />} />
           <Route path="profile" element={<ProfileForm />} />
-          <Route path="nofitication" element={<Nofitication />} />
+          <Route path="notification" element={<NofiticationAdmin />} />
+          <Route path= "senNofitication" element={<SendNotification />} />
         </Route>
 
         <Route
@@ -90,14 +93,14 @@ const App = () => (
             </ProtectedRoute>
           }
         >
-          <Route index element={<TeacherPage />} />
+          {/* <Route index element={<TeacherPage />} /> */}
           <Route path="test" element={<UserDetail />} />
 
           <Route path="question" element={<UserDetail />} />
           <Route path="student" element={<UserDetail />} />
           <Route path="class" element={<UserDetail />} />
           {/* <Route path="/teacher-page" element={<TeacherPage />} /> */}
-        <Route path="detail-student-class" element={<DetailStudentClass />} />
+        {/* <Route path="detail-student-class" element={<DetailStudentClass />} /> */}
 
         </Route>
         <Route
@@ -121,8 +124,9 @@ const App = () => (
             element={<PracticeResultDetail />}
           />
           <Route path="score" element={<UserDetail />} />
-          <Route path="notification" element={<Notification />} />
+          <Route path="notification" element={<Nofitication/>}/>
           {/* <Route path="/notification/:id" element={<NotificationDetailPage />} /> */}
+          <Route path="chat" element={<Chat />} />
 
         </Route>
 

@@ -14,7 +14,7 @@ const data = [
 function Statistic() {
   return (
     <div className="flex flex-col">
-      <h1>test homepage</h1>
+      {/* <h1>test homepage</h1> */}
       <div>
         <BarChart
           xAxis={[

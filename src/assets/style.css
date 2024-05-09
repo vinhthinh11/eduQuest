@@ -81,3 +81,39 @@
     animation: shake 1s infinite;
   }
   
+
+
+
+
+.input-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .form-control {
+    flex: 1;
+    border: 1px solid #ced4da;
+    padding: 0.5rem;
+    font-size: 0.875rem; 
+    outline: none;
+  }
+  
+  .btn-send {
+    background-color: #4b7bec; 
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    margin-left: -1px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-send:hover {
+    background-color: #3867d6; 
+  }
+  
+  .fa-paper-plane {
+    margin-right: 0.5rem;
+  }
+  

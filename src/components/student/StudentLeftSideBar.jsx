@@ -120,7 +120,7 @@ const StudentLeftSideBar = () => {
         <ListItemButton
           sx={style1}
           selected={selectedIndex === 5}
-          onClick={() => handleOnClick(5, '/chat')}
+          onClick={() => handleOnClick(5, 'chat')}
         >
           <ListItemIcon>
             <DraftsIcon />
