@@ -29,6 +29,7 @@ import StudentDoPractice from './components/test/StudentDoPractice.jsx';
 import ScoreComponent from './components/score/ScoreComponent.jsx';
 import PracticeResult from './components/test/PracticeResult.jsx';
 import PracticeResultDetail from './components/test/PracticeResultDetail.jsx';
+import StudentOfClass from './components/student/StudentOfClass.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -96,6 +97,7 @@ const App = () => (
           <Route path="question" element={<UserDetail />} />
           <Route path="student" element={<UserDetail />} />
           <Route path="class" element={<UserDetail />} />
+          <Route path="student/:class_id" element={<StudentOfClass />} />
         </Route>
         <Route
           path="/student"

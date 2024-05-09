@@ -1,6 +1,12 @@
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 function ClassComponent({ classes }) {
+  const navigate = useNavigate();
+  const handleClick = classId => {
+    console.log(classId);
+    navigate(`/teacher/student/${classId}`);
+  };
   return (
     <>
       <div className="grid grid-cols-4 px-4 py-2">
@@ -15,11 +21,12 @@ function ClassComponent({ classes }) {
           <p>{c.class_name}</p>
           <p>{c?.teacher?.username}</p>
           <div>
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleClick(c?.class_id)}
+            >
               Chi tiết
-            </Button>
-            <Button variant="contained" color="error">
-              Xóa
             </Button>
           </div>
         </div>

@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react';
-import ModalDelete from './ModalDelete.jsx';
-import ModalEdit from './ModalEdit.jsx';
+import { useParams } from 'react-router-dom';
+import { getUser } from '../../services/apiUser.js';
 
-function UserComponent({ userType, users, perPage = 10, currentPage = 1 }) {
-  const [openEdit, setOpenEdit] = useState(false);
-  const [openDelete, setOpenDelete] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
-  const [visibleUsers, setVisibleUsers] = useState([]);
-
-  users?.slice((currentPage - 1) * perPage, currentPage * perPage);
+function StudentOfClass() {
+  const [users, setUsers] = useState([]);
+  const { class_id } = useParams();
   useEffect(() => {
-    setVisibleUsers(
-      users?.slice((currentPage - 1) * perPage, currentPage * perPage)
-    );
-  }, [users, perPage, currentPage]);
+    async function fetchUser() {
+      try {
+        const { data } = await getUser(`/teacher/student/get/${class_id}`);
+        setUsers(data.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchUser();
+  }, [class_id]);
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200" id="table_admins">
@@ -55,16 +57,10 @@ function UserComponent({ userType, users, perPage = 10, currentPage = 1 }) {
             >
               Ngày Sinh
             </th>
-            <th
-              scope="col"
-              className="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider"
-            >
-              <p className="material-icons">settings</p>
-            </th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200 " id="list_admins">
-          {visibleUsers?.map((user, index) => (
+          {users?.map((user, index) => (
             <tr className="hover:bg-slate-200" key={index}>
               <td className="px-3 py-4 whitespace-wrap">{user.admin_id}</td>
               <td className="px-3 py-4 whitespace-wrap">
@@ -90,49 +86,12 @@ function UserComponent({ userType, users, perPage = 10, currentPage = 1 }) {
                   : 'Không xác định'}
               </td>
               <td className="px-3 py-4 break-all">{user.birthday}</td>
-              <td className="px-3 py-4 whitespace-nowrap">
-                {(userType === 'admin') &
-                (
-                  <div className="flex flex-col">
-                    <button
-                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2"
-                      onClick={() => {
-                        setCurrentUser(user);
-                        setOpenEdit(true);
-                      }}
-                    >
-                      Sửa
-                    </button>
-                    <button
-                      className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
-                      onClick={() => {
-                        setCurrentUser(user);
-                        setOpenDelete(true);
-                      }}
-                    >
-                      Xoá
-                    </button>
-                  </div>
-                )}
-              </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <ModalEdit
-        open={openEdit}
-        setOpen={setOpenEdit}
-        user={currentUser}
-        userType={userType}
-      />
-      <ModalDelete
-        open={openDelete}
-        setOpen={setOpenDelete}
-        user={currentUser}
-        userType={userType}
-      />
     </div>
   );
 }
 
-export default UserComponent;
+export default StudentOfClass;
