@@ -29,7 +29,7 @@ function Questions() {
       toast.success('Nộp bài thành công');
       setTimeout(() => {
         test_code
-          ? navigate('/student/test/score')
+          ? navigate('/student/score')
           : navigate(`/student/practice/result`);
       }, 700);
     } catch (err) {
