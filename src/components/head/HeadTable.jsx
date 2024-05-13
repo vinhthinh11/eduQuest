@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import toast from "react-hot-toast";
 import { useUserContext } from "../../admin/UserContextProvider.jsx";
 import ModalDeleteHead from "./ModalDeleteHead.jsx";
+import LoadingSpinner from "../LoadingSpinner.jsx";
 
 const HeadTable = () => {
   const [users, setUsers] = useState([]);
@@ -69,28 +70,10 @@ const HeadTable = () => {
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
-  if (isFetching)
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          width: "100vw",
-          height: "100vh",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <CircularProgress
-          size={80}
-          sx={{
-            translateX: "-10px",
-            translateY: "-10px",
-          }}
-        />
-      </Box>
-    );
-  else
-    return (
+  
+    return isFetching ? (
+      <LoadingSpinner />
+    ) : (
       <div className="content">
         <div className="preload hidden" id="preload">
           <img src="#" alt="" />

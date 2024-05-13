@@ -21,6 +21,9 @@ const AdminHeader = () => {
             marginTop: '10px',
             marginLeft: '40px',
           }}
+          onClick={() => {
+            window.location.href = '/admin';
+          }}
         >
           Trang chủ
         </Button>

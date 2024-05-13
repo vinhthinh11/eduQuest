@@ -118,12 +118,12 @@ const TeacherLeftSideBar = () => {
         <ListItemButton
           sx={style1}
           selected={selectedIndex === 6}
-          onClick={() => handleOnClick(6, '/chat')}
+          onClick={() => handleOnClick(6, 'senNofitication')}
         >
           <ListItemIcon>
             <MessageIcon />
           </ListItemIcon>
-          <ListItemText primary="Chat" />
+          <ListItemText primary="Send Notificatin" />
         </ListItemButton>
         <ListItemButton
           sx={style1}

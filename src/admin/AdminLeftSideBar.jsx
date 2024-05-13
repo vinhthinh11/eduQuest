@@ -87,7 +87,7 @@ const AdminLeftSideBar = () => {
         <ListItemButton
           sx={style1}
           selected={selectedIndex === 1}
-          onClick={() => handleOnClick(1, '/')}
+          onClick={() => handleOnClick(1, '/admin')}
         >
           <ListItemIcon>
             <HomeIcon sx={{ color: '#6b6465' }} />

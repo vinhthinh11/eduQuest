@@ -1,25 +1,19 @@
-import React, { useState, useEffect } from "react";
-import {
-  getAdminChatStudent,
-  getAdminChatTeacher,
-} from "../../services/apiChatAdmin";
+import React, { useState, useEffect, useRef } from "react";
+import { getAdminChatStudent, getAdminChatTeacher } from "../../services/apiChatAdmin";
 import LoadingSpinner from "../LoadingSpinner";
 import "../../assets/style.css";
 import { sendNotificationClass, sendNotificationTeacher } from "../../services/apiNotification";
 
 const ChatMessage = ({ imgSrc, name, message, type, timeSent }) => {
   const messageClass = type === "in" ? "flex-row-reverse" : "flex-row";
-  const messageBgClass =
-    type === "in" ? "bg-blue-500 text-white" : "bg-blue-500 text-white";
+  const messageBgClass = type === "in" ? "bg-blue-500 text-white" : "bg-blue-500 text-white";
 
   return (
     <li className={`flex items-center mb-4 ${messageClass}`}>
       <div className="chat-img">
         <img alt="Avatar" src={imgSrc} className="rounded-full w-12" />
       </div>
-      <div
-        className={`chat-body ml-2 mr-2 ${messageBgClass} p-3 max-w-sm rounded-xl`}
-      >
+      <div className={`chat-body ml-2 mr-2 ${messageBgClass} p-3 max-w-sm rounded-xl`}>
         <h5 className="font-bold mb-1">{name}</h5>
         <p className="text-sm">{message}</p>
         {timeSent && <span className="time-sent text-sm">[{timeSent}]</span>}
@@ -36,6 +30,8 @@ const SendNotification = () => {
   const [studentNotificationTitle, setStudentNotificationTitle] = useState("");
   const [studentNotificationContent, setStudentNotificationContent] = useState("");
   const [isFetching, setIsFetching] = useState(false);
+  const messagesEndRefTeacher = useRef(null);
+  const messagesEndRefStudent = useRef(null);
 
   useEffect(() => {
     const fetchNotificationsTeacher = async () => {
@@ -44,7 +40,6 @@ const SendNotification = () => {
         setNotificationsTeacher(data.data);
       } catch (error) {
         console.error("Error fetching notificationsTeacher:", error);
-        // Handle error here
       }
     };
 
@@ -58,8 +53,7 @@ const SendNotification = () => {
         const { data } = await getAdminChatStudent();
         setNotificationsStudent(data.data);
       } catch (error) {
-        console.error("Error fetching notificationsTeacher:", error);
-        // Handle error here
+        console.error("Error fetching notificationsStudent:", error);
       } finally {
         setIsFetching(false);
       }
@@ -68,7 +62,6 @@ const SendNotification = () => {
     fetchNotificationsStudent();
   }, []);
 
-  // Hàm reset các trường thông tin trên ô input về rỗng
   const resetFormFields = () => {
     setTeacherNotificationTitle("");
     setTeacherNotificationContent("");
@@ -85,14 +78,13 @@ const SendNotification = () => {
       };
       await sendNotificationClass(notificationData);
       setIsFetching(false);
-      // Refresh notifications after sending
       const { data } = await getAdminChatStudent();
       setNotificationsStudent(data.data);
-      resetFormFields(); // Reset các trường thông tin trên ô input
+      resetFormFields();
+      scrollToBottom(messagesEndRefStudent);
     } catch (error) {
-      console.error("Error sending notification:", error);
+      console.error("Error sending student notification:", error);
       setIsFetching(false);
-      // Handle error here
     }
   };
 
@@ -105,16 +97,27 @@ const SendNotification = () => {
       };
       await sendNotificationTeacher(notificationData);
       setIsFetching(false);
-      // Refresh notifications after sending
       const { data } = await getAdminChatTeacher();
       setNotificationsTeacher(data.data);
-      resetFormFields(); // Reset các trường thông tin trên ô input
+      resetFormFields();
+      scrollToBottom(messagesEndRefTeacher);
     } catch (error) {
-      console.error("Error sending notification:", error);
+      console.error("Error sending teacher notification:", error);
       setIsFetching(false);
-      // Handle error here
     }
   };
+
+  const scrollToBottom = (ref) => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom(messagesEndRefTeacher);
+  }, [notificationsTeacher]);
+
+  useEffect(() => {
+    scrollToBottom(messagesEndRefStudent);
+  }, [notificationsStudent]);
 
   return isFetching ? (
     <LoadingSpinner />
@@ -142,6 +145,7 @@ const SendNotification = () => {
                   />
                 ))}
               </ul>
+              <div ref={messagesEndRefTeacher} />
             </div>
           </div>
           <form
@@ -155,7 +159,7 @@ const SendNotification = () => {
             <div className="input-group mt-4">
               <input
                 type="text"
-                placeholder="Notification Title"
+                placeholder="Chủ đề"
                 className="form-control rounded-l-lg border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
                 value={teacherNotificationTitle}
                 onChange={(e) => setTeacherNotificationTitle(e.target.value)}
@@ -163,7 +167,7 @@ const SendNotification = () => {
             </div>
             <div className="input-group mt-4">
               <textarea
-                placeholder="Notification Content"
+                placeholder="Nội dung"
                 className="form-control rounded-l-lg border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
                 value={teacherNotificationContent}
                 onChange={(e) => setTeacherNotificationContent(e.target.value)}
@@ -202,6 +206,7 @@ const SendNotification = () => {
                   />
                 ))}
               </ul>
+              <div ref={messagesEndRefStudent} />
             </div>
           </div>
           <form
@@ -215,7 +220,7 @@ const SendNotification = () => {
             <div className="input-group mt-4">
               <input
                 type="text"
-                placeholder="Notification Title"
+                placeholder="Chủ đề"
                 className="form-control rounded-l-lg border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
                 value={studentNotificationTitle}
                 onChange={(e) => setStudentNotificationTitle(e.target.value)}
@@ -223,7 +228,7 @@ const SendNotification = () => {
             </div>
             <div className="input-group mt-4">
               <textarea
-                placeholder="Notification Content"
+                placeholder="Nội dung"
                 className="form-control rounded-l-lg border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
                 value={studentNotificationContent}
                 onChange={(e) => setStudentNotificationContent(e.target.value)}

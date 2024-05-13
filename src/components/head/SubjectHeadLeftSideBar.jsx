@@ -101,7 +101,7 @@ const SubjectHeadLeftSideBar = () => {
           <ListItemText primary="Tests" />
         </ListItemButton>
 
-        <ListItemButton
+        {/* <ListItemButton
           sx={style1}
           selected={selectedIndex === 3}
           onClick={() => handleOnClick(3, '/chat')}
@@ -110,7 +110,7 @@ const SubjectHeadLeftSideBar = () => {
             <MessageIcon />
           </ListItemIcon>
           <ListItemText primary="Chat" />
-        </ListItemButton>
+        </ListItemButton> */}
         <ListItemButton
           sx={style1}
           selected={selectedIndex === 4}

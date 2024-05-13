@@ -24,13 +24,19 @@ import SubjectHeadLayout from './components/head/SubjectHeadLayout.jsx';
 import TeacherLayout from './components/teacher/TeacherLayout.jsx';
 import StudentLayout from './components/student/StudentLayout.jsx';
 import StudentDoTest from './components/test/StudentDoTest.jsx';
-import Nofitication from './components/admin/Nofitication.jsx';
+// import Nofitication from './components/admin/Nofitication.jsx';
+import Nofitication from './components/student/NotificationList.jsx';
 import NofiticationAdmin from './components/admin/NofiticationAdmin.jsx';
 import StudentDoPractice from './components/test/StudentDoPractice.jsx';
 // import ScoreComponent from './components/score/ScoreComponent.jsx';
 import PracticeResult from './components/test/PracticeResult.jsx';
 import PracticeResultDetail from './components/test/PracticeResultDetail.jsx';
-import Chat from './components/student/Chat.jsx';
+import StudentOfClass from './components/student/StudentOfClass.jsx';
+import Chat from './pages/Chat.jsx';
+import SendNofiticationTeacher from './components/teacher/SendNotificationTeacher.jsx'
+import TeacherPage from './components/teacher/TeacherPage.jsx'
+import StudentPage from './components/student/StudentPage.jsx';
+import HeadPage from './components/head/HeadPage.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -83,6 +89,8 @@ const App = () => (
             </ProtectedRoute>
           }
         >
+          <Route index element={<HeadPage />} />
+
           <Route path="test" element={<UserDetail />} />
         </Route>
         <Route
@@ -93,15 +101,15 @@ const App = () => (
             </ProtectedRoute>
           }
         >
-          {/* <Route index element={<TeacherPage />} /> */}
+          <Route index element={<TeacherPage />} />
           <Route path="test" element={<UserDetail />} />
 
           <Route path="question" element={<UserDetail />} />
           <Route path="student" element={<UserDetail />} />
           <Route path="class" element={<UserDetail />} />
-          {/* <Route path="/teacher-page" element={<TeacherPage />} /> */}
-        {/* <Route path="detail-student-class" element={<DetailStudentClass />} /> */}
-
+          <Route path="student/:class_id" element={<StudentOfClass />} />
+          <Route path= "senNofitication" element={<SendNofiticationTeacher />} />
+          
         </Route>
         <Route
           path="/student"
@@ -111,6 +119,8 @@ const App = () => (
             </ProtectedRoute>
           }
         >
+          <Route index element={<StudentPage />} />
+
           <Route path="test" element={<UserDetail />} />
           <Route path="test/:test_code" element={<StudentDoTest />} />
           <Route path="practice" element={<UserDetail />} />

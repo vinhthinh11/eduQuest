@@ -14,6 +14,19 @@ function UserDetail() {
   // get current user path
   const userPath = location.pathname.split('/').at(-1);
   const userLink = { userPath, userType };
+  console.log(userLink);
+  const showModifide = () => {
+    if (userType === 'admin') return true;
+    if (userType === 'teacher') {
+      if (
+        userPath === 'test' ||
+        userPath === 'practice' ||
+        userPath === 'question'
+      )
+        return true;
+    }
+    return false;
+  };
   let tablename = 'người dùng';
   const handleShowDynamicForm = () => {
     switch (userPath) {
@@ -46,35 +59,40 @@ function UserDetail() {
         <div className="w-full">
           <AdminTable userType={userLink} />
         </div>
-        <div className="title-content">
-          <div className="text-center grid grid-cols-2 gap-4 w-full border-t-2 border-edu">
-            <div className={showAdminForm ? 'border-b-2 border-edu' : ''}>
-              <button
-                className="text-sm font-medium my-4 bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
-                onClick={handleShowDynamicForm}
-              >
-                {`Thêm mới ${tablename}`}
-              </button>
-            </div>
-            <div className={showFileUpload ? 'border-b-2 border-edu' : ''}>
-              <button
-                className="text-sm font-medium my-4 bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
-                onClick={() => {
-                  setShowFileUpload(true);
-                  setShowAdminForm(false);
-                }}
-              >
-                Thêm bằng file
-              </button>
+        {showModifide() && (
+          <div className="title-content">
+            <div className="text-center grid grid-cols-2 gap-4 w-full border-t-2 border-edu">
+              <div className={showAdminForm ? 'border-b-2 border-edu' : ''}>
+                <button
+                  className="text-sm font-medium my-4 bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
+                  onClick={handleShowDynamicForm}
+                >
+                  {`Thêm mới ${tablename}`}
+                </button>
+              </div>
+              <div className={showFileUpload ? 'border-b-2 border-edu' : ''}>
+                <button
+                  className="text-sm font-medium my-4 bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
+                  onClick={() => {
+                    setShowFileUpload(true);
+                    setShowAdminForm(false);
+                  }}
+                >
+                  Thêm bằng file
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-        <ModalCreate
-          open={showAdminForm}
-          userType={userLink}
-          setOpen={setShowAdminForm}
-        />
-        <ModalUploadFile open={showFileUpload} setOpen={setShowFileUpload} />
+        )}
+
+        <>
+          <ModalCreate
+            open={showAdminForm}
+            userType={userLink}
+            setOpen={setShowAdminForm}
+          />
+          <ModalUploadFile open={showFileUpload} setOpen={setShowFileUpload} />
+        </>
       </div>
     </UserContextProvider>
   );

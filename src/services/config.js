@@ -31,4 +31,15 @@ export const ADMIN_LIST_CHAT_TEACHER = 'http://127.0.0.1:8000/api/admin/notifica
 export const SEND_NOTIFICATION_TEACHER = 'http://127.0.0.1:8000/api/admin/notification/send-all-teacher';
 
 // export const NOTIFICATION_STUDENT = 'http://127.0.0.1:8000/api/student/notification/{class_id}';
-export const NOTIFICATION_STUDENT = 'http://127.0.0.1:8000/api/student/notification/1';
+export const NOTIFICATION_STUDENT = 'http://127.0.0.1:8000/api/student/notification';
+
+export const CHAT_STUDENT = 'http://127.0.0.1:8000/api/student/chat/send';
+export const ALL_CHAT_STUDENT = 'http://127.0.0.1:8000/api/student/chat/all';
+// export const ALL_CHAT_STUDENT = 'http://127.0.0.1:8000/api/student/chat/all/{class_id}';
+
+
+export const ALL_NOTIFICATION_STUDENT = 'http://127.0.0.1:8000/api/teacher/notification/to-student';
+
+export const ALL_NOTIFICATION_ADMIN = 'http://127.0.0.1:8000/api/teacher/notification/by-admin';
+
+export const SEND_NOTIFICATION_TEACHER_BY_STUDENT = 'http://127.0.0.1:8000/api/teacher/notification/send';
