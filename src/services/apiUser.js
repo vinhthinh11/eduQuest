@@ -69,3 +69,42 @@ export const uploadUserByFile = async (endpoint, file) => {
     throw new Error(err.message);
   }
 };
+export const getMe = async () => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    const users = await axios.get(`${USER_URL}${'/me'}`, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+    return users;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+export const forgetPassowrd = async email => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    await axios.post(`${USER_URL}${'/forget-password'}`, email, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  } catch (err) {
+    throw err;
+  }
+};
+export const sentVerifyOtp = async data => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    await axios.post(`${USER_URL}${'forget-password'}`, data, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};

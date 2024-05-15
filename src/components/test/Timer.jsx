@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { studentSubmitPractice } from '../../services/apiPractice.js';
 
 function Timer() {
-  const { time, setTime, test_code, practice_code } = useQuestionsContext();
+  const { time, setTime, test_code } = useQuestionsContext();
   const navigate = useNavigate();
   useEffect(() => {
     if (time > 0) {
@@ -33,7 +33,7 @@ function Timer() {
     }
   }, [time, setTime]);
   return (
-    <div className="sticky bg-slate-500 px-3 py-2 text-slate-100 w-fit rounded-md mt-2 mr-3 right-0 opacity-80">
+    <div className="bg-slate-500 px-3 py-2 text-slate-100 w-fit rounded-md mt-2 ml-3 right-0 flex-grow-0">
       {Math.floor(time / 60)
         .toString()
         .padStart(2, '0')}
