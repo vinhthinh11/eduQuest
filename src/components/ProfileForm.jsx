@@ -108,7 +108,7 @@ const ProfileForm = () => {
                   value={user?.email}
                   onChange={handleChange}
                 />
-                <div className="my-5 flex items-center flex-col">
+                <div className="flex flex-col" style={{ marginTop: "-20px" }}>
                   <label
                     htmlFor="gender"
                     className="text-gray-700 font-bold mr-2"
@@ -129,13 +129,14 @@ const ProfileForm = () => {
                     ))}
                   </select>
                 </div>
-                <InputField
+                 <InputField
                   label="Mật khẩu"
                   name="password"
                   type="password"
                   value={user?.password}
                   onChange={handleChange}
                 />
+                
               </div>
               <div className="grid grid-cols-2 mt-4">
                 <div className="col-span-1"></div>

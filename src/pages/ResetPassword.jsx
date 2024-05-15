@@ -31,7 +31,9 @@ function ResetPassword() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      await sentVerifyOtp({ email, otp });
+      console.log({email,otp});
+      const data  =await sentVerifyOtp({ email, otp });
+      console.log(data);
       toast.success(
         'New password sent to your email. Please check your email and reset your password'
       );

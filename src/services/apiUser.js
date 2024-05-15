@@ -88,7 +88,6 @@ export const forgetPassowrd = async email => {
     await axios.post(`${USER_URL}${'/forget-password'}`, email, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
-        'Content-Type': 'multipart/form-data',
       },
     });
   } catch (err) {
@@ -98,13 +97,12 @@ export const forgetPassowrd = async email => {
 export const sentVerifyOtp = async data => {
   try {
     const bearerToken = localStorage.getItem('token');
-    await axios.post(`${USER_URL}${'forget-password'}`, data, {
+    await axios.post(`${USER_URL}${'/verify-otp-and-reset-password'}`, data, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
-        'Content-Type': 'multipart/form-data',
       },
     });
   } catch (err) {
-    throw new Error(err.message);
+    throw err;
   }
 };

@@ -89,7 +89,8 @@ const SendNotificationTeacher = () => {
     const fetchNotificationsStudent = async () => {
       try {
         const { data } = await getAllNotificationStudent();
-        setNotificationsStudent(data.notifications || []);
+        console.log('««««« data student »»»»»', data);
+        setNotificationsStudent(data.data || []);
       } catch (error) {
         console.error("Error fetching notificationsStudent:", error);
       }
@@ -103,7 +104,8 @@ const SendNotificationTeacher = () => {
       try {
         const { data } = await getAllNotificationAdmin();
         console.log('««««« data »»»»»', data);
-        setNotificationsAdmin(data.notifications || []);
+        //dư lieu ra  là data mà sao set nofitications ?
+        setNotificationsAdmin(data.data || []);
       } catch (error) {
         console.error("Error fetching notificationsAdmin:", error);
       }
