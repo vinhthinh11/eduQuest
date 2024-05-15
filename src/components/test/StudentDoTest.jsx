@@ -6,7 +6,9 @@ function StudentDoTest() {
   return (
     <QuestionsContextProvider>
       <div>
-        <Progress />
+        <div className="sticky top-0">
+          <Progress />
+        </div>
         <Questions />
       </div>
     </QuestionsContextProvider>
