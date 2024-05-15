@@ -14,7 +14,6 @@ function UserDetail() {
   // get current user path
   const userPath = location.pathname.split('/').at(-1);
   const userLink = { userPath, userType };
-  console.log(userLink);
   const showModifide = () => {
     if (userType === 'admin') return true;
     if (userType === 'teacher') {
@@ -27,7 +26,16 @@ function UserDetail() {
     }
     return false;
   };
-  let tablename = 'người dùng';
+  let tablename =
+    userPath === 'test'
+      ? 'bài thi'
+      : userPath === 'practice'
+      ? 'bài kiểm tra'
+      : userPath === 'question'
+      ? 'câu hỏi'
+      : userPath === 'class'
+      ? 'lớp học'
+      : 'người dùng';
   const handleShowDynamicForm = () => {
     switch (userPath) {
       case 'test':
