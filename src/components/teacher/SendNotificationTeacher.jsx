@@ -89,7 +89,7 @@ const SendNotificationTeacher = () => {
     const fetchNotificationsStudent = async () => {
       try {
         const { data } = await getAllNotificationStudent();
-        setNotificationsStudent(data.notifications);
+        setNotificationsStudent(data.notifications || []);
       } catch (error) {
         console.error("Error fetching notificationsStudent:", error);
       }
@@ -102,7 +102,8 @@ const SendNotificationTeacher = () => {
     const fetchNotificationsAdmin = async () => {
       try {
         const { data } = await getAllNotificationAdmin();
-        setNotificationsAdmin(data.notifications);
+        console.log('««««« data »»»»»', data);
+        setNotificationsAdmin(data.notifications || []);
       } catch (error) {
         console.error("Error fetching notificationsAdmin:", error);
       }
@@ -147,10 +148,10 @@ const SendNotificationTeacher = () => {
       await sendNotificationTeacherByStudent(notificationData);
       setIsFetching(false);
       const { data } = await getAllNotificationStudent();
-      setNotificationsStudent(data.notifications);
+      setNotificationsStudent(data.notifications || []);
       resetFormFields();
       scrollToBottom(messagesEndRefTeacher);
-      setSelectedClasses([]); // Đặt lại selectedClasses về mảng rỗng
+      setSelectedClasses([]);
     } catch (error) {
       console.error("Error sending teacher notification:", error);
       setIsFetching(false);
@@ -185,6 +186,7 @@ const SendNotificationTeacher = () => {
             >
               <ul className="chat-list h-full">
                 {notificationsAdmin.map((notification) => (
+                  
                   <ChatMessage
                     key={notification.notification_id}
                     imgSrc="https://bootdey.com/img/Content/avatar/avatar1.png"
@@ -298,3 +300,4 @@ const SendNotificationTeacher = () => {
 };
 
 export default SendNotificationTeacher;
+

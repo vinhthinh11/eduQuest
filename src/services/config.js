@@ -25,7 +25,7 @@ export const TEST_DETAIL_URL =
 export const DELETE_HEAD_JUBJECT_URL = ' http://127.0.0.1:8000/api/admin/subject-head/delete';
 
 export const ADMIN_LIST_CHAT_STUDENT = 'http://127.0.0.1:8000/api/admin/notification/list-student';
-export const SEND_NOTIFICATION_STUDENT = 'http://127.0.0.1:8000/api/admin/notification/send-all-grade';
+export const SEND_NOTIFICATION_STUDENT = 'http://127.0.0.1:8000/api/admin/notification/send-all-classes';
 
 export const ADMIN_LIST_CHAT_TEACHER = 'http://127.0.0.1:8000/api/admin/notification/list-teacher';
 export const SEND_NOTIFICATION_TEACHER = 'http://127.0.0.1:8000/api/admin/notification/send-all-teacher';
@@ -38,6 +38,8 @@ export const ALL_CHAT_STUDENT = 'http://127.0.0.1:8000/api/student/chat/all';
 // export const ALL_CHAT_STUDENT = 'http://127.0.0.1:8000/api/student/chat/all/{class_id}';
 
 
+
+//// api send notification of teach
 export const ALL_NOTIFICATION_STUDENT = 'http://127.0.0.1:8000/api/teacher/notification/to-student';
 
 export const ALL_NOTIFICATION_ADMIN = 'http://127.0.0.1:8000/api/teacher/notification/by-admin';

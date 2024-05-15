@@ -129,8 +129,8 @@ const Chat = () => {
       const bearerToken = localStorage.getItem("token");
       await sendNotificationTeacher({ chat_content: newMessage });
       console.log("Message sent successfully");
-      fetchMessages();
       setNewMessage("");
+      fetchMessages();
     } catch (err) {
       console.error("Error sending message:", err.message);
     }
