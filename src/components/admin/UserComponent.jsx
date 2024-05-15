@@ -7,6 +7,7 @@ function UserComponent({ userType, users, perPage = 10, currentPage = 1 }) {
   const [openDelete, setOpenDelete] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [visibleUsers, setVisibleUsers] = useState([]);
+  console.log(userType);
 
   users?.slice((currentPage - 1) * perPage, currentPage * perPage);
   useEffect(() => {
@@ -91,8 +92,7 @@ function UserComponent({ userType, users, perPage = 10, currentPage = 1 }) {
               </td>
               <td className="px-3 py-4 break-all">{user.birthday}</td>
               <td className="px-3 py-4 whitespace-nowrap">
-                {(userType === 'admin') &
-                (
+                {userType.userType === 'admin' && (
                   <div className="flex flex-col">
                     <button
                       className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2"

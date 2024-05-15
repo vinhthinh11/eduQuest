@@ -26,7 +26,7 @@ const AdminHeader = () => {
     <div className="w-full border-b-2 border-edu">
       <div className="w-full  h-14 flex justify-between items-center px-4">
         <HomeIcon fontSize="large" sx={{ color: '#836FFF' }} />
-        <Dropdown className="flex gap-3 items-center bg-base rounded-lg px-3 py-1">
+        <Dropdown>
           <MenuButton
             sx={{ bgcolor: '#836FFF', display: 'flex', gap: '10px' }}
             variant="solid"

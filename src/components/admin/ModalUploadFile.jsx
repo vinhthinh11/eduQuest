@@ -4,14 +4,16 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { uploadUserByFile } from '../../services/apiUser.js';
 import toast from 'react-hot-toast';
+import { useUserContext } from '../../admin/UserContextProvider.jsx';
 
-export default function ModalUploadFile({ open, setOpen, type }) {
+export default function ModalUploadFile({ open, setOpen }) {
   const handleClose = () => setOpen(false);
   const [file, setFile] = useState(null);
+  const { userLink } = useUserContext();
   const handleConfirm = async e => {
     e.preventDefault();
     try {
-      await uploadUserByFile('/admin/check-add-admin-via-file', file);
+      await uploadUserByFile(`/admin/${userLink.userPath}/file`, file);
       toast.success('Thêm admin thành công');
     } catch (error) {
       toast.error('Thêm admin thất bại');
