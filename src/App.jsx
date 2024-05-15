@@ -33,8 +33,8 @@ import PracticeResult from './components/test/PracticeResult.jsx';
 import PracticeResultDetail from './components/test/PracticeResultDetail.jsx';
 import StudentOfClass from './components/student/StudentOfClass.jsx';
 import Chat from './pages/Chat.jsx';
-import SendNofiticationTeacher from './components/teacher/SendNotificationTeacher.jsx'
-import TeacherPage from './components/teacher/TeacherPage.jsx'
+import SendNofiticationTeacher from './components/teacher/SendNotificationTeacher.jsx';
+import TeacherPage from './components/teacher/TeacherPage.jsx';
 import StudentPage from './components/student/StudentPage.jsx';
 import HeadPage from './components/head/HeadPage.jsx';
 
@@ -57,6 +57,7 @@ const App = () => (
         <Route path="/" element={<Navigate replace to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="contact" element={<Contact />} />
+        <Route path="profile" element={<ProfileForm />} />
         <Route
           path="/admin"
           element={
@@ -76,9 +77,8 @@ const App = () => (
           <Route path="test" element={<UserDetail />} />
           <Route path="statistic" element={<Statistic />} />
           <Route path="question" element={<Question />} />
-          <Route path="profile" element={<ProfileForm />} />
           <Route path="notification" element={<NofiticationAdmin />} />
-          <Route path= "senNofitication" element={<SendNotification />} />
+          <Route path="senNofitication" element={<SendNotification />} />
         </Route>
 
         <Route
@@ -108,8 +108,7 @@ const App = () => (
           <Route path="student" element={<UserDetail />} />
           <Route path="class" element={<UserDetail />} />
           <Route path="student/:class_id" element={<StudentOfClass />} />
-          <Route path= "senNofitication" element={<SendNofiticationTeacher />} />
-          
+          <Route path="senNofitication" element={<SendNofiticationTeacher />} />
         </Route>
         <Route
           path="/student"
@@ -134,10 +133,9 @@ const App = () => (
             element={<PracticeResultDetail />}
           />
           <Route path="score" element={<UserDetail />} />
-          <Route path="notification" element={<Nofitication/>}/>
+          <Route path="notification" element={<Nofitication />} />
           {/* <Route path="/notification/:id" element={<NotificationDetailPage />} /> */}
           <Route path="chat" element={<Chat />} />
-
         </Route>
 
         <Route path="reset-password" element={<ResetPassword />} />

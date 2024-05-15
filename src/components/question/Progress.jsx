@@ -12,20 +12,20 @@ function Progress() {
   const progressPercent = Math.floor((progress / maxQuestions) * 100);
   console.log('progressPercent', progressPercent);
   return (
-    <div>
+    <div className="bg-blue-400 py-3 flex justify-around">
       <Timer />
-      <div className="flex justify-between gap-2 items-center px-4">
+      <div className="flex justify-between gap-2 items-center px-4 flex-1">
         <p>
           Question <strong>{progress}</strong>/{maxQuestions}
         </p>
         <div className="bg-slate-200 rounded-xl shadow-sm overflow-hidden p-1 w-full">
           <div className="relative h-6 flex items-center justify-center">
             <progress
-              className="absolute h-5 my-auto left-0 rounded-lg w-full[&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-value]:rounded-lg   [&::-webkit-progress-bar]:bg-slate-300 [&::-webkit-progress-value]:bg-green-500 [&::-moz-progress-bar]:bg-green-500"
+              className="absolute h-5 my-auto left-0 rounded-lg w-full [&::-webkit-progress-bar]:rounded-lg [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-bar]:bg-slate-300 [&::-webkit-progress-value]:bg-green-500 [&::-moz-progress-bar]:bg-green-500"
               value={progressPercent}
               max={100}
             ></progress>
-            <div className="relative text-green-900 font-medium text-sm">
+            <div className="text-green-900 font-medium text-sm">
               {progressPercent ?? 0}%
             </div>
           </div>

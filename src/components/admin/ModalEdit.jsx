@@ -96,7 +96,7 @@ export default function ModalEdit({ open, setOpen, user, userType = 'admin' }) {
             label="Gender"
             name="gender_id"
             type="text"
-            onChange={e => handleInputChange(e, 'gender_id')}
+            onChange={e => (e, 'gender_id')}
             value={userEdit.gender_id}
           />
         </div>
