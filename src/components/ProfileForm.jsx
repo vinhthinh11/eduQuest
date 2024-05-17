@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import InputField from './InputField';
-import { getMe } from '../services/apiUser.js';
+import React, { useEffect, useState } from "react";
+import InputField from "./InputField";
+import { getMe } from "../services/apiUser.js";
 
 const ProfileForm = () => {
   const genderOptions = [
-    { value: '1', label: 'Không Xác Định' },
-    { value: '2', label: 'Nam' },
-    { value: '3', label: 'Nữ' },
+    { value: "1", label: "Không Xác Định" },
+    { value: "2", label: "Nam" },
+    { value: "3", label: "Nữ" },
   ];
   const [user, setUser] = useState({});
 
-  const handleChange = e => {
-    setUser(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChange = (e) => {
+    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(user);
   };
   useEffect(() => {
     async function getUser() {
       const { data } = await getMe();
-      setUser({ ...data, ['password']: '' });
+      setUser({ ...data, ["password"]: "" });
       console.log(data);
     }
     getUser();
@@ -122,21 +122,25 @@ const ProfileForm = () => {
                     value={user?.gender_id}
                     onChange={handleChange}
                   >
-                    {genderOptions?.map(option => (
+                    {genderOptions?.map((option) => (
                       <option key={option?.value} value={option?.value}>
                         {option?.label}
                       </option>
                     ))}
                   </select>
                 </div>
-                 <InputField
-                  label="Mật khẩu"
-                  name="password"
-                  type="password"
-                  value={user?.password}
-                  onChange={handleChange}
-                />
-                
+                <div>
+                  <label className="text-gray-700 font-bold absolute transition-all -mt-5">Mật khẩu</label>
+                  <input
+                    type= "password"
+                    id= "password"
+                    name= "password"
+                    value={user?.password}
+                    className="input-field px-4 py-1 outline-1 outline-slate-400 border-none w-full focus:bg-slate-200 rounded-md "
+                    onChange={handleChange}
+                  />
+                  <hr className="border-b-2" />
+                </div>
               </div>
               <div className="grid grid-cols-2 mt-4">
                 <div className="col-span-1"></div>

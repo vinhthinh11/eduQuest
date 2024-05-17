@@ -24,7 +24,7 @@ import SubjectHeadLayout from './components/head/SubjectHeadLayout.jsx';
 import TeacherLayout from './components/teacher/TeacherLayout.jsx';
 import StudentLayout from './components/student/StudentLayout.jsx';
 import StudentDoTest from './components/test/StudentDoTest.jsx';
-// import Nofitication from './components/admin/Nofitication.jsx';
+import NofiticationTest from './components/admin/Nofitication.jsx';
 import Nofitication from './components/student/NotificationList.jsx';
 import NofiticationAdmin from './components/admin/NofiticationAdmin.jsx';
 import StudentDoPractice from './components/test/StudentDoPractice.jsx';
@@ -139,7 +139,9 @@ const App = () => (
         </Route>
 
         <Route path="reset-password" element={<ResetPassword />} />
+        <Route path="nofiticationTest" element={<NofiticationTest />} />
         <Route path="*" element={<PageNotFound />} />
+
       </Routes>
     </BrowserRouter>
     <Toaster

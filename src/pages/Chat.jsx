@@ -53,7 +53,6 @@ const Chat = () => {
       console.error('Error fetching messages:', error);
     }
   };
-
   const handleSubmit = async e => {
     e.preventDefault();
     try {
@@ -64,8 +63,11 @@ const Chat = () => {
       fetchMessages();
     } catch (err) {
       console.error('Error sending message:', err.message);
+    } finally {
+      setNewMessage("");
     }
   };
+  
 
   return (
     <div className="flex flex-col max-h-97">

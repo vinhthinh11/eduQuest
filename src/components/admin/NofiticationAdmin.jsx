@@ -26,7 +26,6 @@ const style = {
 
 const NotificationsAdmin = () => {
   const [notifications, setNotifications] = useState([]);
-  const [isNew, setIsNew] = useState(true); // State để xác định thông báo mới nhất chưa xem
   const [isFetching, setIsFetching] = useState(true);
   const [selectedNotification, setSelectedNotification] = useState(null);
   const [openModal, setOpenModal] = useState(false);
@@ -41,10 +40,6 @@ const NotificationsAdmin = () => {
         const mergedData = [...studentData.data, ...teacherData.data];
         const sortedData = mergedData.sort((a, b) => new Date(b.time_sent) - new Date(a.time_sent));
         setNotifications(sortedData);
-        // Kiểm tra nếu có thông báo mới và chưa xem thì đặt isNew là true
-        if (sortedData.length > 0 && isNew) {
-          setIsNew(true);
-        }
       } catch (error) {
         console.error("Error fetching notifications:", error);
         toast.error("Error fetching notifications");
@@ -54,12 +49,11 @@ const NotificationsAdmin = () => {
     };
 
     fetchData();
-  }, [isNew]); // Thêm isNew vào dependency để useEffect được gọi lại khi isNew thay đổi
+  }, []); // Không cần phụ thuộc vào isNew nữa
 
   const handleNotificationClick = (notification) => {
     setSelectedNotification(notification);
     setOpenModal(true);
-    setIsNew(false); // Đánh dấu thông báo đã được xem khi click vào
   };
 
   const formatDate = (timestamp) => {
@@ -68,6 +62,15 @@ const NotificationsAdmin = () => {
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
+  };
+
+  const isNotificationNew = (timestamp) => {
+    const notificationDate = new Date(timestamp);
+    const currentDate = new Date();
+    const differenceInDays = Math.floor(
+      (currentDate - notificationDate) / (1000 * 60 * 60 * 24)
+    );
+    return differenceInDays <= 3;
   };
 
   return (
@@ -95,9 +98,15 @@ const NotificationsAdmin = () => {
                 >
                   {notification.notification_title}
                 </Link>
-                {isNew && index === 0 && ( // Hiển thị "Mới" cho thông báo mới nhất và chưa xem
-                  <p className="text-red-500 mb-4 animate-bounce ml-2">Mới</p>
-                )}
+                <p
+                  className={`${
+                    isNotificationNew(notification.time_sent)
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  } mb-4 ml-2`}
+                >
+                  {isNotificationNew(notification.time_sent) ? "Mới" : ""}
+                </p>
                 <span className="ml-3">
                   {" "}
                   ({formatDate(notification.time_sent)}){" "}

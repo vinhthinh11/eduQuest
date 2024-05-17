@@ -45,7 +45,7 @@ const TeacherLeftSideBar = () => {
           alt="logo"
         />
         <p className="capitalize">Edu Quest</p>
-        <p className="font-semibold text-xl">Admin page</p>
+        <p className="font-semibold text-xl">Teacher page</p>
       </div>
       <List
         sx={{

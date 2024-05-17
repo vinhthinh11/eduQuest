@@ -32,15 +32,17 @@ const NotificationsPage = () => {
     const fetchNotificationsStudent = async () => {
       try {
         const response = await getNotificationStudent();
-        const responseData = response.data.data; 
+        const responseData = response.data.data;
         if (!Array.isArray(responseData)) {
           throw new Error("Invalid data format: expected an array.");
         }
-        const notificationsWithRead = responseData.map(notification => ({
+        const notificationsWithRead = responseData.map((notification) => ({
           ...notification,
-          read: viewedNotifications.includes(notification.notification_id) 
+          read: viewedNotifications.includes(notification.notification_id),
         }));
-        notificationsWithRead.sort((a, b) => new Date(b.time_sent) - new Date(a.time_sent));
+        notificationsWithRead.sort(
+          (a, b) => new Date(b.time_sent) - new Date(a.time_sent)
+        );
         setNotificationsStudent(notificationsWithRead);
       } catch (error) {
         console.error("Error fetching notifications:", error);
@@ -49,15 +51,19 @@ const NotificationsPage = () => {
         setIsFetching(false);
       }
     };
-    
+
     fetchNotificationsStudent();
-  }, [viewedNotifications]); 
-  
-  
+  }, [viewedNotifications]);
+
   const handleNotificationClick = (notification) => {
     setSelectedNotification(notification);
     setOpenModal(true);
-    setViewedNotifications(prevState => [...prevState, notification.notification_id]);
+    if (!viewedNotifications.includes(notification.notification_id)) {
+      setViewedNotifications((prevState) => [
+        ...prevState,
+        notification.notification_id,
+      ]);
+    }
   };
 
   const handleCloseModal = () => {
@@ -70,6 +76,15 @@ const NotificationsPage = () => {
     const month = date.getMonth() + 1;
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
+  };
+
+  const isNotificationNew = (timestamp) => {
+    const notificationDate = new Date(timestamp);
+    const currentDate = new Date();
+    const differenceInDays = Math.floor(
+      (currentDate - notificationDate) / (1000 * 60 * 60 * 24)
+    );
+    return differenceInDays <= 3;
   };
 
   return (
@@ -91,9 +106,25 @@ const NotificationsPage = () => {
                 className="py-4 flex items-center"
                 onClick={() => handleNotificationClick(notification)}
               >
-                <div className="text-lg font-semibold">{notification.notification_title}</div>
-                <p className={`${notification.read ? 'text-gray-500' : 'text-red-500'} mb-4 ml-2`}>{notification.read ? '' : 'Mới'}</p>
-                <span className="ml-3">{formatDate(notification.time_sent)}</span>
+                <div className="text-lg font-semibold">
+                  {notification.notification_title}
+                </div>
+                <p
+                  className={`${
+                    isNotificationNew(notification.time_sent) &&
+                    !viewedNotifications.includes(notification.notification_id)
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  } mb-4 ml-2`}
+                >
+                  {isNotificationNew(notification.time_sent) &&
+                  !viewedNotifications.includes(notification.notification_id)
+                    ? "Mới"
+                    : ""}
+                </p>
+                <span className="ml-3">
+                  {formatDate(notification.time_sent)}
+                </span>
               </li>
             ))
           )}

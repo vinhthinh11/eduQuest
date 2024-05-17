@@ -4,15 +4,13 @@ import LoadingSpinner from "../LoadingSpinner";
 import "../../assets/style.css";
 import { sendNotificationClass, sendNotificationTeacher } from "../../services/apiNotification";
 
-const ChatMessage = ({ imgSrc, name, message, type, timeSent }) => {
+const ChatMessage = ({ name, message, type, timeSent }) => {
   const messageClass = type === "in" ? "flex-row-reverse" : "flex-row";
   const messageBgClass = type === "in" ? "bg-blue-500 text-white" : "bg-blue-500 text-white";
 
   return (
     <li className={`flex items-center mb-4 ${messageClass}`}>
-      <div className="chat-img">
-        <img alt="Avatar" src={imgSrc} className="rounded-full w-12" />
-      </div>
+      
       <div className={`chat-body ml-2 mr-2 ${messageBgClass} p-3 max-w-sm rounded-xl`}>
         <h5 className="font-bold mb-1">{name}</h5>
         <p className="text-sm">{message}</p>
@@ -29,7 +27,6 @@ const SendNotification = () => {
   const [teacherNotificationContent, setTeacherNotificationContent] = useState("");
   const [studentNotificationTitle, setStudentNotificationTitle] = useState("");
   const [studentNotificationContent, setStudentNotificationContent] = useState("");
-  const [isFetching, setIsFetching] = useState(false);
   const messagesEndRefTeacher = useRef(null);
   const messagesEndRefStudent = useRef(null);
 
@@ -48,14 +45,12 @@ const SendNotification = () => {
 
   useEffect(() => {
     const fetchNotificationsStudent = async () => {
-      setIsFetching(true);
       try {
         const { data } = await getAdminChatStudent();
         setNotificationsStudent(data.data);
       } catch (error) {
         console.error("Error fetching notificationsStudent:", error);
       } finally {
-        setIsFetching(false);
       }
     };
 
@@ -71,39 +66,33 @@ const SendNotification = () => {
 
   const handleSendStudent = async () => {
     try {
-      setIsFetching(true);
       const notificationData = {
         notification_title: studentNotificationTitle,
         notification_content: studentNotificationContent,
       };
       await sendNotificationClass(notificationData);
-      setIsFetching(false);
       const { data } = await getAdminChatStudent();
       setNotificationsStudent(data.data);
       resetFormFields();
       scrollToBottom(messagesEndRefStudent);
     } catch (error) {
       console.error("Error sending student notification:", error);
-      setIsFetching(false);
     }
   };
 
   const handleSendTeacher = async () => {
     try {
-      setIsFetching(true);
       const notificationData = {
         notification_title: teacherNotificationTitle,
         notification_content: teacherNotificationContent,
       };
       await sendNotificationTeacher(notificationData);
-      setIsFetching(false);
       const { data } = await getAdminChatTeacher();
       setNotificationsTeacher(data.data);
       resetFormFields();
       scrollToBottom(messagesEndRefTeacher);
     } catch (error) {
       console.error("Error sending teacher notification:", error);
-      setIsFetching(false);
     }
   };
 
@@ -119,9 +108,7 @@ const SendNotification = () => {
     scrollToBottom(messagesEndRefStudent);
   }, [notificationsStudent]);
 
-  return isFetching ? (
-    <LoadingSpinner />
-  ) : (
+  return  (
     <div className="grid grid-cols-2 gap-4 px-0">
       <div>
         <div className="px-4 py-5 chat-box bg-white">
@@ -137,7 +124,6 @@ const SendNotification = () => {
                 {notificationsTeacher.map((notification) => (
                   <ChatMessage
                     key={notification.notification_id}
-                    imgSrc="https://bootdey.com/img/Content/avatar/avatar1.png"
                     name={notification.name}
                     message={notification.notification_content}
                     timeSent={notification.time_sent}

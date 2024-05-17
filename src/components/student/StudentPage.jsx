@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { getUser } from "../../services/apiUser";
 
 const StudentPage = () => {
   const [testData, setTestData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchUser() {
       try {
         const { data: testDataFromTest } = await getUser("/student/test/get");
         const { data: testDataFromPractice } = await getUser("/student/practice/get");
-       
+
+        console.log("Test data from API:", testDataFromTest);
+        console.log("Practice data from API:", testDataFromPractice);
+
         const practiceDataWithLabel = testDataFromPractice.data.map(practice => ({
           ...practice,
           type: "practice"
         }));
-        setTestData([...testDataFromTest.data, ...practiceDataWithLabel,]); 
+
+        setTestData([...testDataFromTest.data, ...practiceDataWithLabel]);
       } catch (err) {
         toast.error(err.message);
       }
@@ -23,7 +29,15 @@ const StudentPage = () => {
     fetchUser();
   }, []);
 
-  
+  const handleButtonClick = (test) => {
+    console.log("Button clicked for:", test);
+    if (test.type === "practice") {
+      navigate(`/student/practice/${test.test_code}`);
+    } else {
+      navigate(`/student/test/${test.test_code}`);
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mx-4 my-4">
       {testData.map((test) => (
@@ -39,7 +53,12 @@ const StudentPage = () => {
             <span className="block">Ghi Chú: {test.note}</span>
             <span className="block text-sm text-green-500">Loại: {test.type === "practice" ? "practice" : "test"}</span>
           </div>
-          <button className="btn bg-blue-500 text-white py-2 px-4 rounded-lg mt-2" >LÀM BÀI</button>
+          <button
+            className="btn bg-blue-500 text-white py-2 px-4 rounded-lg mt-2"
+            onClick={() => handleButtonClick(test)}
+          >
+            LÀM BÀI
+          </button>
         </div>
       ))}
     </div>

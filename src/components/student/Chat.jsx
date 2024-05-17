@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Chat = () => {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
+    const messagesEndRef = useRef(null);
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value);
@@ -17,6 +18,13 @@ const Chat = () => {
             setInputValue('');
         }
     };
+
+    // Tự động cuộn xuống dòng mới nhất khi có tin nhắn mới
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [messages]);
 
     return (
         <div>
@@ -36,23 +44,24 @@ const Chat = () => {
                                 <p>{message.content}</p>
                             </div>
                         ))}
+                        <div ref={messagesEndRef} />
                     </div>
-                    <div className="chat mt-4">
-                        <form onSubmit={handleSubmit}>
-                            <div className="input-field">
-                                <label htmlFor="content" className="active" id="label-chat">Nhập nội dung (Enter để gửi)</label>
-                                <input 
-                                    type="text" 
-                                    name="content" 
-                                    id="content" 
-                                    value={inputValue}
-                                    onChange={handleInputChange}
-                                    autoFocus 
-                                    className="border border-gray-300 px-2 py-1 rounded-md w-full focus:outline-none focus:border-blue-400" 
-                                />
-                            </div>
-                        </form>
-                    </div>
+                </div>
+                <div className="chat mt-4">
+                    <form onSubmit={handleSubmit}>
+                        <div className="input-field">
+                            <label htmlFor="content" className="active" id="label-chat">Nhập nội dung (Enter để gửi)</label>
+                            <input 
+                                type="text" 
+                                name="content" 
+                                id="content" 
+                                value={inputValue}
+                                onChange={handleInputChange}
+                                autoFocus 
+                                className="border border-gray-300 px-2 py-1 rounded-md w-full focus:outline-none focus:border-blue-400" 
+                            />
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

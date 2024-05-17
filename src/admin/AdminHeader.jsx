@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 
+
 const AdminHeader = () => {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ const AdminHeader = () => {
     };
     fetchUser();
   }, []);
+
+  
   return (
     <div className="w-full border-b-2 border-edu">
       <div className="w-full  h-14 flex justify-between items-center px-4">
@@ -58,9 +61,9 @@ const AdminHeader = () => {
             marginTop: '10px',
             marginLeft: '40px',
           }}
-          onClick={() => {
-            window.location.href = '/admin';
-          }}
+          // onClick={() => {
+          //   window.location.href = '/admin';
+          // }}
         >
           Trang chủ
         </Button>

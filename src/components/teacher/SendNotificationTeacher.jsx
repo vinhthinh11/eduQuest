@@ -45,7 +45,7 @@ const SelectedNames = ({ selected }) => {
 };
 
 // Define or import the ChatMessage component
-const ChatMessage = ({ imgSrc, name, message, type, timeSent }) => {
+const ChatMessage = ({ name, message, type, timeSent }) => {
   const messageClass = type === "in" ? "flex-row-reverse" : "flex-row";
   const messageBgClass =
     type === "in" ? "bg-blue-500 text-white" : "bg-blue-500 text-white";
@@ -55,9 +55,6 @@ const ChatMessage = ({ imgSrc, name, message, type, timeSent }) => {
 
   return (
     <li className={`flex items-center mb-4 ${messageClass}`}>
-      <div className="chat-img">
-        <img alt="Avatar" src={imgSrc} className="rounded-full w-12" />
-      </div>
       <div
         className={`chat-body ml-2 mr-2 ${messageBgClass} p-3 max-w-sm rounded-xl`}
       >
@@ -71,26 +68,27 @@ const ChatMessage = ({ imgSrc, name, message, type, timeSent }) => {
   );
 };
 
-
 const SendNotificationTeacher = () => {
   const [notificationsAdmin, setNotificationsAdmin] = useState([]);
   const [notificationsStudent, setNotificationsStudent] = useState([]);
   const [notificationTitle, setNotificationTitle] = useState("");
   const [notificationContent, setNotificationContent] = useState("");
   const [isFetching, setIsFetching] = useState(false);
-  const messagesEndRefTeacher = useRef(null);
-  const messagesEndRefStudent = useRef(null);
   const [selectedClasses, setSelectedClasses] = useState([]);
   const [openClassModal, setOpenClassModal] = useState(false);
-
+  const [viewedNotifications, setViewedNotifications] = useState([]);
   const [classes, setClasses] = useState([]);
 
   useEffect(() => {
     const fetchNotificationsStudent = async () => {
       try {
         const { data } = await getAllNotificationStudent();
-        console.log('««««« data student »»»»»', data);
-        setNotificationsStudent(data.data || []);
+        console.log("««««« data student »»»»»", data);
+        setNotificationsStudent(data.notifications || []);
+        // const sortedNotifications = [...notificationsStudent].sort(
+        //   (a, b) => new Date(b.time_sent) - new Date(a.time_sent)
+        // );
+        // setNotificationsAdmin(sortedNotifications);
       } catch (error) {
         console.error("Error fetching notificationsStudent:", error);
       }
@@ -103,9 +101,9 @@ const SendNotificationTeacher = () => {
     const fetchNotificationsAdmin = async () => {
       try {
         const { data } = await getAllNotificationAdmin();
-        console.log('««««« data »»»»»', data);
-        //dư lieu ra  là data mà sao set nofitications ?
+        console.log("««««« data »»»»»", data);
         setNotificationsAdmin(data.data || []);
+        
       } catch (error) {
         console.error("Error fetching notificationsAdmin:", error);
       }
@@ -141,7 +139,7 @@ const SendNotificationTeacher = () => {
   const handleSendTeacher = async () => {
     try {
       setIsFetching(true);
-      const classIds = selectedClasses.map(classItem => classItem.value);
+      const classIds = selectedClasses.map((classItem) => classItem.value);
       const notificationData = {
         class_id: classIds,
         notification_title: notificationTitle,
@@ -152,85 +150,118 @@ const SendNotificationTeacher = () => {
       const { data } = await getAllNotificationStudent();
       setNotificationsStudent(data.notifications || []);
       resetFormFields();
-      scrollToBottom(messagesEndRefTeacher);
       setSelectedClasses([]);
     } catch (error) {
       console.error("Error sending teacher notification:", error);
       setIsFetching(false);
     }
   };
-  
-  const scrollToBottom = (ref) => {
-    ref.current?.scrollIntoView({ behavior: "smooth" });
+
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   };
 
-  useEffect(() => {
-    scrollToBottom(messagesEndRefTeacher);
-  }, [notificationsAdmin]);
-
-  useEffect(() => {
-    scrollToBottom(messagesEndRefStudent);
-  }, [notificationsStudent]);
+  const isNotificationNew = (timestamp) => {
+    const notificationDate = new Date(timestamp);
+    const currentDate = new Date();
+    const differenceInDays = Math.floor(
+      (currentDate - notificationDate) / (1000 * 60 * 60 * 24)
+    );
+    return differenceInDays <= 3;
+  };
 
   return isFetching ? (
     <LoadingSpinner />
   ) : (
-    <div className="grid grid-cols-2 gap-4 px-0">
-      <div className="flex">
-        <div className="px-4 py-5 chat-box bg-white flex-1">
-          <div className="card shadow-md">
-            <div className="card-header bg-red-500 text-white rounded-t-md py-2">
-              <span className="ml-5">Thông Báo Nhận Từ Admin</span>
-            </div>
-            <div
-              className="card-body max-h-96 overflow-y-auto mt-4"
-              style={{ minHeight: "450px" }}
-            >
-              <ul className="chat-list h-full">
-                {notificationsAdmin.map((notification) => (
-                  
-                  <ChatMessage
-                    key={notification.notification_id}
-                    imgSrc="https://bootdey.com/img/Content/avatar/avatar1.png"
-                    name={notification.name}
-                    message={notification.notification_content}
-                    timeSent={notification.time_sent}
-                    type="out"
-                  />
-                ))}
-              </ul>
-              <div ref={messagesEndRefTeacher} />
-            </div>
-          </div>
+    <div className="grid grid-cols-2 gap-4 px-0 mt-4">
+      <div
+        className="px-4 py-5 chat-box max-h-97 bg-white flex-1 overflow-y-auto"
+        style={{ minHeight: "450px" }}
+      >
+        <div className="card shadow-md">
+          {notificationsAdmin
+            .slice()
+            .reverse()
+            .map((notification) => (
+              <li
+                key={notification.notification_id}
+                className="py-4 flex items-center ml-2"
+                // onClick={() => handleNotificationClick(notification)}
+              >
+                <div>
+                  <div className="text-lg font-semibold">
+                    {notification.notification_title}
+                  </div>
+                  <div className="text-lg text-purple-500 ml-2">
+                    {notification.notification_content}
+                  </div>
+                </div>
+                <p
+                  className={`${
+                    isNotificationNew(notification.time_sent) &&
+                    !viewedNotifications.includes(notification.notification_id)
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  } mb-4 ml-2`}
+                >
+                  {isNotificationNew(notification.time_sent) &&
+                  !viewedNotifications.includes(notification.notification_id)
+                    ? "Mới"
+                    : ""}
+                </p>
+                <span className="ml-3">
+                  {formatDate(notification.time_sent)}
+                </span>
+              </li>
+            ))}
         </div>
       </div>
-      <div className="flex">
-        <div className="px-4 py-5 chat-box bg-white flex-1">
-          <div className="card shadow-md">
-            <div className="card-header bg-red-500 text-white rounded-t-md py-2">
-              <span className="ml-5">Thông Báo Đến Học Sinh</span>
-            </div>
-            <div
-              className="card-body max-h-96 overflow-y-auto mt-4"
-              style={{ minHeight: "450px" }}
-            >
-              <ul className="chat-list h-full">
-                {notificationsStudent.map((notification) => (
-                  <ChatMessage
-                    key={notification.notification_id}
-                    imgSrc="https://bootdey.com/img/Content/avatar/avatar1.png"
-                    name={notification.name}
-                    message={notification.notification_content}
-                    timeSent={notification.time_sent}
-                    type="out"
-                  />
-                ))}
-              </ul>
-              <div ref={messagesEndRefStudent} />
-            </div>
-          </div>
+      <div
+        className="px-4 py-5 chat-box max-h-97 bg-white flex-1 overflow-y-auto"
+        style={{ minHeight: "450px" }}
+      >
+        <div className="card shadow-md">
+          {notificationsStudent
+            .slice()
+            .reverse()
+            .map((notification) => (
+              <li
+                key={notification.notification_id}
+                className="py-4 flex items-center ml-2"
+              >
+                <div>
+                  <div className="text-lg font-semibold">
+                    {notification.notification_title}
+                  </div>
+                  <div className="text-lg text-purple-500 ml-2">
+                    {notification.notification_content}
+                  </div>
+                </div>
+                <p
+                  className={`${
+                    isNotificationNew(notification.time_sent) &&
+                    !viewedNotifications.includes(notification.notification_id)
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  } mb-4 ml-2`}
+                >
+                  {isNotificationNew(notification.time_sent) &&
+                  !viewedNotifications.includes(notification.notification_id)
+                    ? "Mới"
+                    : ""}
+                </p>
+                <span className="ml-3">
+                  {formatDate(notification.time_sent)}
+                </span>
+              </li>
+            ))}
         </div>
       </div>
+      
       <form
         action="#"
         className="bg-light ml-4 mb-4"
@@ -302,4 +333,3 @@ const SendNotificationTeacher = () => {
 };
 
 export default SendNotificationTeacher;
-
