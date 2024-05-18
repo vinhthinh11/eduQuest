@@ -106,3 +106,19 @@ export const sentVerifyOtp = async data => {
     throw err;
   }
 };
+export const updateProfile = async user => {
+  try {
+    const formData = new FormData();
+    for (const key in user) {
+      formData.append(key, user[key]);
+    }
+    const bearerToken = localStorage.getItem('token');
+    await axios.post(`${USER_URL}${'/update-profile'}`, formData, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+  } catch (err) {
+    throw err;
+  }
+};

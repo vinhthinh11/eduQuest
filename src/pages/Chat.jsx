@@ -11,6 +11,7 @@ const Chat = () => {
   const [newMessage, setNewMessage] = useState('');
   const [isScrolledToBottom, setIsScrolledToBottom] = useState(true);
   const messagesEndRef = useRef(null);
+  console.log(messages);
 
   useEffect(() => {
     fetchMessages();
@@ -58,16 +59,15 @@ const Chat = () => {
     try {
       const bearerToken = localStorage.getItem('token');
       await sendNotificationTeacher({ chat_content: newMessage });
-      console.log("Message sent successfully");
-      setNewMessage("");
+      console.log('Message sent successfully');
+      setNewMessage('');
       fetchMessages();
     } catch (err) {
       console.error('Error sending message:', err.message);
     } finally {
-      setNewMessage("");
+      setNewMessage('');
     }
   };
-  
 
   return (
     <div className="flex flex-col max-h-97">

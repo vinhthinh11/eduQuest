@@ -4,14 +4,15 @@ import { HomeIcon } from './AdminPage';
 import { useEffect } from 'react';
 import { getMe } from '../services/apiUser.js';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
-
 
 const AdminHeader = () => {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+  const location = useLocation();
+  const home = location.pathname.split('/')[1];
   function handleClick() {
     navigate('/profile');
   }
@@ -24,10 +25,9 @@ const AdminHeader = () => {
     fetchUser();
   }, []);
 
-  
   return (
     <div className="w-full border-b-2 border-edu">
-      <div className="w-full  h-14 flex justify-between items-center px-4">
+      <div className="w-full h-14 flex justify-between items-center px-4 my-3">
         <HomeIcon fontSize="large" sx={{ color: '#836FFF' }} />
         <Dropdown>
           <MenuButton
@@ -36,8 +36,7 @@ const AdminHeader = () => {
           >
             <Avatar
               alt="user image"
-              src={`http://127.0.0.1:8000/storage/${user?.avatar}`}
-              className=""
+              src={`http://127.0.0.1:8000${user?.avatar}`}
             />
             <p className="text-white">{user?.name}</p>
           </MenuButton>
@@ -61,9 +60,7 @@ const AdminHeader = () => {
             marginTop: '10px',
             marginLeft: '40px',
           }}
-          // onClick={() => {
-          //   window.location.href = '/admin';
-          // }}
+          onClick={() => navigate(`/${home}`)}
         >
           Trang chủ
         </Button>
