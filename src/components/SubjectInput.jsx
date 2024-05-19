@@ -16,7 +16,7 @@ function SubjectInput({ label, name, value, onChange, options }) {
         onChange={handleSelectChange}
       >
         {options?.map(option => (
-          <option key={option?.subject_id} value={option?.subject_detail}>
+          <option key={option?.subject_id} value={option?.subject_id}>
             {option?.subject_detail}
           </option>
         ))}

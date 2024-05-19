@@ -1,37 +1,40 @@
-import { useState } from "react";
-import Modal from "@mui/material/Modal";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { uploadUserByFile } from "../../services/apiUser.js";
-import toast from "react-hot-toast";
-import SelectInput from "../SelectInput.jsx";
+import { useState } from 'react';
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import toast from 'react-hot-toast';
+import InputSubject from '../InputSubject.jsx';
+import { uploadQuestionByFile } from '../../services/apiQuestion.js';
 
 const subjectOptions = [
-  { value: "1", label: "Toán" },
-  { value: "2", label: "Ngữ Văn" },
-  { value: "3", label: "Lịch sử" },
-  { value: "4", label: "Địa Lý" },
-  { value: "5", label: "Vật Lý" },
-  { value: "6", label: "Công nghệ" },
-  { value: "7", label: "GDCD" },
-  { value: "8", label: "Anh" },
-  { value: "9", label: "Hóa học" },
-  { value: "10", label: "Sinh học" },
+  { subject_id: '1', subject_detail: 'Toán' },
+  { subject_id: '2', subject_detail: 'Ngữ Văn' },
+  { subject_id: '3', subject_detail: 'Lịch sử' },
+  { subject_id: '4', subject_detail: 'Địa Lý' },
+  { subject_id: '5', subject_detail: 'Vật Lý' },
+  { subject_id: '6', subject_detail: 'Công nghệ' },
+  { subject_id: '7', subject_detail: 'GDCD' },
+  { subject_id: '8', subject_detail: 'Anh' },
+  { subject_id: '9', subject_detail: 'Hóa học' },
+  { subject_id: '10', subject_detail: 'Sinh học' },
 ];
 
 export default function ModalUploadFileQuestion({ open, setOpen, type }) {
   const handleClose = () => setOpen(false);
 
-  const [file, setFile] = useState(null);
-  const [subject_id, setSubjectId] = useState(""); // Declare subject_id state
+  const [data, setData] = useState({ subject_id: 1 });
+  const handleInputChange = (e, field) => {
+    setData(pre => ({ ...pre, [field]: e.target.value }));
+  };
 
-  const handleConfirm = async (e) => {
+  const handleConfirm = async e => {
     e.preventDefault();
+    console.log(data);
     try {
-      await uploadUserByFile("/admin/question/check-add-question-via-file", file);
-      toast.success("Thêm câu hỏi thành công");
+      await uploadQuestionByFile('/admin/question/file', data);
+      toast.success('Thêm câu hỏi thành công');
     } catch (error) {
-      toast.error("Thêm câu hỏi thất bại");
+      toast.error('Thêm câu hỏi thất bại');
     }
   };
 
@@ -44,7 +47,7 @@ export default function ModalUploadFileQuestion({ open, setOpen, type }) {
     >
       <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8">
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Thêm admin bằng file
+          Thêm cây hỏi bằng file
         </Typography>
 
         <span className="block mb-4">Lưu ý:</span>
@@ -62,16 +65,16 @@ export default function ModalUploadFileQuestion({ open, setOpen, type }) {
           className="items-center"
           onSubmit={handleConfirm}
         >
-          <SelectInput
+          <InputSubject
             label="Môn"
             name="subject_id"
-            value={subject_id}
-            onChange={(value) => setSubjectId(value)}
+            value={data.subject_id}
+            onChange={e => handleInputChange(e, 'subject_id')}
             options={subjectOptions}
           />
           <input
             type="file"
-            name="file_data"
+            name="file"
             id="file_data"
             required
             className="block w-full text-sm text-slate-700
@@ -80,8 +83,8 @@ export default function ModalUploadFileQuestion({ open, setOpen, type }) {
       file:text-sm file:font-semibold
       file:bg-customPurple file:text-white
       hover:file:bg-customPurpleLight"
-            onChange={(e) => {
-              setFile(e.target?.files?.[0]);
+            onChange={e => {
+              setData(pre => ({ ...pre, file: e.target.files[0] }));
             }}
           />
           <div className="flex justify-between mt-8">

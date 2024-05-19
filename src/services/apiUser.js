@@ -66,7 +66,7 @@ export const uploadUserByFile = async (endpoint, file) => {
       },
     });
   } catch (err) {
-    throw new Error(err.message);
+    throw err;
   }
 };
 export const getMe = async () => {

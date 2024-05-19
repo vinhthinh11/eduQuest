@@ -1,9 +1,13 @@
 import { Box, Modal, Typography } from '@mui/material';
 import InputDefault from '../InputDefault.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createUser } from '../../services/apiUser.js';
 import toast from 'react-hot-toast';
 import { useUserContext } from '../../admin/UserContextProvider.jsx';
+import { getSubject } from '../../services/apiSubject.js';
+import InputSubject from '../InputSubject.jsx';
+import { getClass } from '../../services/apiClass.js';
+import InputClass from '../InputClass.jsx';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -45,6 +49,8 @@ function ModalCreateUser({ open, handleClose, userType }) {
   }
   const [user, setUser] = useState(dummyUser);
   const [error, setError] = useState({});
+  const [subjects, setSubjects] = useState([]);
+  const [classes, setClasses] = useState([]);
   const { setUpdate } = useUserContext();
   const handleInputChange = (e, field) => {
     setUser(pre => ({ ...pre, [field]: e.target.value }));
@@ -79,6 +85,25 @@ function ModalCreateUser({ open, handleClose, userType }) {
       setError(err.response.data.errors);
     }
   }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [subjectData, classData] = await Promise.all([
+          getSubject(),
+          getClass(),
+        ]);
+        console.log('subjectsData', subjectData);
+        console.log('classData', classData);
+        setSubjects(subjectData.data.data);
+        setClasses(classData.data.data);
+      } catch (err) {
+        toast.error(err.message || 'Có lỗi xảy ra');
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <Modal
       open={open === 4}
@@ -139,7 +164,7 @@ function ModalCreateUser({ open, handleClose, userType }) {
           label="Giới tính"
           name="gender_id"
           type="text"
-          onChange={e => handleInputChange(e, 'gerder_id')}
+          onChange={e => handleInputChange(e, 'gender_id')}
           value={user?.gender_id}
         />
         {error?.gender_id && (
@@ -155,20 +180,21 @@ function ModalCreateUser({ open, handleClose, userType }) {
           value={user?.birthday}
         />
         {userType.userPath === 'student' ? (
-          <InputDefault
-            label="class"
+          <InputClass
+            label="Lớp học"
             name="class_id"
             type="number  "
             onChange={e => handleInputChange(e, 'class_id')}
             value={user?.class_id}
+            options={classes}
           />
         ) : ['teacher', 'subject-head'].includes(userType.userPath) ? (
-          <InputDefault
+          <InputSubject
             label="Môn"
             name="subject_id"
-            type="number  "
-            onChange={e => handleInputChange(e, 'class_id')}
+            onChange={e => handleInputChange(e, 'subject_id')}
             value={user?.subject_id}
+            options={subjects}
           />
         ) : null}
         <div className="flex justify-end gap-6 mt-4">
