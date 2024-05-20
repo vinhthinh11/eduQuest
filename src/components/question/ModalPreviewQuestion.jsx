@@ -88,10 +88,10 @@ function ModalPreviewQuestion({ testCode, open, handleClose, status_id }) {
             value={status}
             onChange={e => setStatus(e.target.value)}
           >
-            <option value="2">Mở đề</option>
-            <option value="1">Đóng đề</option>
-            <option value="4">Duyệt đề</option>
-            <option value="5">Không duyệt</option>
+            <option value={2}>Mở đề</option>
+            <option value={1}>Đóng đề</option>
+            <option value={4}>Duyệt đề</option>
+            <option value={5}>Không duyệt</option>
           </select>
           <button
             className="btn bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"

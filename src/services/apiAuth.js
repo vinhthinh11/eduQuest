@@ -1,9 +1,10 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export const login = async (req, res) => {
   return await axios.get();
 };
-export const logout = async (req, res) => {
-  // Code for logout functionality
-  // Implement the logout functionality here
+export const logout = () => {
+  localStorage.removeItem('token');
+  window.location.href = '/login';
 };

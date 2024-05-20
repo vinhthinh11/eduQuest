@@ -8,6 +8,7 @@ function ProtectedRoute({ children, permissions = 0 }) {
   // 1 Admin , 2 Teacher , 3 Student, 4 Subject-Head
   const [user, setUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchMe() {
@@ -15,6 +16,12 @@ function ProtectedRoute({ children, permissions = 0 }) {
         setIsLoading(true);
         const { data } = await getUser('/me');
         setUser(data);
+        if (data.permission === permissions) {
+          setShow(true);
+        } else {
+          navigate('/login');
+          toast.error('Bạn không có quyền truy cập');
+        }
       } catch (err) {
         console.log(err);
       } finally {
@@ -23,15 +30,7 @@ function ProtectedRoute({ children, permissions = 0 }) {
     }
     fetchMe();
   }, []);
-  if (permissions === 0) {
-    toast.error('Bạn không có quyền truy cập trang này');
-    navigate('/login');
-  }
-  return isLoading && user?.permissions === permissions ? (
-    <LoadingSpinner />
-  ) : (
-    <>{children}</>
-  );
+  return show && !isLoading ? children : <LoadingSpinner />;
 }
 
 export default ProtectedRoute;

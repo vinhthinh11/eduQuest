@@ -16,7 +16,14 @@ export default function ModalUploadFile({ open, setOpen }) {
       await uploadUserByFile(`/admin/${userLink.userPath}/file`, file);
       toast.success('Thêm admin thành công');
     } catch (error) {
-      toast.error('Thêm admin thất bại');
+      console.log(error?.response?.data);
+      toast.error(
+        `${
+          error?.response?.data?.status_value
+            ? error?.response?.data?.status_value
+            : 'Thêm mới thất bại'
+        }`
+      );
     }
   };
 

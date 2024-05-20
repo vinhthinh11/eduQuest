@@ -10,7 +10,7 @@ const ProfileForm = () => {
     { value: '3', label: 'Nữ' },
   ];
   const [user, setUser] = useState({});
-  const [updateUser, setUpdateUser] = useState({});
+  const [updateUser, setUpdateUser] = useState({});// ban dau dat trong ne xong tu nhien co gia tri luohn
   const [update, setIsUpdate] = useState(false);
 
   const handleChange = e => {
@@ -23,13 +23,14 @@ const ProfileForm = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log(updateUser);
     try {
-      if (Object.keys(updateUser).length !== 0) {
-        await updateProfile(updateUser);
-      }
-      toast.success('Cập nhật thành công');
-      setIsUpdate(!update);
+      console.log(updateUser,user);
+      // if (Object.keys(updateUser).length !== 0) {
+      //   await updateProfile(updateUser);
+      // }
+      // toast.success('Cập nhật thành công');
+      // setUpdateUser({})
+      // setIsUpdate(!update);
     } catch (err) {
       console.log(err);
       toast.error('Cập nhật thất bại');
@@ -39,6 +40,7 @@ const ProfileForm = () => {
     async function getUser() {
       const { data } = await getMe();
       setUser({ ...data, ['password']: '' });
+      console.log(user,updateUser);
     }
     getUser();
   }, [update]);
@@ -75,17 +77,6 @@ const ProfileForm = () => {
                     onChange={handleFileChange}
                   />
                 </label>
-                <div className="file-path-wrapper">
-                  <input className="file-path validate" type="text" />
-                  <img
-                    src="res/img/loading.gif"
-                    width="50"
-                    height="50"
-                    className="valid-img hidden"
-                    id="avatar_uploading"
-                    alt="user avatar random..."
-                  />
-                </div>
               </div>
               <span className="help text-green-700">
                 Ảnh JPG,PNG nhỏ hơn 2mb
@@ -152,7 +143,6 @@ const ProfileForm = () => {
                   </label>
                   <input
                     type="password"
-                    id="password"
                     name="password"
                     value={user?.password}
                     className="input-field px-4 py-1 outline-1 outline-slate-400 border-none w-full focus:bg-slate-200 rounded-md "
@@ -162,7 +152,6 @@ const ProfileForm = () => {
                 </div>
               </div>
               <div className="grid grid-cols-2 mt-4">
-                <div className="col-span-1"></div>
                 <div className="col-span-1">
                   <div>
                     <button

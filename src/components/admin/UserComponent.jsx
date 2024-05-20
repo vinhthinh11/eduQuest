@@ -71,13 +71,11 @@ function UserComponent({ userType, users, perPage = 10, currentPage = 1 }) {
               <td className="px-3 py-4 whitespace-wrap">
                 <img
                   className="w-10 h-10 rounded-full"
-                  src={
-                    user?.avatar !== 'avatar-default.jpg'
-                      ? `http://127.0.0.1:8000/storage/${user.avatar}`
-                      : `https://i.pravatar.cc/${
-                          Math.floor(Math.random() * 500) + 1
-                        }`
-                  }
+                  src={`http://127.0.0.1:8000${
+                    user.avatar === 'avatar-default.jpg'
+                      ? `/storage/${user.avatar}`
+                      : user.avatar
+                  }`}
                   alt={user.name}
                 />
               </td>
