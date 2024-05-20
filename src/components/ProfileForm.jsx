@@ -24,6 +24,7 @@ const ProfileForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
+      console.log(updateUser);
       if (Object.keys(updateUser).length !== 0) {
         await updateProfile(updateUser);
       }
