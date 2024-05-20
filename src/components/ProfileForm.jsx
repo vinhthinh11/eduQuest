@@ -2,21 +2,24 @@ import React, { useEffect, useState } from 'react';
 import InputField from './InputField';
 import { getMe, updateProfile } from '../services/apiUser.js';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileForm = () => {
+  const navigate = useNavigate();
   const genderOptions = [
     { value: '1', label: 'Không Xác Định' },
     { value: '2', label: 'Nam' },
     { value: '3', label: 'Nữ' },
   ];
   const [user, setUser] = useState({});
-  const [updateUser, setUpdateUser] = useState({});// ban dau dat trong ne xong tu nhien co gia tri luohn
+  const [updateUser, setUpdateUser] = useState({});
   const [update, setIsUpdate] = useState(false);
 
   const handleChange = e => {
     setUser(prev => ({ ...prev, [e.target.name]: e.target.value }));
     setUpdateUser(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
   const handleFileChange = e => {
     setUpdateUser(prev => ({ ...prev, [e.target.name]: e.target.files[0] }));
   };
@@ -35,11 +38,12 @@ const ProfileForm = () => {
       toast.error('Cập nhật thất bại');
     }
   };
+
   useEffect(() => {
     async function getUser() {
       const { data } = await getMe();
       setUser({ ...data, ['password']: '' });
-      console.log(user,updateUser);
+      console.log(user, updateUser);
     }
     getUser();
   }, [update]);
@@ -165,6 +169,12 @@ const ProfileForm = () => {
             </form>
           </div>
         </div>
+        <button
+          onClick={() => navigate(-1)}
+          className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4"
+        >
+          Quay lại
+        </button>
       </div>
     </div>
   );

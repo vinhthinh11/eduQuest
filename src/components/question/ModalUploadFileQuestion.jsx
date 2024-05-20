@@ -1,22 +1,22 @@
-import { useState } from 'react';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import toast from 'react-hot-toast';
-import InputSubject from '../InputSubject.jsx';
-import { uploadQuestionByFile } from '../../services/apiQuestion.js';
+import { useState } from "react";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import toast from "react-hot-toast";
+import InputSubject from "../InputSubject.jsx";
+import { uploadQuestionByFile } from "../../services/apiQuestion.js";
 
 const subjectOptions = [
-  { subject_id: '1', subject_detail: 'Toán' },
-  { subject_id: '2', subject_detail: 'Ngữ Văn' },
-  { subject_id: '3', subject_detail: 'Lịch sử' },
-  { subject_id: '4', subject_detail: 'Địa Lý' },
-  { subject_id: '5', subject_detail: 'Vật Lý' },
-  { subject_id: '6', subject_detail: 'Công nghệ' },
-  { subject_id: '7', subject_detail: 'GDCD' },
-  { subject_id: '8', subject_detail: 'Anh' },
-  { subject_id: '9', subject_detail: 'Hóa học' },
-  { subject_id: '10', subject_detail: 'Sinh học' },
+  { subject_id: "1", subject_detail: "Toán" },
+  { subject_id: "2", subject_detail: "Ngữ Văn" },
+  { subject_id: "3", subject_detail: "Lịch sử" },
+  { subject_id: "4", subject_detail: "Địa Lý" },
+  { subject_id: "5", subject_detail: "Vật Lý" },
+  { subject_id: "6", subject_detail: "Công nghệ" },
+  { subject_id: "7", subject_detail: "GDCD" },
+  { subject_id: "8", subject_detail: "Anh" },
+  { subject_id: "9", subject_detail: "Hóa học" },
+  { subject_id: "10", subject_detail: "Sinh học" },
 ];
 
 export default function ModalUploadFileQuestion({ open, setOpen, type }) {
@@ -24,17 +24,18 @@ export default function ModalUploadFileQuestion({ open, setOpen, type }) {
 
   const [data, setData] = useState({ subject_id: 1 });
   const handleInputChange = (e, field) => {
-    setData(pre => ({ ...pre, [field]: e.target.value }));
+    setData((pre) => ({ ...pre, [field]: e.target.value }));
   };
 
-  const handleConfirm = async e => {
+  const handleConfirm = async (e) => {
     e.preventDefault();
     console.log(data);
     try {
-      await uploadQuestionByFile('/admin/question/file', data);
-      toast.success('Thêm câu hỏi thành công');
+      await uploadQuestionByFile("/admin/question/file", data);
+      toast.success("Thêm câu hỏi thành công");
+      handleClose(); // Đóng modal khi tải lên thành công
     } catch (error) {
-      toast.error('Thêm câu hỏi thất bại');
+      toast.error("Thêm câu hỏi thất bại");
     }
   };
 
@@ -69,7 +70,7 @@ export default function ModalUploadFileQuestion({ open, setOpen, type }) {
             label="Môn"
             name="subject_id"
             value={data.subject_id}
-            onChange={e => handleInputChange(e, 'subject_id')}
+            onChange={(e) => handleInputChange(e, "subject_id")}
             options={subjectOptions}
           />
           <input
@@ -77,14 +78,9 @@ export default function ModalUploadFileQuestion({ open, setOpen, type }) {
             name="file"
             id="file_data"
             required
-            className="block w-full text-sm text-slate-700
-      file:mr-4 file:py-2 file:px-4
-      file:rounded-full file:border-0
-      file:text-sm file:font-semibold
-      file:bg-customPurple file:text-white
-      hover:file:bg-customPurpleLight"
-            onChange={e => {
-              setData(pre => ({ ...pre, file: e.target.files[0] }));
+            className="block w-full text-sm text-slate-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-customPurple file:text-white hover:file:bg-customPurpleLight"
+            onChange={(e) => {
+              setData((pre) => ({ ...pre, file: e.target.files[0] }));
             }}
           />
           <div className="flex justify-between mt-8">

@@ -15,6 +15,7 @@ export default function ModalUploadFile({ open, setOpen }) {
     try {
       await uploadUserByFile(`/admin/${userLink.userPath}/file`, file);
       toast.success('Thêm admin thành công');
+      handleClose();
     } catch (error) {
       console.log(error?.response?.data);
       toast.error(

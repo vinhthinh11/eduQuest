@@ -13,6 +13,7 @@ export default function ModalEdit({ open, setOpen, user }) {
     try {
       await uploadUserByFile('/admin/subject-head/file', file);
       toast.success("Thêm trưởng bộ môn thành công");
+      handleClose();
     } catch (error) {
       toast.error("Thêm trưởng bộ môn thất bại");
     }
