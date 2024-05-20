@@ -3,11 +3,15 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MessageIcon from '@mui/icons-material/Message';
+import HomeIcon from '@mui/icons-material/Home';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import SchoolIcon from '@mui/icons-material/School';
+import ScoreIcon from '@mui/icons-material/Score';
+import ChatIcon from '@mui/icons-material/Chat';
+import AssessmentIcon from '@mui/icons-material/Assessment';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useState } from 'react';
-import { HomeIcon } from '../../admin/AdminPage';
 import { useNavigate } from 'react-router-dom';
 import { grey } from '@mui/material/colors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,7 +24,6 @@ const style1 = {
   '&.Mui-focusVisible': {
     backgroundColor: grey[300],
   },
-
   ':hover': {
     backgroundColor: grey[300],
   },
@@ -30,9 +33,10 @@ const StudentLeftSideBar = () => {
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(1);
 
-  const handleListItemClick = index => {
+  const handleListItemClick = (index) => {
     setSelectedIndex(index);
   };
+
   const handleOnClick = (i, to) => {
     handleListItemClick(i);
     navigate(to);
@@ -58,10 +62,7 @@ const StudentLeftSideBar = () => {
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={
-          <ListSubheader
-            component="div"
-            id="nested-list-subheader"
-          ></ListSubheader>
+          <ListSubheader component="div" id="nested-list-subheader"></ListSubheader>
         }
       >
         <ListItemButton
@@ -81,40 +82,31 @@ const StudentLeftSideBar = () => {
           onClick={() => handleOnClick(2, 'test')}
         >
           <ListItemIcon>
-            <MessageIcon />
+            <AssignmentIcon />
           </ListItemIcon>
           <ListItemText primary="Tests" />
         </ListItemButton>
+
         <ListItemButton
           sx={style1}
           selected={selectedIndex === 3}
           onClick={() => handleOnClick(3, 'practice')}
         >
           <ListItemIcon>
-            <MessageIcon />
+            <SchoolIcon />
           </ListItemIcon>
           <ListItemText primary="Practices" />
         </ListItemButton>
+
         <ListItemButton
           sx={style1}
           selected={selectedIndex === 4}
           onClick={() => handleOnClick(4, 'score')}
         >
           <ListItemIcon>
-            <MessageIcon />
+            <ScoreIcon />
           </ListItemIcon>
           <ListItemText primary="Scores" />
-        </ListItemButton>
-
-        <ListItemButton
-          sx={style1}
-          selected={selectedIndex === 6}
-          onClick={() => handleOnClick(6, 'practice/result')}
-        >
-          <ListItemIcon>
-            <MessageIcon />
-          </ListItemIcon>
-          <ListItemText primary="Practice Result" />
         </ListItemButton>
 
         <ListItemButton
@@ -123,9 +115,20 @@ const StudentLeftSideBar = () => {
           onClick={() => handleOnClick(5, 'chat')}
         >
           <ListItemIcon>
-            <DraftsIcon />
+            <ChatIcon />
           </ListItemIcon>
           <ListItemText primary="Chat" />
+        </ListItemButton>
+
+        <ListItemButton
+          sx={style1}
+          selected={selectedIndex === 6}
+          onClick={() => handleOnClick(6, 'practice/result')}
+        >
+          <ListItemIcon>
+            <AssessmentIcon />
+          </ListItemIcon>
+          <ListItemText primary="Practice Result" />
         </ListItemButton>
 
         <ListItemButton
@@ -134,7 +137,7 @@ const StudentLeftSideBar = () => {
           onClick={() => handleOnClick(7, 'notification')}
         >
           <ListItemIcon>
-          <FontAwesomeIcon icon={faBell} />
+            <FontAwesomeIcon icon={faBell} />
           </ListItemIcon>
           <ListItemText primary="Notification" />
         </ListItemButton>

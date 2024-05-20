@@ -3,11 +3,15 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import MessageIcon from '@mui/icons-material/Message';
-import DraftsIcon from '@mui/icons-material/Drafts';
+import HomeIcon from '@mui/icons-material/Home';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import HelpIcon from '@mui/icons-material/Help';
+import ScoreIcon from '@mui/icons-material/Score';
+import ClassIcon from '@mui/icons-material/Class';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useState } from 'react';
-import { HomeIcon } from '../../admin/AdminPage';
 import { useNavigate } from 'react-router-dom';
 import { grey } from '@mui/material/colors';
 
@@ -18,7 +22,6 @@ const style1 = {
   '&.Mui-focusVisible': {
     backgroundColor: grey[300],
   },
-
   ':hover': {
     backgroundColor: grey[300],
   },
@@ -28,9 +31,10 @@ const TeacherLeftSideBar = () => {
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(1);
 
-  const handleListItemClick = index => {
+  const handleListItemClick = (index) => {
     setSelectedIndex(index);
   };
+
   const handleOnClick = (i, to) => {
     handleListItemClick(i);
     navigate(to);
@@ -56,10 +60,7 @@ const TeacherLeftSideBar = () => {
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={
-          <ListSubheader
-            component="div"
-            id="nested-list-subheader"
-          ></ListSubheader>
+          <ListSubheader component="div" id="nested-list-subheader"></ListSubheader>
         }
       >
         <ListItemButton
@@ -79,7 +80,7 @@ const TeacherLeftSideBar = () => {
           onClick={() => handleOnClick(2, 'test')}
         >
           <ListItemIcon>
-            <MessageIcon />
+            <AssignmentIcon />
           </ListItemIcon>
           <ListItemText primary="Test" />
         </ListItemButton>
@@ -90,19 +91,19 @@ const TeacherLeftSideBar = () => {
           onClick={() => handleOnClick(3, 'question')}
         >
           <ListItemIcon>
-            <MessageIcon />
+            <HelpIcon />
           </ListItemIcon>
           <ListItemText primary="Questions" />
         </ListItemButton>
         <ListItemButton
           sx={style1}
           selected={selectedIndex === 4}
-          onClick={() => handleOnClick(4, 'student')}
+          onClick={() => handleOnClick(4, 'score')}
         >
           <ListItemIcon>
-            <MessageIcon />
+            <ScoreIcon />
           </ListItemIcon>
-          <ListItemText primary="Students" />
+          <ListItemText primary="Score list" />
         </ListItemButton>
         <ListItemButton
           sx={style1}
@@ -110,7 +111,7 @@ const TeacherLeftSideBar = () => {
           onClick={() => handleOnClick(5, 'class')}
         >
           <ListItemIcon>
-            <MessageIcon />
+            <ClassIcon />
           </ListItemIcon>
           <ListItemText primary="Class" />
         </ListItemButton>
@@ -118,12 +119,12 @@ const TeacherLeftSideBar = () => {
         <ListItemButton
           sx={style1}
           selected={selectedIndex === 6}
-          onClick={() => handleOnClick(6, 'senNofitication')}
+          onClick={() => handleOnClick(6, 'sendNofitication')}
         >
           <ListItemIcon>
-            <MessageIcon />
+            <NotificationsIcon />
           </ListItemIcon>
-          <ListItemText primary="Send Notificatin" />
+          <ListItemText primary="Send Notification" />
         </ListItemButton>
         <ListItemButton
           sx={style1}
@@ -131,7 +132,7 @@ const TeacherLeftSideBar = () => {
           onClick={() => handleOnClick(7, '/contact')}
         >
           <ListItemIcon>
-            <DraftsIcon />
+            <ContactMailIcon />
           </ListItemIcon>
           <ListItemText primary="Contact" />
         </ListItemButton>

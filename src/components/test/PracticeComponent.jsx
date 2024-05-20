@@ -32,21 +32,21 @@ function PracticeComponent({ practices }) {
   return (
     <>
       <div className="grid grid-cols-5 px-4 py-2 bg-slate-300">
-        <p>Mã đề</p>
-        <p>Môn</p>
-        <p>Tên đề</p>
-        <p>SL câu hỏi</p>
-        <p>Actions</p>
+        <p className='text-center'>Mã đề</p>
+        <p className='text-center'>Môn</p>
+        <p className='text-center'>Tên đề</p>
+        <p className='text-center'>SL câu hỏi</p>
+        <p className='text-center'>Actions</p>
       </div>
       {practices?.map((test, index) => (
         <div
           key={index}
           className="grid grid-cols-5 px-4 py-2 hover:bg-slate-200"
         >
-          <p>{test?.practice_code}</p>
-          <p>{test?.subject?.subject_detail}</p>
-          <p>{test?.practice_name}</p>
-          <p>{test?.total_questions}</p>
+          <p className='text-center'>{test?.practice_code}</p>
+          <p className='text-center'>{test?.subject?.subject_detail}</p>
+          <p className='text-center'>Ôn tập {test?.subject?.subject_detail}</p>
+          <p className='text-center'>{test?.total_questions}</p>
           <div className="flex flex-col gap-2">
             {userType !== 'student' ? (
               <>

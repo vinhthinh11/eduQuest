@@ -37,6 +37,9 @@ import SendNofiticationTeacher from './components/teacher/SendNotificationTeache
 import TeacherPage from './components/teacher/TeacherPage.jsx';
 import StudentPage from './components/student/StudentPage.jsx';
 import HeadPage from './components/head/HeadPage.jsx';
+import DetailStudentClass from './components/teacher/DetailStudentClass.jsx';
+import ScoreList from './components/teacher/ScoreList.jsx';
+import DetailScore from './components/teacher/DetailScore.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -103,12 +106,13 @@ const App = () => (
         >
           <Route index element={<TeacherPage />} />
           <Route path="test" element={<UserDetail />} />
-
-          <Route path="question" element={<UserDetail />} />
           <Route path="student" element={<UserDetail />} />
+          <Route path="question" element={<UserDetail />} />
+          <Route path="score" element={<ScoreList />} />
+          <Route path="detail-score/:test_code" element={<DetailScore />} />
           <Route path="class" element={<UserDetail />} />
           <Route path="student/:class_id" element={<StudentOfClass />} />
-          <Route path="senNofitication" element={<SendNofiticationTeacher />} />
+          <Route path="sendNofitication" element={<SendNofiticationTeacher />} />
         </Route>
         <Route
           path="/student"

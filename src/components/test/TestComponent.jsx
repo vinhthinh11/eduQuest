@@ -48,21 +48,21 @@ function TestComponent({ tests }) {
   return (
     <>
       <div className="grid grid-cols-5 px-4 py-2 bg-slate-300">
-        <p>Mã đề</p>
-        <p>Tên đề</p>
-        <p>Trạng thái</p>
-        <p>SL câu hỏi</p>
-        <p>Actions</p>
+        <p className='text-center'>Mã đề</p>
+        <p className='text-center'>Tên đề</p>
+        <p className='text-center'>Trạng thái</p>
+        <p className='text-center'>SL câu hỏi</p>
+        <p className='text-center'>Actions</p>
       </div>
       {tests?.map((test, index) => (
         <div
           key={index}
           className="grid grid-cols-5 px-4 py-2 hover:bg-slate-200"
         >
-          <p>{test?.test_code}</p>
-          <p>{test?.test_name}</p>
+          <p className='text-center'>{test?.test_code}</p>
+          <p className='text-center'>{test?.test_name}</p>
           <p className="text-center">{statuses[test?.status_id]}</p>
-          <p>{test?.total_questions}</p>
+          <p className='text-center'>{test?.total_questions}</p>
           <div className="flex flex-col gap-2">
             {userType !== 'student' ? (
               <>

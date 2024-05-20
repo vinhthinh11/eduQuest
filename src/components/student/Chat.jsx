@@ -13,18 +13,22 @@ const Chat = () => {
         e.preventDefault();
         if (inputValue.trim() !== '') {
             // Thêm tin nhắn mới vào danh sách
-            setMessages([...messages, { id: messages.length + 1, content: inputValue }]);
+            setMessages(prevMessages => [
+                ...prevMessages,
+                { id: prevMessages.length + 1, content: inputValue }
+            ]);
             // Xóa giá trị đang nhập
             setInputValue('');
         }
     };
 
-    // Tự động cuộn xuống dòng mới nhất khi có tin nhắn mới
     useEffect(() => {
-        if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
+        scrollToBottom();
     }, [messages]);
+
+    const scrollToBottom = () => {
+            messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
 
     return (
         <div>
@@ -32,18 +36,19 @@ const Chat = () => {
                 <span className="title">Trò Chuyện</span>
                 <a href="index.php?action=show_all_chat" className="cursor"><span className="title">Xem Lịch Sử Chat</span></a>
             </div>
-            <div className="block-content overflow-hidden scrollbar h-96">
+            <div className="block-content overflow-hidden h-96">
                 <div className="content">
                     <div className="preload hidden" id="preload">
                         <img src="res/img/loading.gif" alt="" />
                     </div>
-                    <div id="student_chats" className="notification_content overflow-y-auto scrollbar" style={{ height: '410px' }}>
+                    <div className="notification_content overflow-y-scroll scrollbar" style={{ maxHeight: '410px' }}>
                         {/* Hiển thị tin nhắn */}
                         {messages.map(message => (
                             <div key={message.id} className="message">
                                 <p>{message.content}</p>
                             </div>
                         ))}
+                        {/* Phần tử dùng để tự động cuộn xuống dòng mới nhất */}
                         <div ref={messagesEndRef} />
                     </div>
                 </div>

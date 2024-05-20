@@ -11,23 +11,11 @@ import DehazeIcon from '@mui/icons-material/Dehaze';
 import MessageIcon from '@mui/icons-material/Message';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import LogoutIcon from '@mui/icons-material/Logout';
+import HomeIcon from '@mui/icons-material/Home';
 import { useState } from 'react';
-import { HomeIcon } from '../../admin/AdminPage';
 import { useNavigate } from 'react-router-dom';
 import { grey } from '@mui/material/colors';
-const style = {
-  pl: 4,
-  '&.Mui-selected': {
-    backgroundColor: grey[400],
-  },
-  '&.Mui-focusVisible': {
-    backgroundColor: grey[300],
-  },
 
-  ':hover': {
-    backgroundColor: grey[300],
-  },
-};
 const style1 = {
   '&.Mui-selected': {
     backgroundColor: grey[400],
@@ -101,16 +89,7 @@ const SubjectHeadLeftSideBar = () => {
           <ListItemText primary="Tests" />
         </ListItemButton>
 
-        {/* <ListItemButton
-          sx={style1}
-          selected={selectedIndex === 3}
-          onClick={() => handleOnClick(3, '/chat')}
-        >
-          <ListItemIcon>
-            <MessageIcon />
-          </ListItemIcon>
-          <ListItemText primary="Chat" />
-        </ListItemButton> */}
+
         <ListItemButton
           sx={style1}
           selected={selectedIndex === 4}

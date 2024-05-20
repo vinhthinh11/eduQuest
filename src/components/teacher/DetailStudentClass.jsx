@@ -1,16 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { getUser } from '../../services/apiUser.js';
-import SearchComponent from '../SearchComponent.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 
 const DetailStudentClass = () => {
   const [users, setUsers] = useState([]);
-  const [perPage, setPerPage] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [openEdit, setOpenEdit] = useState(false);
-  const [openDelete, setOpenDelete] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
   const usersData = useRef([]);
 
   useEffect(() => {
@@ -26,44 +20,14 @@ const DetailStudentClass = () => {
     fetchUser();
   }, []);
 
-  const handlePerPageChange = e => {
-    setPerPage(parseInt(e.target.value));
-    setCurrentPage(1);
-  };
 
-  const totalPages = Math.ceil(users?.length / perPage) || 1;
-  const startIdx = (currentPage - 1) * perPage;
-  const endIdx = startIdx + perPage;
-  const visibleUsers = users?.slice(startIdx, endIdx);
-
-  const handlePrevPage = () => {
-    setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
-  };
-
-  const handleNextPage = () => {
-    setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages));
-  };
 
   return (
     <div className="content">
       <div className="preload hidden" id="preload">
         <img src="#" alt="" />
       </div>
-      <div className="flex justify-between items-center border-b-2 border-edu py-3 pl-3 pr-3">
-        <div>
-          <label htmlFor="perPage">Hiển thị </label>
-          <select id="perPage" value={perPage} onChange={handlePerPageChange}>
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={30}>30</option>
-          </select>
-        </div>
-        <SearchComponent
-          usersData={usersData.current}
-          users={users}
-          setUsers={setUsers}
-        />
-      </div>
+      
       <div className="overflow-x-auto">
         <table
           className="min-w-full divide-y divide-gray-200"
@@ -116,7 +80,7 @@ const DetailStudentClass = () => {
             className="bg-white divide-y divide-gray-200 "
             id="list_admins"
           >
-            {visibleUsers.map(user => (
+            {users.map(user => (
               <tr key={user.student_id}>
                 <td className="px-3 py-4 text-center">{user.student_id}</td>
                
@@ -130,10 +94,7 @@ const DetailStudentClass = () => {
                   <div className="flex flex-col text-center">
                     <button
                       className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2"
-                      onClick={() => {
-                        setCurrentUser(user);
-                        setOpenEdit(true);
-                      }}
+                      
                     >
                      Chi tiết
                     </button>
@@ -145,30 +106,8 @@ const DetailStudentClass = () => {
           </tbody>
         </table>
       </div>
-      <div className="flex justify-end px-10 border-t-2 border-black pt-4">
-        <div className="pagination pb-3 flex gap-2">
-          <button
-            className="min-w-20 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
-            onClick={handlePrevPage}
-            disabled={currentPage === 1}
-          >
-            Trước
-          </button>
-          <button
-            disabled
-            className="bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
-          >
-            {`${currentPage}/${totalPages}`}
-          </button>
-          <button
-            className=" min-w-20 bg-customPurple hover:bg-customPurpleLight text-white py-2 px-4 rounded-md"
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}
-          >
-            Sau
-          </button>
-        </div>
-      </div>
+
+     
     </div>
   );
 };

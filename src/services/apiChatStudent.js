@@ -37,3 +37,23 @@ export const sendNotificationTeacher = async (chatData) => {
     }
   };
   
+
+  export const updateMessage = async (messageId, updatedContent) => {
+    const bearerToken = localStorage.getItem('token');
+    const response = await axios.post(
+      '/student/chat/edit',
+      {
+        id: messageId,
+        chat_content: updatedContent,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${bearerToken}`,
+        },
+      }
+    );
+    return response;
+  };
+
+  
+  
