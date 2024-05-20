@@ -24,13 +24,12 @@ const ProfileForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      console.log(updateUser,user);
-      // if (Object.keys(updateUser).length !== 0) {
-      //   await updateProfile(updateUser);
-      // }
-      // toast.success('Cập nhật thành công');
-      // setUpdateUser({})
-      // setIsUpdate(!update);
+      console.log(updateUser);
+      if (Object.keys(updateUser).length !== 0) {
+        await updateProfile(updateUser);
+      }
+      toast.success('Cập nhật thành công');
+      setIsUpdate(!update);
     } catch (err) {
       console.log(err);
       toast.error('Cập nhật thất bại');
