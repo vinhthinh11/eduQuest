@@ -16,6 +16,10 @@ const AdminHeader = () => {
   function handleClick() {
     navigate('/profile');
   }
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
   useEffect(() => {
     const fetchUser = async () => {
       const { data } = await getMe();
@@ -45,7 +49,7 @@ const AdminHeader = () => {
               <AccountCircleIcon />
               Profile
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={handleLogout}>
               <LogoutIcon />
               Log out
             </MenuItem>

@@ -23,7 +23,6 @@ const ProfileForm = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log(updateUser);
     try {
       if (Object.keys(updateUser).length !== 0) {
         await updateProfile(updateUser);
@@ -38,6 +37,7 @@ const ProfileForm = () => {
   useEffect(() => {
     async function getUser() {
       const { data } = await getMe();
+      console.log(data);
       setUser({ ...data, ['password']: '' });
     }
     getUser();

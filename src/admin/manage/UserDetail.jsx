@@ -15,14 +15,13 @@ function UserDetail() {
   const userPath = location.pathname.split('/').at(-1);
   const userLink = { userPath, userType };
   const showModifide = () => {
-    if (userType === 'admin') return true;
+    if (userType === 'admin') {
+      return !userPath.match(/^(test)$/);
+    }
     if (userType === 'teacher') {
-      if (
-        userPath === 'test' ||
-        userPath === 'practice' ||
-        userPath === 'question'
-      )
+      if (/(test|practice|question)/.test(userPath)) {
         return true;
+      }
     }
     return false;
   };
