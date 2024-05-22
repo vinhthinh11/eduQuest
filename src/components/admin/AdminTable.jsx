@@ -51,8 +51,7 @@ const AdminTable = ({ userType = { userType: 'admin', userPath: '' } }) => {
         const { data } = await getUser(
           `/${userType?.userType}/${userType?.userPath}/get`
         );
-        console.log(data);
-        setUsers(data.data);
+        setUsers(data.data.slice(0, perPage));
         usersData.current = data.data;
       } catch (err) {
         toast.error(err.message);
@@ -61,7 +60,7 @@ const AdminTable = ({ userType = { userType: 'admin', userPath: '' } }) => {
       }
     }
     fetchUser();
-  }, [update, userType]);
+  }, [update, userType, perPage]);
 
   const handlePerPageChange = e => {
     setPerPage(parseInt(e.target.value));
@@ -94,7 +93,12 @@ const AdminTable = ({ userType = { userType: 'admin', userPath: '' } }) => {
       </div>
 
       {dynamicComponent}
-      <PaginateComponent users={users} perPage={perPage} />
+      <PaginateComponent
+        users={users}
+        perPage={perPage}
+        setUsers={setUsers}
+        usersData={usersData.current}
+      />
     </div>
   );
 };
