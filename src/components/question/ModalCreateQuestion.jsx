@@ -82,10 +82,8 @@ export default function ModalCreate({ open, setOpen }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const {
-          data: { data },
-        } = await getSubject();
-        setSubjects(data);
+        const  { data } = await getSubject();
+        setSubjects(data.subjects);
         console.log('subjectsData', data);
       } catch (err) {
         toast.error(err.message || 'Có lỗi xảy ra');
@@ -196,9 +194,7 @@ export default function ModalCreate({ open, setOpen }) {
             label="Môn"
             name="subject_id"
             value={question.subject_id}
-            onChange={value =>
-              handleInputChange({ target: { value } }, 'subject_id')
-            }
+            onChange={e => handleInputChange(e, 'subject_id')}
             options={subjects}
           />
           <SelectInput

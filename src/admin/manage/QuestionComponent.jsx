@@ -1,7 +1,6 @@
 import { Button, Input } from '@mui/joy';
 import { MenuItem, Select } from '@mui/material';
 import { useState } from 'react';
-import SearchComponent from '../../components/SearchComponent';
 
 const style = {
   maxHeight: '2rem',

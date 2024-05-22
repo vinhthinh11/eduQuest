@@ -13,7 +13,10 @@ export default function ModalUploadFile({ open, setOpen }) {
   const handleConfirm = async e => {
     e.preventDefault();
     try {
-      await uploadUserByFile(`/admin/${userLink.userPath}/file`, file);
+      await uploadUserByFile(
+        `/${userLink.userType}/${userLink.userPath}/file`,
+        file
+      );
       toast.success('Thêm mới thành công');
       handleClose();
     } catch (error) {
@@ -37,7 +40,7 @@ export default function ModalUploadFile({ open, setOpen }) {
     >
       <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8">
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Thêm admin bằng file
+          {`Thêm ${userLink.userType} bằng file`}
         </Typography>
 
         <span className="block mb-4">Lưu ý:</span>

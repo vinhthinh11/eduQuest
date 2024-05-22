@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import SearchComponent from "../SearchComponent.jsx";
-import LoadingSpinner from "../LoadingSpinner.jsx";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
-import { getUser } from "../../services/apiUser.js";
+import { useEffect, useRef, useState } from 'react';
+import SearchComponent from '../SearchComponent.jsx';
+import LoadingSpinner from '../LoadingSpinner.jsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { getUser } from '../../services/apiUser.js';
+import { Link } from 'react-router-dom';
 
 const ScoreList = () => {
   const [users, setUsers] = useState([]);
@@ -24,7 +25,7 @@ const ScoreList = () => {
           subject: test.subject.subject_detail,
           grade: test.grade_id.toString(),
           totalQuestions: test.total_questions,
-          timeToDo: test.time_to_do
+          timeToDo: test.time_to_do,
         }));
         setUsers(fetchedData);
         usersData.current = fetchedData;
@@ -36,7 +37,7 @@ const ScoreList = () => {
     fetchUser();
   }, []);
 
-  const handlePerPageChange = (e) => {
+  const handlePerPageChange = e => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
@@ -48,20 +49,17 @@ const ScoreList = () => {
   );
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    setCurrentPage(prevPage => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage(prevPage => prevPage + 1);
   };
 
   return isFetching ? (
     <LoadingSpinner />
   ) : (
     <div className="content">
-      <div className="preload hidden" id="preload">
-        <img src="#" alt="" />
-      </div>
       <div className="flex justify-between items-center border-b-2 border-edu py-3 pl-3 pr-3">
         <div>
           <label htmlFor="perPage">Hiển thị </label>
@@ -79,15 +77,46 @@ const ScoreList = () => {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200" id="table_admins">
+        <table
+          className="min-w-full divide-y divide-gray-200"
+          id="table_admins"
+        >
           <thead className="bg-gray-50 text-slate-700">
             <tr>
-              <th scope="col" className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider">Tên đề</th>
-              <th scope="col" className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider">Mã đề</th>
-              <th scope="col" className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider">Môn</th>
-              <th scope="col" className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider">Khối</th>
-              <th scope="col" className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider">Thông tin</th>
-              <th scope="col" className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
+              >
+                Tên đề
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
+              >
+                Mã đề
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
+              >
+                Môn
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
+              >
+                Khối
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
+              >
+                Thông tin
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
+              >
                 <FontAwesomeIcon icon={faCog} />
               </th>
             </tr>
@@ -99,12 +128,17 @@ const ScoreList = () => {
                 <td className="px-3 py-4 text-center">{data.examCode}</td>
                 <td className="px-3 py-4 text-center">{data.subject}</td>
                 <td className="px-3 py-4 text-center">{data.grade}</td>
-                <td className="px-3 py-4 text-center">{data.totalQuestions} câu hỏi, thời gian {data.timeToDo} phút</td>
+                <td className="px-3 py-4 text-center">
+                  {data.totalQuestions} câu hỏi, thời gian {data.timeToDo} phút
+                </td>
                 <td className="px-3 py-4 text-center">
                   <div className="text-center">
-                    <a href={`/teacher/detail-score/${data.testCode}`} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2">
+                    <Link
+                      to={`/teacher/detail-score/${data.testCode}`}
+                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2"
+                    >
                       Xem điểm
-                    </a>
+                    </Link>
                   </div>
                 </td>
               </tr>

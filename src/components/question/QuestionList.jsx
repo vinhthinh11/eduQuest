@@ -255,7 +255,6 @@ function QuestionList() {
           </button>
         </div>
       </div>
-      <UserContextProvider>
         <div className=" flex flex-col">
           <div className="title-content">
             <div className="text-center grid grid-cols-2 gap-4 w-full border-t-2 border-edu">
@@ -292,7 +291,6 @@ function QuestionList() {
             setOpen={setShowFileUpload}
           />
         </div>
-      </UserContextProvider>
     </>
   );
 }

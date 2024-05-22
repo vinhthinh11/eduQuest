@@ -1,6 +1,5 @@
 import { Button, Input } from '@mui/joy';
 import React, { useState } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
 
 const SearchComponent = ({ usersData, setUsers, users }) => {
   const initialUser = usersData;

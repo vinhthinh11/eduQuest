@@ -101,7 +101,7 @@ function ModalCreateUser({ open, handleClose, userType }) {
       }
     }
 
-    fetchData();
+    if (userType.userType === 'admin') fetchData();
   }, []);
 
   return (

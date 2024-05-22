@@ -1,10 +1,9 @@
 import { Box, Modal, Typography } from '@mui/material';
 import InputDefault from '../InputDefault.jsx';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import InputLevel from '../InputLevel.jsx';
 import InputGrade from '../InputGrade.jsx';
-import { createUser } from '../../services/apiUser.js';
 import { useUserContext } from '../../admin/UserContextProvider.jsx';
 import { createTest } from '../../services/apiTest.js';
 const style = {

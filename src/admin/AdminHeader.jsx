@@ -40,7 +40,11 @@ const AdminHeader = () => {
           >
             <Avatar
               alt="user image"
-              src={`http://127.0.0.1:8000${user?.avatar}`}
+              src={`http://127.0.0.1:8000${
+                user.avatar === 'avatar-default.jpg'
+                  ? `/storage/${user.avatar}`
+                  : user.avatar
+              }`}
             />
             <p className="text-white">{user?.name}</p>
           </MenuButton>

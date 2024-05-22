@@ -37,7 +37,6 @@ import SendNofiticationTeacher from './components/teacher/SendNotificationTeache
 import TeacherPage from './components/teacher/TeacherPage.jsx';
 import StudentPage from './components/student/StudentPage.jsx';
 import HeadPage from './components/head/HeadPage.jsx';
-import DetailStudentClass from './components/teacher/DetailStudentClass.jsx';
 import ScoreList from './components/teacher/ScoreList.jsx';
 import DetailScore from './components/teacher/DetailScore.jsx';
 
@@ -111,8 +110,11 @@ const App = () => (
           <Route path="score" element={<ScoreList />} />
           <Route path="detail-score/:test_code" element={<DetailScore />} />
           <Route path="class" element={<UserDetail />} />
-          <Route path="student/:class_id" element={<StudentOfClass />} />
-          <Route path="sendNofitication" element={<SendNofiticationTeacher />} />
+          <Route path="class/:class_id" element={<StudentOfClass />} />
+          <Route
+            path="sendNofitication"
+            element={<SendNofiticationTeacher />}
+          />
         </Route>
         <Route
           path="/student"
@@ -145,7 +147,6 @@ const App = () => (
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="nofiticationTest" element={<NofiticationTest />} />
         <Route path="*" element={<PageNotFound />} />
-
       </Routes>
     </BrowserRouter>
     <Toaster

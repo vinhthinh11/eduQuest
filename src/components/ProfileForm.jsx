@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import InputField from './InputField';
 import { getMe, updateProfile } from '../services/apiUser.js';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 
 const ProfileForm = () => {
-  const navigate = useNavigate();
   const genderOptions = [
     { value: '1', label: 'Không Xác Định' },
     { value: '2', label: 'Nam' },
@@ -19,7 +17,6 @@ const ProfileForm = () => {
     setUser(prev => ({ ...prev, [e.target.name]: e.target.value }));
     setUpdateUser(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
   const handleFileChange = e => {
     setUpdateUser(prev => ({ ...prev, [e.target.name]: e.target.files[0] }));
   };
@@ -38,12 +35,11 @@ const ProfileForm = () => {
       toast.error('Cập nhật thất bại');
     }
   };
-
   useEffect(() => {
     async function getUser() {
       const { data } = await getMe();
-      setUser({ ...data, ['password']: '' });
-      console.log(user, updateUser);
+      console.log(data);
+      setUser({ ...data, password: '' });
     }
     getUser();
   }, [update]);
@@ -57,7 +53,11 @@ const ProfileForm = () => {
             <div className="w-1/2 mx-auto mr-4 flex flex-col justify-center items-center">
               {user?.avatar && (
                 <img
-                  src={`http://127.0.0.1:8000${user?.avatar}`}
+                  src={`http://127.0.0.1:8000${
+                    user.avatar === 'avatar-default.jpg'
+                      ? `/storage/${user.avatar}`
+                      : user.avatar
+                  }`}
                   alt="Avatar"
                   className="w-36 h-40 rounded-lg object-cover"
                   id="profiles-avatar"
@@ -80,6 +80,17 @@ const ProfileForm = () => {
                     onChange={handleFileChange}
                   />
                 </label>
+                <div className="file-path-wrapper">
+                  <input className="file-path validate" type="text" />
+                  <img
+                    src="res/img/loading.gif"
+                    width="50"
+                    height="50"
+                    className="valid-img hidden"
+                    id="avatar_uploading"
+                    alt="user avatar random..."
+                  />
+                </div>
               </div>
               <span className="help text-green-700">
                 Ảnh JPG,PNG nhỏ hơn 2mb
@@ -146,6 +157,7 @@ const ProfileForm = () => {
                   </label>
                   <input
                     type="password"
+                    id="password"
                     name="password"
                     value={user?.password}
                     className="input-field px-4 py-1 outline-1 outline-slate-400 border-none w-full focus:bg-slate-200 rounded-md "
@@ -169,12 +181,6 @@ const ProfileForm = () => {
             </form>
           </div>
         </div>
-        <button
-          onClick={() => navigate(-1)}
-          className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4"
-        >
-          Quay lại
-        </button>
       </div>
     </div>
   );

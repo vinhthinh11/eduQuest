@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { getUser } from "../../services/apiUser.js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from 'react';
+import { getUser } from '../../services/apiUser.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const TeacherPage = () => {
   const [users, setUsers] = useState([]);
@@ -9,7 +10,7 @@ const TeacherPage = () => {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser("/teacher/class/get");
+        const { data } = await getUser('/teacher/class/get');
         console.log(data);
         setUsers(data.data);
       } catch (err) {}
@@ -53,15 +54,18 @@ const TeacherPage = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200" id="list_admins">
-            {users.map((user) => (
+            {users.map(user => (
               <tr key={user.class_id}>
                 <td className="px-3 py-4 text-center">{user.class_id}</td>
                 <td className="px-3 py-4 text-center">{user.class_name}</td>
                 <td className="px-3 py-4 text-center">{user.grade_id}</td>
                 <td className="px-3 py-4 text-center">
-                  <a href={`/teacher/student/${user.class_id}`} className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2">
+                  <Link
+                    to={`/teacher/class/${user.class_id}`}
+                    className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2"
+                  >
                     Xem
-                  </a>
+                  </Link>
                 </td>
               </tr>
             ))}

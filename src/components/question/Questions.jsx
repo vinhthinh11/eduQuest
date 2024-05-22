@@ -16,13 +16,8 @@ function Questions() {
   function handleClose() {
     setOpen(false);
   }
-  const {
-    questions,
-    student_answers,
-    setStudentAnswers,
-    test_code,
-    practice_code,
-  } = useQuestionsContext();
+  const { questions, student_answers, setStudentAnswers, test_code } =
+    useQuestionsContext();
   async function handleSubmit() {
     try {
       test_code ? await studentSubmit() : studentSubmitPractice();
@@ -124,18 +119,5 @@ function Questions() {
     </div>
   );
 }
-const QuestionList = question => {
-  return (
-    <>
-      <h4 className="">{question.question_content}</h4>
-      <div className="flex">
-        <div>{question?.answer_a}</div>
-        <div>{question?.answer_b}</div>
-        <div>{question?.answer_c}</div>
-        <div>{question?.answer_d}</div>
-      </div>
-    </>
-  );
-};
 
 export default Questions;
