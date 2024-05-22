@@ -102,7 +102,7 @@ const SubjectHead = () => {
                     setShowAdminForm(true);
                   }}
                 >
-                  Thêm mới trưởng bộ môn
+                  Thêm mới môn
                 </button>
               </div>
             </div>

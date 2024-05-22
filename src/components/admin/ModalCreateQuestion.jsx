@@ -195,7 +195,8 @@ function ModalCreateQuestion({ open, handleClose, setOpen }) {
             label="Môn"
             name="subject_id"
             value={question.subject_id}
-            onChange={e => handleInputChange(e, 'subject_id')}
+            onChange={value =>
+              handleInputChange({ target: { value } }, 'subject_id')}
             options={subjects}
           />
           <SelectInput
