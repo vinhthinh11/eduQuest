@@ -102,3 +102,12 @@ export const updateQuestion = async (endpoint, user) => {
     throw new Error(err.response.data);
   }
 };
+export const findQuestion = async query => {
+  try {
+    return await axios.post(`${USER_URL}/question/search`, {
+      key_search: query,
+    });
+  } catch (err) {
+    throw err;
+  }
+};

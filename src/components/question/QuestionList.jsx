@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import { getQuestion, getSubjects } from '../../services/apiQuestion.js';
+import {
+  findQuestion,
+  getQuestion,
+  getSubjects,
+} from '../../services/apiQuestion.js';
 import toast from 'react-hot-toast';
 import { Box, CircularProgress } from '@mui/material';
 import { UserContextProvider } from '../../admin/UserContextProvider.jsx';
@@ -7,6 +11,7 @@ import ModalCreateQuestion from '../question/ModalCreateQuestion.jsx';
 import ModalUploadFileQuestion from '../question/ModalUploadFileQuestion.jsx';
 import ModalEditQuestion from './ModalEditQuestion.jsx';
 import ModalDeleteQuestion from './ModalDeleteQuestion.jsx';
+import { useQuestionContext } from '../../admin/QuestionContextProvider.jsx';
 
 const status_ids = {
   1: 'Đóng',
@@ -86,6 +91,9 @@ function QuestionList() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [subjects, setSubjects] = useState({});
+  const [queryQuestion, setQueryQuestion] = useState([]);
+  const { grade, setGrade, level, setLevel, subject, setSubject, query } =
+    useQuestionContext();
 
   useEffect(() => {
     async function fetchData() {
@@ -94,7 +102,6 @@ function QuestionList() {
           getQuestion(),
           getSubjects(),
         ]);
-
         setQuestions(questionData.data?.data);
 
         const subjectMap = subjectsData.data.subjects.reduce((acc, subject) => {
@@ -108,9 +115,15 @@ function QuestionList() {
         setLoading(false);
       }
     }
-
     fetchData();
   }, []);
+  useEffect(() => {
+    async function fetchSearchQuestion() {
+      const { data } = await findQuestion(query);
+      setQueryQuestion(data.data);
+    }
+    if (query !== '' && query.length > 3) fetchSearchQuestion();
+  }, [query]);
 
   const openModal = question => {
     setSelectedQuestion(question);
@@ -122,11 +135,25 @@ function QuestionList() {
     setIsDeleteModalOpen(true);
   };
 
-  const totalPages = Math.ceil(questions?.length / perPage) || 1;
-  const visibleUsers = questions?.slice(
-    (currentPage - 1) * perPage,
-    currentPage * perPage
-  );
+  const visibleUsers = () => {
+    let filteredQuestions = questions;
+    if (queryQuestion.length > 0) filteredQuestions = queryQuestion;
+
+    if (grade !== 0)
+      filteredQuestions = filteredQuestions.filter(
+        question => question.grade_id === grade
+      );
+    if (level !== 0)
+      filteredQuestions = filteredQuestions.filter(
+        question => question.level_id === level
+      );
+    if (subject !== 0)
+      filteredQuestions = filteredQuestions.filter(
+        question => question.subject_id === subject
+      );
+    return filteredQuestions;
+  };
+  const totalPages = Math.ceil(visibleUsers()?.length / perPage) || 1;
 
   const handlePrevPage = () => {
     setCurrentPage(prevPage => prevPage - 1);
@@ -208,16 +235,18 @@ function QuestionList() {
             className="bg-white divide-y divide-gray-200 "
             id="list_admins"
           >
-            {visibleUsers?.map((question, index) => (
-              <QuestionItem
-                key={index}
-                question={question}
-                index={index}
-                openModal={openModal}
-                openDeleteModal={openDeleteModal}
-                subjects={subjects}
-              />
-            ))}
+            {visibleUsers()
+              ?.slice((currentPage - 1) * perPage, currentPage * perPage)
+              ?.map((question, index) => (
+                <QuestionItem
+                  key={index}
+                  question={question}
+                  index={index}
+                  openModal={openModal}
+                  openDeleteModal={openDeleteModal}
+                  subjects={subjects}
+                />
+              ))}
           </tbody>
           <ModalEditQuestion
             open={isModalOpen}

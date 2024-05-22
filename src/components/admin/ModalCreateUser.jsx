@@ -94,7 +94,7 @@ function ModalCreateUser({ open, handleClose, userType }) {
         ]);
         console.log('subjectsData', subjectData);
         console.log('classData', classData);
-        setSubjects(subjectData.data.data);
+        setSubjects(subjectData?.data?.subjects);
         setClasses(classData.data.data);
       } catch (err) {
         toast.error(err.message || 'Có lỗi xảy ra');

@@ -1,10 +1,12 @@
 import { Button, Input } from '@mui/joy';
 import React, { useState } from 'react';
+import { useUserContext } from '../admin/UserContextProvider.jsx';
 
 const SearchComponent = ({ usersData, setUsers, users }) => {
   const initialUser = usersData;
-  // console.log(initialUser, users);
   const [query, setQuery] = useState('');
+  const { userLink } = useUserContext();
+  console.log(userLink);
 
   return (
     <div className="flex max-h-2 gap-3 items-center">
@@ -25,11 +27,20 @@ const SearchComponent = ({ usersData, setUsers, users }) => {
             setUsers(() => initialUser);
             return;
           }
-          setUsers(
-            initialUser.filter(user =>
-              user.name.toLowerCase().includes(e.target.value.toLowerCase())
-            )
-          );
+          if (userLink.userPath !== 'question')
+            setUsers(
+              initialUser.filter(user =>
+                user.name.toLowerCase().includes(e.target.value.toLowerCase())
+              )
+            );
+          else
+            setUsers(
+              initialUser.filter(user =>
+                user.question_content
+                  .toLowerCase()
+                  .includes(e.target.value.toLowerCase())
+              )
+            );
         }}
       />
       <Button

@@ -1,17 +1,29 @@
 import { Button, Input } from '@mui/joy';
 import { MenuItem, Select } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useQuestionContext } from '../QuestionContextProvider.jsx';
+import { getSubject } from '../../services/apiSubject.js';
 
 const style = {
   maxHeight: '2rem',
   backgroundColor: '#836FFF',
+  minWidth: '130px',
   color: 'white',
   ':hover': { backgroundColor: '#624afd' },
 };
 
 const QuesttionHeader = ({ setPerPage }) => {
-  const [grade, setGrade] = useState(10);
-  const [level, setLevel] = useState('Easy');
+  const {
+    grade,
+    setGrade,
+    level,
+    setLevel,
+    subject,
+    setSubject,
+    query,
+    setQuery,
+  } = useQuestionContext();
+  const [subjects, setSubjects] = useState([]);
 
   const handleChangeGrade = event => {
     setGrade(event.target.value);
@@ -20,7 +32,22 @@ const QuesttionHeader = ({ setPerPage }) => {
   const handleChangeLevel = event => {
     setLevel(event.target.value);
   };
+  const handleChangeSubject = event => {
+    setSubject(event.target.value);
+  };
+  useEffect(() => {
+    // Fetch subjects from API or any other data source
+    const fetchSubjects = async () => {
+      try {
+        const { data } = await getSubject();
+        setSubjects(data?.subjects);
+      } catch (error) {
+        console.error('Error fetching subjects:', error);
+      }
+    };
 
+    fetchSubjects();
+  }, []);
   return (
     <div>
       <div className="flex items-center py-6 justify-between px-4 border-b-2 border-edu">
@@ -35,6 +62,8 @@ const QuesttionHeader = ({ setPerPage }) => {
               ':focus': { outline: 'none' },
               ':active': { outline: 'none' },
             }}
+            value={query}
+            onChange={e => setQuery(e.target.value)}
           />
           <Button
             sx={{
@@ -45,7 +74,6 @@ const QuesttionHeader = ({ setPerPage }) => {
           >
             Search
           </Button>
-          {/* <SearchComponent /> */}
         </div>
         <div className="flex gap-2">
           <Select
@@ -56,10 +84,27 @@ const QuesttionHeader = ({ setPerPage }) => {
             label="grade"
             onChange={handleChangeGrade}
           >
-            <MenuItem value={10}>Grade 10</MenuItem>
-            <MenuItem value={11}>Grade 11</MenuItem>
-            <MenuItem value={12}>Grade 12</MenuItem>
+            <MenuItem value={0}>Chọn khối</MenuItem>
+            <MenuItem value={10}>Lớp 10</MenuItem>
+            <MenuItem value={11}>Lớp 11</MenuItem>
+            <MenuItem value={12}>Lớp 12</MenuItem>
           </Select>
+          <Select
+            sx={style}
+            labelId="subject"
+            id="grade"
+            value={subject}
+            label="Môn"
+            onChange={handleChangeSubject}
+          >
+            <MenuItem value={0}>Chọn môn</MenuItem>
+            {subjects.map(e => (
+              <MenuItem key={e.subject_id} value={e.subject_id}>
+                {e.subject_detail}
+              </MenuItem>
+            ))}
+          </Select>
+
           <Select
             sx={style}
             labelId="level"
@@ -68,9 +113,10 @@ const QuesttionHeader = ({ setPerPage }) => {
             label="grade"
             onChange={handleChangeLevel}
           >
-            <MenuItem value={'Easy'}>Easy</MenuItem>
-            <MenuItem value={'Medium'}>Medium</MenuItem>
-            <MenuItem value={'Hard'}>Hard</MenuItem>
+            <MenuItem value={0}>Chọn mức độ</MenuItem>
+            <MenuItem value={1}>Dễ</MenuItem>
+            <MenuItem value={2}>Trung bình</MenuItem>
+            <MenuItem value={3}>Khó</MenuItem>
           </Select>
         </div>
       </div>
