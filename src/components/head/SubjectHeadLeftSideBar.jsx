@@ -4,10 +4,6 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import DehazeIcon from '@mui/icons-material/Dehaze';
 import MessageIcon from '@mui/icons-material/Message';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -88,7 +84,6 @@ const SubjectHeadLeftSideBar = () => {
           </ListItemIcon>
           <ListItemText primary="Tests" />
         </ListItemButton>
-
 
         <ListItemButton
           sx={style1}

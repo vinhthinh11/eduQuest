@@ -9,7 +9,6 @@ import SchoolIcon from '@mui/icons-material/School';
 import ScoreIcon from '@mui/icons-material/Score';
 import ChatIcon from '@mui/icons-material/Chat';
 import AssessmentIcon from '@mui/icons-material/Assessment';
-import DraftsIcon from '@mui/icons-material/Drafts';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +32,7 @@ const StudentLeftSideBar = () => {
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(1);
 
-  const handleListItemClick = (index) => {
+  const handleListItemClick = index => {
     setSelectedIndex(index);
   };
 
@@ -62,7 +61,10 @@ const StudentLeftSideBar = () => {
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={
-          <ListSubheader component="div" id="nested-list-subheader"></ListSubheader>
+          <ListSubheader
+            component="div"
+            id="nested-list-subheader"
+          ></ListSubheader>
         }
       >
         <ListItemButton

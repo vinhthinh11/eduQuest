@@ -10,7 +10,7 @@ function StudentOfClass() {
   useEffect(() => {
     async function fetchUser() {
       try {
-        const { data } = await getUser(`/teacher/student/get/${class_id}`);
+        const { data } = await getUser(`/teacher/class/get/${class_id}`);
         setUsers(data.data);
       } catch (err) {
         console.log(err);
@@ -23,7 +23,7 @@ function StudentOfClass() {
       <div className="preload hidden" id="preload">
         <img src="#" alt="" />
       </div>
-      
+
       <div className="overflow-x-auto">
         <table
           className="min-w-full divide-y divide-gray-200"
@@ -37,14 +37,14 @@ function StudentOfClass() {
               >
                 ID
               </th>
-             
+
               <th
                 scope="col"
                 className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
               >
                 Tên
               </th>
-           
+
               <th
                 scope="col"
                 className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
@@ -63,7 +63,7 @@ function StudentOfClass() {
               >
                 Ngày Sinh
               </th>
-             
+
               <th
                 scope="col"
                 className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
@@ -79,22 +79,22 @@ function StudentOfClass() {
             {users.map(user => (
               <tr key={user.student_id}>
                 <td className="px-3 py-4 text-center">{user.student_id}</td>
-               
+
                 <td className="px-3 py-4 text-center">{user.name}</td>
                 <td className="px-3 py-4 text-center">{user.email}</td>
                 <td className="px-3 py-4 text-center">
-                  {user.gender_id === 1 ? 'Nam' : user.gender_id === 2 ? 'Nữ' : 'Không xác định'}
+                  {user.gender_id === 1
+                    ? 'Nam'
+                    : user.gender_id === 2
+                    ? 'Nữ'
+                    : 'Không xác định'}
                 </td>
                 <td className="px-3 py-4 text-center">{user.birthday}</td>
                 <td className="px-3 py-4 text-center">
                   <div className="flex flex-col text-center">
-                    <button
-                      className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2"
-                      
-                    >
-                     Chi tiết
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2">
+                      Chi tiết
                     </button>
-                  
                   </div>
                 </td>
               </tr>
@@ -102,7 +102,6 @@ function StudentOfClass() {
           </tbody>
         </table>
       </div>
-     
     </div>
   );
 }

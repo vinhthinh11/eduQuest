@@ -1,6 +1,7 @@
 import { Button } from '@mui/material';
-import ModalPreviewQuestion from './ModalPreviewQuestion.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { getMe } from '../../services/apiUser.js';
+import ModalEditQuestion from './ModalEditQuestion.jsx';
 
 const level = {
   1: 'Dễ',
@@ -16,8 +17,11 @@ const status = {
 };
 function QuestionComponent({ questions }) {
   const [open, setOpen] = useState(false);
-  const handleClose = () => setOpen(false);
-  const handleOpen = () => setOpen(true);
+  const [showQuestion, setShowQuestion] = useState({});
+  const handleOpen = question => {
+    setOpen(true);
+    setShowQuestion(question);
+  };
   return (
     <div>
       {questions.map(question => (
@@ -26,15 +30,21 @@ function QuestionComponent({ questions }) {
           <p>{level[question.level_id]}</p>
           <p>{status[question.status_id]}</p>
           <div className="flex flex-col gap-2">
-            <Button color="primary" variant="contained" onClick={handleOpen}>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() => handleOpen(question)}
+            >
               Chi tiết
-            </Button>
-            <Button color="error" variant="contained">
-              Xóa
             </Button>
           </div>
         </div>
       ))}
+      <ModalEditQuestion
+        open={open}
+        setOpen={setOpen}
+        question={showQuestion}
+      />
     </div>
   );
 }

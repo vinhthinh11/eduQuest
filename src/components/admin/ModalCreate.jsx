@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ModalCreateUser from './ModalCreateUser.jsx';
 import ModalCreateTest from './ModalCreateTest.jsx';
 import ModalCreateClass from './ModalCreateClass.jsx';

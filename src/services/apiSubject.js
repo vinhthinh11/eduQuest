@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { SUBJECT_URL, DELETE_SUBJECT_URL } from './config.js';
+import { SUBJECTS_URL } from './config.js';
 
 export const getSubject = async () => {
   try {
     const bearerToken = localStorage.getItem('token');
-    const subject = await axios.get(SUBJECT_URL, {
+    const subject = await axios.get(SUBJECTS_URL, {
       headers: {
         Authorization: `Bearer ${bearerToken}`,
       },

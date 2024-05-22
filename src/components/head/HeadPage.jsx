@@ -1,13 +1,10 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { SvgIcon } from "@mui/material";
-import { Button } from "@mui/joy";
-import PersonIcon from "@mui/icons-material/Person";
-import LayersIcon from "@mui/icons-material/Layers";
-import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
-import { Link } from "react-router-dom";
+import { SvgIcon } from '@mui/material';
+import { Button } from '@mui/joy';
+import PersonIcon from '@mui/icons-material/Person';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import { Link } from 'react-router-dom';
 export function HomeIcon(props) {
   return (
     <SvgIcon {...props}>
@@ -15,10 +12,10 @@ export function HomeIcon(props) {
     </SvgIcon>
   );
 }
-const Card = ({ icon = <PersonIcon />, quantity = 3, label = "Học sinh" }) => {
+const Card = ({ icon = <PersonIcon />, quantity = 3, label = 'Học sinh' }) => {
   return (
     <div className="flex gap-4 border-2 rounded-lg border-base justify-between">
-      <Button sx={{ backgroundColor: "#836FFF" }}>{icon}</Button>
+      <Button sx={{ backgroundColor: '#836FFF' }}>{icon}</Button>
       <div className="flex flex-col justify-center items-center mx-auto">
         <p className="text-xl font-semibold text-base">{quantity}</p>
         <p className="text-base">{label}</p>
@@ -30,13 +27,12 @@ function HeadPage() {
   return (
     <div className="grid grid-cols-3 px-4 gap-4 pt-4">
       <Link to="/subject-head/test">
-      <Card
-        icon={<HelpOutlineOutlinedIcon fontSize="large" />}
-        quantity={659}
-        label="Câu hỏi"
-      />
+        <Card
+          icon={<HelpOutlineOutlinedIcon fontSize="large" />}
+          quantity={659}
+          label="Câu hỏi"
+        />
       </Link>
-     
     </div>
   );
 }

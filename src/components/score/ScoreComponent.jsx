@@ -2,7 +2,6 @@ import React from 'react';
 import moment from 'moment-timezone';
 
 function ScoreComponent({ scores }) {
-  console.log(scores);
   return (
     <div className="flex flex-col">
       <div className="grid grid-cols-4 bg-slate-300 px-4 font-semibold">
@@ -18,7 +17,11 @@ function ScoreComponent({ scores }) {
           <p className="py-2 text-center">{score?.score_detail}</p>
           <p className="py-2 text-center">
             {score?.completion_time
-              ? moment.tz(score.completion_time, 'YYYY-MM-DD HH:mm:ss', 'Asia/Ho_Chi_Minh').format('DD/MM/YYYY HH:mm:ss')
+              ? moment
+                  .utc(score.completion_time)
+                  .clone()
+                  .tz('Asia/Ho_Chi_Minh')
+                  .format('HH:mm:ss DD/MM/YYYY')
               : 'Không có dữ liệu'}
           </p>
         </div>

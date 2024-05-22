@@ -5,7 +5,7 @@ function ClassComponent({ classes }) {
   const navigate = useNavigate();
   const handleClick = classId => {
     console.log(classId);
-    navigate(`/teacher/student/${classId}`);
+    navigate(`/teacher/class/${classId}`);
   };
 
   return (

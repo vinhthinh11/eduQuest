@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import SearchComponent from "../SearchComponent.jsx";
-import LoadingSpinner from "../LoadingSpinner.jsx";
-import { getUser } from "../../services/apiUser.js";
-import axios from "axios";
+import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import SearchComponent from '../SearchComponent.jsx';
+import LoadingSpinner from '../LoadingSpinner.jsx';
+import { getUser } from '../../services/apiUser.js';
+import axios from 'axios';
 
 const DetailScore = () => {
   const { test_code } = useParams();
@@ -17,18 +17,12 @@ const DetailScore = () => {
     const fetchUsers = async () => {
       setIsFetching(true);
       try {
-        const response = await getUser(`/teacher/student/result/${test_code}`);
-        const fetchedData = response.data.map(user => ({
-          id: user.id,
-          name: user.name,
-          username: user.username,
-          class: user.class,
-          score: user.score,
-        }));
-        setUsers(fetchedData);
-        usersData.current = fetchedData;
+        const { data } = await getUser(`/teacher/student/result/${test_code}`);
+        console.log(data);
+        setUsers(data.data);
+        usersData.current = data.data;
       } catch (error) {
-        console.error("Error fetching users:", error);
+        console.error('Error fetching users:', error);
       } finally {
         setIsFetching(false);
       }
@@ -37,7 +31,7 @@ const DetailScore = () => {
     fetchUsers();
   }, [test_code]); // Fetch users whenever test_code changes
 
-  const handlePerPageChange = (e) => {
+  const handlePerPageChange = e => {
     setPerPage(parseInt(e.target.value));
     setCurrentPage(1);
   };
@@ -49,17 +43,17 @@ const DetailScore = () => {
   );
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
+    setCurrentPage(prevPage => prevPage - 1);
   };
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+    setCurrentPage(prevPage => prevPage + 1);
   };
 
   const handleExportExcel = async () => {
     try {
       const response = await axios.get(`/teacher/score/export`, {
-        responseType: 'blob', 
+        responseType: 'blob',
       });
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
@@ -69,7 +63,7 @@ const DetailScore = () => {
       link.click();
       link.remove();
     } catch (error) {
-      console.error("Error exporting scores:", error);
+      console.error('Error exporting scores:', error);
     }
   };
 
@@ -103,24 +97,54 @@ const DetailScore = () => {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200" id="table_admins">
+        <table
+          className="min-w-full divide-y divide-gray-200"
+          id="table_admins"
+        >
           <thead className="bg-gray-50 text-slate-700">
             <tr>
-              <th scope="col" className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider">STT</th>
-              <th scope="col" className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider">Tên</th>
-              <th scope="col" className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider">Tài Khoản</th>
-              <th scope="col" className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider">Lớp</th>
-              <th scope="col" className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider">Điểm</th>
+              <th
+                scope="col"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
+              >
+                STT
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
+              >
+                Tên
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
+              >
+                Tài Khoản
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
+              >
+                Lớp
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
+              >
+                Điểm
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200" id="list_admins">
             {visibleUsers.map((data, index) => (
-              <tr className="hover:bg-slate-200" key={data.id}>
-                <td className="px-3 py-4 text-center">{(currentPage - 1) * perPage + index + 1}</td>
+              <tr className="hover:bg-slate-200" key={data.student_id}>
+                <td className="px-3 py-4 text-center">
+                  {(currentPage - 1) * perPage + index + 1}
+                </td>
                 <td className="px-3 py-4 text-center">{data.name}</td>
                 <td className="px-3 py-4 text-center">{data.username}</td>
-                <td className="px-3 py-4 text-center">{data.class}</td>
-                <td className="px-3 py-4 text-center">{data.score}</td>
+                <td className="px-3 py-4 text-center">{data?.class_name}</td>
+                <td className="px-3 py-4 text-center">{data.score_number}</td>
               </tr>
             ))}
           </tbody>

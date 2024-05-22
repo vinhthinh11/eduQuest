@@ -57,7 +57,6 @@ const Chat = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const bearerToken = localStorage.getItem('token');
       await sendNotificationTeacher({ chat_content: newMessage });
       console.log('Message sent successfully');
       setNewMessage('');
