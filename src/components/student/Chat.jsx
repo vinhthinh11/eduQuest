@@ -30,6 +30,8 @@ const Chat = () => {
             messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
 
+    
+
     return (
         <div>
             <div className="title-content flex items-center justify-between">
@@ -74,3 +76,7 @@ const Chat = () => {
 }
 
 export default Chat;
+
+
+/// test các cũ thôi ko dùng cái này 
+
