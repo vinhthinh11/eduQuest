@@ -1,16 +1,22 @@
 import { useState } from 'react';
 
-function PaginateComponent({ users, perPage = 10 }) {
+function PaginateComponent({ users, perPage = 10, setUsers, usersData }) {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(users?.length / perPage) || 1;
+  const totalPages = Math.ceil(usersData?.length / perPage) || 1;
 
   const handlePrevPage = () => {
     setCurrentPage(prevPage => prevPage - 1);
+    setUsers(
+      usersData.slice((currentPage - 2) * perPage, (currentPage - 1) * perPage)
+    );
   };
 
   const handleNextPage = () => {
     setCurrentPage(prevPage => prevPage + 1);
+    setUsers(
+      usersData.slice(currentPage * perPage, (currentPage + 1) * perPage)
+    );
   };
   return (
     <div className="flex justify-center px-10 border-t-2 border-black pt-4">
