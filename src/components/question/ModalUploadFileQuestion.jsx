@@ -48,7 +48,7 @@ export default function ModalUploadFileQuestion({ open, setOpen, type }) {
     >
       <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8">
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Thêm cây hỏi bằng file
+          Thêm câu hỏi bằng file
         </Typography>
 
         <span className="block mb-4">Lưu ý:</span>

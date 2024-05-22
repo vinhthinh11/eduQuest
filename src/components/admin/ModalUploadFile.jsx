@@ -40,7 +40,7 @@ export default function ModalUploadFile({ open, setOpen }) {
     >
       <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg p-8">
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          {`Thêm ${userLink.userType} bằng file`}
+          {`Thêm ${userLink.userPath} bằng file`}
         </Typography>
 
         <span className="block mb-4">Lưu ý:</span>

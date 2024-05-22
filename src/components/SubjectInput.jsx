@@ -2,6 +2,7 @@ function SubjectInput({ label, name, value, onChange, options }) {
   const handleSelectChange = e => {
     onChange(e.target.value);
   };
+  console.log(options);
 
   return (
     <div className="my-5 flex items-center flex-col">

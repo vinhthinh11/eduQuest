@@ -231,7 +231,7 @@ const AdminLeftSideBar = () => {
             <ListItemButton
               sx={style1}
               selected={selectedIndex === 10}
-              onClick={() => handleOnClick(10, "send-notification")}
+              onClick={() => handleOnClick(10, "senNofitication")}
             >
               <ListItemIcon>
                 <MessageIcon />

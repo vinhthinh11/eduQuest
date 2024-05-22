@@ -19,6 +19,18 @@ export const createQuestion = async question => {
     throw err;
   }
 };
+export const userCreateQuestion = async (endpoint, question) => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    await axios.post(`${USER_URL}/${endpoint}`, question, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+    });
+  } catch (err) {
+    throw err;
+  }
+};
 export const uploadQuestionByFile = async (endpoint, data) => {
   try {
     const bearerToken = localStorage.getItem('token');

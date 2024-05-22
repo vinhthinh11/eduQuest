@@ -78,10 +78,10 @@ function ModalCreateUser({ open, handleClose, userType }) {
       handleClose();
       setUser(dummyUser);
       setUpdate(pre => !pre);
-      toast.success(`Thêm mới ${userType.userPath} thành công`);
+      toast.success(`Thêm mới thành công`);
     } catch (err) {
       console.log(err.response.data.errors);
-      toast.error(`Thêm mới ${userType.userPath} thất bại`);
+      toast.error(`Thêm mới thất bại`);
       setError(err.response.data.errors);
     }
   }

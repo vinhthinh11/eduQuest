@@ -22,7 +22,7 @@ export default function ModalCreate({ open, setOpen, userType }) {
         <ModalCreateQuestion
           handleClose={handleClose}
           open={open}
-          userType={userType}
+          setOpen={setOpen}
         />
       );
       break;

@@ -64,12 +64,7 @@ function StudentOfClass() {
                 Ngày Sinh
               </th>
 
-              <th
-                scope="col"
-                className="px-3 py-3 text-center text-xs font-medium uppercase tracking-wider"
-              >
-                <FontAwesomeIcon icon={faCog} />
-              </th>
+           
             </tr>
           </thead>
           <tbody
@@ -90,13 +85,7 @@ function StudentOfClass() {
                     : 'Không xác định'}
                 </td>
                 <td className="px-3 py-4 text-center">{user.birthday}</td>
-                <td className="px-3 py-4 text-center">
-                  <div className="flex flex-col text-center">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mb-2">
-                      Chi tiết
-                    </button>
-                  </div>
-                </td>
+                
               </tr>
             ))}
           </tbody>
