@@ -75,7 +75,7 @@ function ModalPreviewQuestion({ testCode, open, handleClose, status_id }) {
             textTransform: 'uppercase',
           }}
         >
-          duyệt câu hỏi
+          duyệt đề
         </Typography>
 
         <div className="flex justify-end gap-6 mt-4">

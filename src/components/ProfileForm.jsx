@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import InputField from './InputField';
 import { getMe, updateProfile } from '../services/apiUser.js';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileForm = () => {
+  const navigate = useNavigate();
   const genderOptions = [
     { value: '1', label: 'Không Xác Định' },
     { value: '2', label: 'Nam' },
@@ -181,6 +183,12 @@ const ProfileForm = () => {
             </form>
           </div>
         </div>
+        <button
+          onClick={() => navigate(-1)}
+          className="btn bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4"
+        >
+          Quay lại
+        </button>
       </div>
     </div>
   );

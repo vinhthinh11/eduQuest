@@ -29,7 +29,8 @@ const SubjectHead = () => {
     async function fetchSubjects() {
       try {
         const { data } = await getSubject();
-        setUsers(data.data);
+        console.log(data)
+        setUsers(data.subjects);
       } catch (err) {
         toast.error(err.message);
       } finally {
