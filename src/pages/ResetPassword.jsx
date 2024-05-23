@@ -107,7 +107,7 @@ const ResetPasswordForm = ({
       </div>
       <div className="flex justify-between items-center">
         {isLoading ? (
-          <Button sx={{ justifySelf: 'center' }}>
+          <Button sx={{ justifySelf: 'center', flex: 1 }}>
             <CircularProgress />
           </Button>
         ) : (

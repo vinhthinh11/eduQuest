@@ -24,6 +24,7 @@ const style = {
 
 export default function ModalEdit({ open, setOpen, user, userType = 'admin' }) {
   const [userEdit, setUserEdit] = useState(user);
+  const [error, setError] = useState({});
   const handleClose = () => setOpen(false);
   const { setUpdate } = useUserContext();
 
@@ -83,15 +84,32 @@ export default function ModalEdit({ open, setOpen, user, userType = 'admin' }) {
             show={false}
             onChange={handleInputChange}
           />
-          <InputDefault
-            label="Ngày sinh"
-            type="date"
-            name="birthday"
-            id="birthday"
-            className="input-field w-full border-none outline-none ml-5"
-            value={userEdit?.birthday}
-            onChange={e => handleInputChange(e, 'birthday')}
-          />
+          <>
+            <InputDefault
+              label="Birthday"
+              name="birthday"
+              type="date"
+              onChange={e => {
+                setError(prev => ({ ...prev, birthday: '' }));
+                const currentYear = new Date().getFullYear();
+                const selectedYear = new Date(e.target.value).getFullYear();
+                const yearDifference = currentYear - selectedYear;
+                if (yearDifference > 10) {
+                  handleInputChange(e, 'birthday');
+                } else
+                  setError({
+                    ...error,
+                    birthday: 'Tuổi phải lớn hơn 10',
+                  });
+              }}
+              value={userEdit?.birthday}
+            />
+            {error.birthday && (
+              <p className="text-red-500 border-2 border-red-500 px-2 rounded-md">
+                {error.birthday}
+              </p>
+            )}
+          </>
           <InputDefault
             label="Gender"
             name="gender_id"

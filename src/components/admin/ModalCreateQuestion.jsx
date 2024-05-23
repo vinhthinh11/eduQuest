@@ -76,6 +76,7 @@ function ModalCreateQuestion({ open, handleClose, setOpen }) {
       toast.success('Thêm mới thành công');
       setUpdate(pre => !pre);
     } catch (err) {
+      console.log(err);
       setError(err.response.data.errors);
       toast.error('Thêm mới thất bại');
     }
@@ -196,7 +197,8 @@ function ModalCreateQuestion({ open, handleClose, setOpen }) {
             name="subject_id"
             value={question.subject_id}
             onChange={value =>
-              handleInputChange({ target: { value } }, 'subject_id')}
+              handleInputChange({ target: { value } }, 'subject_id')
+            }
             options={subjects}
           />
           <SelectInput

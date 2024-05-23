@@ -191,9 +191,9 @@ function ModalCreateUser({ open, handleClose, userType }) {
           }}
           value={user?.birthday}
         />
-        {error.birthday && (
+        {error?.birthday && (
           <p className="text-red-500 border-2 border-red-500 px-2 rounded-md">
-            {error.birthday}
+            {error?.birthday}
           </p>
         )}
         {userType.userPath === 'student' ? (
