@@ -77,17 +77,19 @@ function UserDetail() {
                   {`Thêm mới ${tablename}`}
                 </button>
               </div>
-              <div className={showFileUpload ? 'border-b-2 border-edu' : ''}>
-                <button
-                  className="text-sm font-medium my-4 bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
-                  onClick={() => {
-                    setShowFileUpload(true);
-                    setShowAdminForm(false);
-                  }}
-                >
-                  Thêm bằng file
-                </button>
-              </div>
+              {userPath !== 'test' && userPath !== 'practice' && (
+                <div className={showFileUpload ? 'border-b-2 border-edu' : ''}>
+                  <button
+                    className="text-sm font-medium my-4 bg-customPurple text-white px-3 py-2 rounded-md hover:bg-customPurpleLight outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customPurple"
+                    onClick={() => {
+                      setShowFileUpload(true);
+                      setShowAdminForm(false);
+                    }}
+                  >
+                    Thêm bằng file
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}

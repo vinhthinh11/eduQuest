@@ -176,9 +176,26 @@ function ModalCreateUser({ open, handleClose, userType }) {
           label="Birthday"
           name="birthday"
           type="date"
-          onChange={e => handleInputChange(e, 'birthday')}
+          onChange={e => {
+            setError(prev => ({ ...prev, birthday: '' }));
+            const currentYear = new Date().getFullYear();
+            const selectedYear = new Date(e.target.value).getFullYear();
+            const yearDifference = currentYear - selectedYear;
+            if (yearDifference > 10) {
+              handleInputChange(e, 'birthday');
+            } else
+              setError({
+                ...error,
+                birthday: 'Tuổi phải lớn hơn 10',
+              });
+          }}
           value={user?.birthday}
         />
+        {error.birthday && (
+          <p className="text-red-500 border-2 border-red-500 px-2 rounded-md">
+            {error.birthday}
+          </p>
+        )}
         {userType.userPath === 'student' ? (
           <InputClass
             label="Lớp học"

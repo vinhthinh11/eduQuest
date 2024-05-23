@@ -1,7 +1,7 @@
 import Button from '@mui/joy/Button';
 import { CircularProgress, FormLabel, Input } from '@mui/joy';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useEffect, useState } from 'react';
 import { forgetPassowrd, sentVerifyOtp } from '../services/apiUser.js';
@@ -12,6 +12,7 @@ function ResetPassword() {
   const [isLoading, setIsLoading] = useState(false);
   const [isSent, setIsSent] = useState(false);
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
   const handlesSubmitEmail = async e => {
     e.preventDefault();
     try {
@@ -31,12 +32,12 @@ function ResetPassword() {
     e.preventDefault();
     try {
       setIsLoading(true);
-      console.log({email,otp});
-      const data  =await sentVerifyOtp({ email, otp });
+      const data = await sentVerifyOtp({ email, otp });
       console.log(data);
       toast.success(
         'New password sent to your email. Please check your email and reset your password'
       );
+      navigate('/login');
     } catch (error) {
       console.log(error);
       toast.error('Something went wrong');
@@ -64,6 +65,7 @@ function ResetPassword() {
             <OtpForm
               otp={otp}
               setOtp={setOtp}
+              isLoading={isLoading}
               handleSubmitOtp={handleSubmitOtp}
               errors={errors}
             />
@@ -136,7 +138,7 @@ const ResetPasswordForm = ({
     </form>
   );
 };
-const OtpForm = ({ otp, setOtp, handleSubmitOtp, errors }) => {
+const OtpForm = ({ otp, setOtp, handleSubmitOtp, errors, isLoading }) => {
   const [timer, setTimer] = useState(300); // 5 minutes in seconds
 
   useEffect(() => {
@@ -170,6 +172,11 @@ const OtpForm = ({ otp, setOtp, handleSubmitOtp, errors }) => {
           .toString()
           .padStart(2, '0')}`}</button>
       </div>
+      {isLoading && (
+        <Button sx={{ justifySelf: 'center' }}>
+          <CircularProgress />
+        </Button>
+      )}
       <div className="flex justify-between items-center">
         <Link
           to={'/login'}

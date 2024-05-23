@@ -6,7 +6,10 @@ import {
 } from '../../services/apiQuestion.js';
 import toast from 'react-hot-toast';
 import { Box, CircularProgress } from '@mui/material';
-import { UserContextProvider } from '../../admin/UserContextProvider.jsx';
+import {
+  UserContextProvider,
+  useUserContext,
+} from '../../admin/UserContextProvider.jsx';
 import ModalCreateQuestion from '../question/ModalCreateQuestion.jsx';
 import ModalUploadFileQuestion from '../question/ModalUploadFileQuestion.jsx';
 import ModalEditQuestion from './ModalEditQuestion.jsx';
@@ -93,6 +96,7 @@ function QuestionList() {
   const [subjects, setSubjects] = useState({});
   const [queryQuestion, setQueryQuestion] = useState([]);
   const { grade, level, subject, query } = useQuestionContext();
+  const { update } = useUserContext();
 
   useEffect(() => {
     async function fetchData() {
@@ -115,7 +119,8 @@ function QuestionList() {
       }
     }
     fetchData();
-  }, []);
+  }, [update]);
+
   useEffect(() => {
     async function fetchSearchQuestion() {
       const { data } = await findQuestion(query);

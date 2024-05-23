@@ -31,11 +31,6 @@ const AdminHeader = () => {
 
   return (
     <div className="w-full border-b-2 border-edu relative">
-      <img
-        src="/images/cay-phuong.jpg"
-        alt="cay phuong"
-        className="h-20 w-full object-cover absolute z-0 opacity-50"
-      />
       <div className="w-full h-14 flex justify-between items-center px-4 my-3">
         <HomeIcon fontSize="large" sx={{ color: '#836FFF' }} />
         <Dropdown>
