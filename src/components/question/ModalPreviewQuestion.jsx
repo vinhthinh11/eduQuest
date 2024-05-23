@@ -34,9 +34,9 @@ function ModalPreviewQuestion({ testCode, open, handleClose, status_id }) {
         `${userLink.userType}/${userLink.userPath}/update/${testCode}`,
         { status_id: status }
       );
+      toast.success('Duyệt đề thành công');
       setUpdate(pre => !pre);
       handleClose();
-      console.log(data);
     } catch (error) {
       console.log(error);
       toast.error('Duyệt câu đề thất bại');
@@ -79,31 +79,37 @@ function ModalPreviewQuestion({ testCode, open, handleClose, status_id }) {
         </Typography>
 
         <div className="flex justify-end gap-6 mt-4">
-          <select
-            name="status_id"
-            id="status_id"
-            className="bg-orange-300 rounded-md focus:outline-none px-2 py-1 
+          {userLink.userType === 'admin' ||
+            (userLink.userType === 'subject-head' && (
+              <select
+                name="status_id"
+                id="status_id"
+                className="bg-orange-300 rounded-md focus:outline-none px-2 py-1 
             focus:bg-orange-400 text-slate-800 font-normal"
-            value={status}
-            onChange={e => setStatus(e.target.value)}
-          >
-            <option value={2}>Mở đề</option>
-            <option value={1}>Đóng đề</option>
-            <option value={4}>Duyệt đề</option>
-            <option value={5}>Không duyệt</option>
-          </select>
+                value={status}
+                onChange={e => setStatus(e.target.value)}
+              >
+                <option value={2}>Mở đề</option>
+                <option value={1}>Đóng đề</option>
+                <option value={4}>Duyệt đề</option>
+                <option value={5}>Không duyệt</option>
+              </select>
+            ))}
           <button
             className="btn bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
             onClick={handleClose}
           >
             Quay lại
           </button>
-          <button
-            className="btn bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
-            onClick={handlePreview}
-          >
-            Đồng ý
-          </button>
+          {userLink.userType === 'admin' ||
+            (userLink.userType === 'subject-head' && (
+              <button
+                className="btn bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+                onClick={handlePreview}
+              >
+                Đồng ý
+              </button>
+            ))}
         </div>
         {questions?.map((question, index) => (
           <div key={index} className="flex gap-2 divide-y">

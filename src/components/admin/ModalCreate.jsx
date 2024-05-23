@@ -2,6 +2,7 @@ import ModalCreateUser from './ModalCreateUser.jsx';
 import ModalCreateTest from './ModalCreateTest.jsx';
 import ModalCreateClass from './ModalCreateClass.jsx';
 import ModalCreateQuestion from './ModalCreateQuestion.jsx';
+import ModalCreatePractice from './ModalCreatePractice.jsx';
 
 export default function ModalCreate({ open, setOpen, userType }) {
   const handleClose = () => setOpen(0);
@@ -11,6 +12,15 @@ export default function ModalCreate({ open, setOpen, userType }) {
     case 'test':
       dynamicModal = (
         <ModalCreateTest
+          handleClose={handleClose}
+          open={open}
+          userType={userType}
+        />
+      );
+      break;
+    case 'practice':
+      dynamicModal = (
+        <ModalCreatePractice
           handleClose={handleClose}
           open={open}
           userType={userType}

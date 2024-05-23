@@ -24,7 +24,9 @@ const ModalDeleteSubject = ({ open, setOpen, user, userType = 'subject' }) => {
 
   const handleDelete = async () => {
     try {
-      const data = await deleteUser(`/admin/subject/delete`, user[`${userType}_id`]);
+      const data = await deleteUser(`/admin/subject/delete`, {
+        subject_id: user.subject_id,
+      });
       setUpdate(prev => !prev);
       handleClose();
       toast.success(data.data.message);
@@ -45,7 +47,7 @@ const ModalDeleteSubject = ({ open, setOpen, user, userType = 'subject' }) => {
           Cảnh báo
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          {user && `Xác nhận xoá môn ${user.subject_detail}?`} 
+          {user && `Xác nhận xoá môn ${user.subject_detail}?`}
         </Typography>
         <Box
           sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2, gap: 1 }}

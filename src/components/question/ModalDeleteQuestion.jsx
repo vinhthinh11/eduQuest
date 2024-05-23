@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { deleteUser } from '../../services/apiUser.js';
 import toast from 'react-hot-toast';
+import { useUserContext } from '../../admin/UserContextProvider.jsx';
 // import { useUserContext } from '../../admin/UserContextProvider.jsx';
 
 const style = {
@@ -18,14 +19,21 @@ const style = {
   p: 3,
 };
 
-
-const ModalDeleteQuestion = ({ open, setOpen, question, userType = 'question' }) => {
+const ModalDeleteQuestion = ({
+  open,
+  setOpen,
+  question,
+  userType = 'question',
+}) => {
   const handleClose = () => setOpen(false);
+  const { setUpdate } = useUserContext();
 
   const handleDelete = async () => {
     try {
-      const data = await deleteUser('/admin/question/delete', question[`${userType}_id`]);
-      console.log('Delete request successful', data);
+      const data = await deleteUser('/admin/question/delete', {
+        question_id: question.question_id,
+      });
+      setUpdate(pre => !pre);
       handleClose();
       toast.success(data.data.message);
     } catch (err) {
@@ -33,8 +41,6 @@ const ModalDeleteQuestion = ({ open, setOpen, question, userType = 'question' })
       toast.error(err.message || 'Error deleting item');
     }
   };
-  
-  
 
   return (
     <Modal

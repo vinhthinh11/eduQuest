@@ -32,21 +32,31 @@ function PracticeComponent({ practices }) {
   return (
     <>
       <div className="grid grid-cols-5 px-4 py-2 bg-slate-300">
-        <p className='text-center'>Mã đề</p>
-        <p className='text-center'>Môn</p>
-        <p className='text-center'>Tên đề</p>
-        <p className='text-center'>SL câu hỏi</p>
-        <p className='text-center'>Actions</p>
+        <p className="text-center">Mã đề</p>
+        <p className="text-center">Môn</p>
+        <p className="text-center">Tên đề</p>
+        <p className="text-center">SL câu hỏi</p>
+        <p className="text-center">Actions</p>
       </div>
+      {practices?.length === 0 && (
+        <div className="text-center py-4">
+          <p className="font-medium text-lg text-pink-500">
+            Hiện giờ chưa có bài ôn tập nào cả
+          </p>
+          <p>😕😕😕</p>
+        </div>
+      )}
       {practices?.map((test, index) => (
         <div
           key={index}
           className="grid grid-cols-5 px-4 py-2 hover:bg-slate-200"
         >
-          <p className='text-center'>{test?.practice_code}</p>
-          <p className='text-center'>{test?.subject?.subject_detail}</p>
-          <p className='text-center'>Ôn tập {test?.subject?.subject_detail}</p>
-          <p className='text-center'>{test?.total_questions}</p>
+          <p className="text-center">{test?.practice_code}</p>
+          <p className="text-center">{test?.subject?.subject_detail}</p>
+          <p className="text-center">
+            {test?.practice_name ?? `Ôn tập ${test?.subject?.subject_detail}`}
+          </p>
+          <p className="text-center">{test?.total_questions}</p>
           <div className="flex flex-col gap-2">
             {userType !== 'student' ? (
               <>
@@ -56,9 +66,6 @@ function PracticeComponent({ practices }) {
                   onClick={() => handleOpen(test)}
                 >
                   Chi tiết
-                </Button>
-                <Button variant="contained" color="error">
-                  Xóa
                 </Button>
               </>
             ) : (

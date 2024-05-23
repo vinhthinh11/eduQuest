@@ -11,6 +11,7 @@ import UserComponent from './UserComponent.jsx';
 import QuestionComponent from '../question/QuestionComponent.jsx';
 import ScoreComponent from '../score/ScoreComponent.jsx';
 import PracticeComponent from '../test/PracticeComponent.jsx';
+import { Button } from '@mui/joy';
 
 const AdminTable = ({ userType = { userType: 'admin', userPath: '' } }) => {
   const [users, setUsers] = useState([]);
@@ -82,6 +83,19 @@ const AdminTable = ({ userType = { userType: 'admin', userPath: '' } }) => {
             <option value={20}>20</option>
             <option value={30}>30</option>
           </select>
+        </div>
+        <div>
+          {userType.userPath === 'question' && (
+            <Button
+              sx={{
+                height: '10px',
+                backgroundColor: '#836FFF',
+                ':hover': { backgroundColor: '#624afd' },
+              }}
+            >
+              Câu hỏi của tôi
+            </Button>
+          )}
         </div>
         <SearchComponent
           usersData={usersData.current}

@@ -1,6 +1,5 @@
 import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { getMe } from '../../services/apiUser.js';
+import { useState } from 'react';
 import ModalEditQuestion from './ModalEditQuestion.jsx';
 
 const level = {
@@ -24,11 +23,19 @@ function QuestionComponent({ questions }) {
   };
   return (
     <div>
+      <div className="grid grid-cols-5 px-4 py-2 bg-slate-300">
+        <p className="text-center col-span-2">Câu hỏi</p>
+        <p className="text-center">Độ khó</p>
+        <p className="text-center">Trạng thái</p>
+        <p className="text-center">Actions</p>
+      </div>
       {questions.map(question => (
-        <div key={question?.question_id} className="grid grid-cols-4 px-4 py-2">
-          <p>{question.question_content}</p>
-          <p>{level[question.level_id]}</p>
-          <p>{status[question.status_id]}</p>
+        <div key={question?.question_id} className="grid grid-cols-5 px-4 py-2">
+          <p className="col-span-2 text-ellipsis overflow-hidden text-nowrap">
+            {question.question_content}
+          </p>
+          <p className="text-center">{level[question.level_id]}</p>
+          <p className="text-center">{status[question.status_id]}</p>
           <div className="flex flex-col gap-2">
             <Button
               color="primary"

@@ -31,7 +31,7 @@ const TeacherLeftSideBar = () => {
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(1);
 
-  const handleListItemClick = (index) => {
+  const handleListItemClick = index => {
     setSelectedIndex(index);
   };
 
@@ -60,7 +60,10 @@ const TeacherLeftSideBar = () => {
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={
-          <ListSubheader component="div" id="nested-list-subheader"></ListSubheader>
+          <ListSubheader
+            component="div"
+            id="nested-list-subheader"
+          ></ListSubheader>
         }
       >
         <ListItemButton
@@ -83,6 +86,17 @@ const TeacherLeftSideBar = () => {
             <AssignmentIcon />
           </ListItemIcon>
           <ListItemText primary="Test" />
+        </ListItemButton>
+
+        <ListItemButton
+          sx={style1}
+          selected={selectedIndex === 8}
+          onClick={() => handleOnClick(8, 'practice')}
+        >
+          <ListItemIcon>
+            <AssignmentIcon />
+          </ListItemIcon>
+          <ListItemText primary="Practice" />
         </ListItemButton>
 
         <ListItemButton

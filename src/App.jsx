@@ -105,6 +105,7 @@ const App = () => (
         >
           <Route index element={<TeacherPage />} />
           <Route path="test" element={<UserDetail />} />
+          <Route path="practice" element={<UserDetail />} />
           <Route path="student" element={<UserDetail />} />
           <Route path="question" element={<UserDetail />} />
           <Route path="score" element={<ScoreList />} />

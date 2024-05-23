@@ -92,8 +92,7 @@ function QuestionList() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [subjects, setSubjects] = useState({});
   const [queryQuestion, setQueryQuestion] = useState([]);
-  const { grade, setGrade, level, setLevel, subject, setSubject, query } =
-    useQuestionContext();
+  const { grade, level, subject, query } = useQuestionContext();
 
   useEffect(() => {
     async function fetchData() {

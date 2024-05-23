@@ -3,6 +3,8 @@ import InputField from './InputField';
 import { getMe, updateProfile } from '../services/apiUser.js';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { set } from 'react-hook-form';
+const role = { 1: 'Admin', 2: 'Giáo viên', 3: 'Học sinh', 4: 'Trưởng bộ môn' };
 
 const ProfileForm = () => {
   const navigate = useNavigate();
@@ -14,6 +16,7 @@ const ProfileForm = () => {
   const [user, setUser] = useState({});
   const [updateUser, setUpdateUser] = useState({});
   const [update, setIsUpdate] = useState(false);
+  const [erros, setErrors] = useState({});
 
   const handleChange = e => {
     setUser(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -116,15 +119,41 @@ const ProfileForm = () => {
                   name="name"
                   type="text"
                   value={user?.name}
-                  onChange={handleChange}
                 />
                 <InputField
-                  label="Ngày sinh"
-                  name="birthday"
-                  type="date"
-                  value={user?.birthday}
-                  onChange={handleChange}
+                  label="Chức vụ"
+                  name="permission_id"
+                  type="text"
+                  value={role[user?.permission]}
                 />
+                <div>
+                  <InputField
+                    label="Ngày sinh"
+                    name="birthday"
+                    type="date"
+                    value={user?.birthday}
+                    onChange={e => {
+                      setErrors(prev => ({ ...prev, birthday: '' }));
+                      const currentYear = new Date().getFullYear();
+                      const selectedYear = new Date(
+                        e.target.value
+                      ).getFullYear();
+                      const yearDifference = currentYear - selectedYear;
+                      if (yearDifference > 10) {
+                        handleChange(e);
+                      } else
+                        setErrors({
+                          ...erros,
+                          birthday: 'Tuổi phải lớn hơn 10',
+                        });
+                    }}
+                  />
+                  {erros.birthday && (
+                    <p className="text-red-500 border-2 border-red-500 px-2 rounded-md">
+                      {erros.birthday}
+                    </p>
+                  )}
+                </div>
                 <InputField
                   label="Email"
                   name="email"

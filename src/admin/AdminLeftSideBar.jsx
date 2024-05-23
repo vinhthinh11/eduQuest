@@ -1,50 +1,50 @@
-import * as React from "react";
-import ListSubheader from "@mui/material/ListSubheader";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import DehazeIcon from "@mui/icons-material/Dehaze";
-import MessageIcon from "@mui/icons-material/Message";
-import DraftsIcon from "@mui/icons-material/Drafts";
-import LogoutIcon from "@mui/icons-material/Logout";
-import HomeIcon from "@mui/icons-material/Home";
-import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
-import PeopleIcon from "@mui/icons-material/People";
-import ClassIcon from "@mui/icons-material/Class";
-import PersonIcon from "@mui/icons-material/Person";
-import BookIcon from "@mui/icons-material/Book";
+import * as React from 'react';
+import ListSubheader from '@mui/material/ListSubheader';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Collapse from '@mui/material/Collapse';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import DehazeIcon from '@mui/icons-material/Dehaze';
+import MessageIcon from '@mui/icons-material/Message';
+import DraftsIcon from '@mui/icons-material/Drafts';
+import LogoutIcon from '@mui/icons-material/Logout';
+import HomeIcon from '@mui/icons-material/Home';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import PeopleIcon from '@mui/icons-material/People';
+import ClassIcon from '@mui/icons-material/Class';
+import PersonIcon from '@mui/icons-material/Person';
+import BookIcon from '@mui/icons-material/Book';
 import HelpIcon from '@mui/icons-material/Help';
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { grey } from "@mui/material/colors";
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { grey } from '@mui/material/colors';
 
 const style = {
   pl: 4,
-  "&.Mui-selected": {
+  '&.Mui-selected': {
     backgroundColor: grey[400],
   },
-  "&.Mui-focusVisible": {
+  '&.Mui-focusVisible': {
     backgroundColor: grey[300],
   },
-  ":hover": {
+  ':hover': {
     backgroundColor: grey[300],
   },
 };
 const style1 = {
-  "&.Mui-selected": {
+  '&.Mui-selected': {
     backgroundColor: grey[400],
   },
-  "&.Mui-focusVisible": {
+  '&.Mui-focusVisible': {
     backgroundColor: grey[300],
   },
-  ":hover": {
+  ':hover': {
     backgroundColor: grey[300],
   },
 };
@@ -54,7 +54,7 @@ const AdminLeftSideBar = () => {
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(1);
 
-  const handleListItemClick = (index) => {
+  const handleListItemClick = index => {
     setSelectedIndex(index);
   };
   const handleOnClick = (i, to) => {
@@ -76,13 +76,13 @@ const AdminLeftSideBar = () => {
           alt="logo"
         />
         <p className="capitalize">Edu Quest</p>
-        <p className="font-semibold text-xl">Admin page</p>
+        <p className="font-semibold text-xl text-[#836fff]">Admin page</p>
       </div>
       <List
         sx={{
-          width: "100%",
-          height: "100%",
-          bgcolor: "background.paper",
+          width: '100%',
+          height: '100%',
+          bgcolor: 'background.paper',
         }}
         component="nav"
         aria-labelledby="nested-list-subheader"
@@ -96,10 +96,10 @@ const AdminLeftSideBar = () => {
         <ListItemButton
           sx={style1}
           selected={selectedIndex === 1}
-          onClick={() => handleOnClick(1, "/admin")}
+          onClick={() => handleOnClick(1, '/admin')}
         >
           <ListItemIcon>
-            <HomeIcon sx={{ color: "#6b6465" }} />
+            <HomeIcon sx={{ color: '#6b6465' }} />
           </ListItemIcon>
           <ListItemText primary="Home" />
         </ListItemButton>
@@ -121,7 +121,7 @@ const AdminLeftSideBar = () => {
             <ListItemButton
               sx={style}
               selected={selectedIndex === 2}
-              onClick={() => handleOnClick(2, "admin")}
+              onClick={() => handleOnClick(2, 'admin')}
             >
               <ListItemIcon>
                 <SupervisorAccountIcon />
@@ -132,10 +132,10 @@ const AdminLeftSideBar = () => {
             <ListItemButton
               sx={style}
               selected={selectedIndex === 3}
-              onClick={() => handleOnClick(3, "subject-head")}
+              onClick={() => handleOnClick(3, 'subject-head')}
             >
               <ListItemIcon>
-              <SupervisorAccountIcon />
+                <SupervisorAccountIcon />
               </ListItemIcon>
               <ListItemText primary="Quản lý Trưởng bộ môn" />
             </ListItemButton>
@@ -143,7 +143,7 @@ const AdminLeftSideBar = () => {
             <ListItemButton
               sx={style}
               selected={selectedIndex === 4}
-              onClick={() => handleOnClick(4, "teacher")}
+              onClick={() => handleOnClick(4, 'teacher')}
             >
               <ListItemIcon>
                 <PeopleIcon />
@@ -154,7 +154,7 @@ const AdminLeftSideBar = () => {
             <ListItemButton
               sx={style}
               selected={selectedIndex === 5}
-              onClick={() => handleOnClick(5, "class")}
+              onClick={() => handleOnClick(5, 'class')}
             >
               <ListItemIcon>
                 <ClassIcon />
@@ -165,7 +165,7 @@ const AdminLeftSideBar = () => {
             <ListItemButton
               sx={style}
               selected={selectedIndex === 6}
-              onClick={() => handleOnClick(6, "student")}
+              onClick={() => handleOnClick(6, 'student')}
             >
               <ListItemIcon>
                 <PersonIcon />
@@ -176,7 +176,7 @@ const AdminLeftSideBar = () => {
             <ListItemButton
               sx={style}
               selected={selectedIndex === 11}
-              onClick={() => handleOnClick(11, "subject")}
+              onClick={() => handleOnClick(11, 'subject')}
             >
               <ListItemIcon>
                 <BookIcon />
@@ -187,10 +187,10 @@ const AdminLeftSideBar = () => {
             <ListItemButton
               sx={style}
               selected={selectedIndex === 7}
-              onClick={() => handleOnClick(7, "question")}
+              onClick={() => handleOnClick(7, 'question')}
             >
               <ListItemIcon>
-              <HelpIcon />
+                <HelpIcon />
               </ListItemIcon>
               <ListItemText primary="Quản lý Câu hỏi" />
             </ListItemButton>
@@ -198,7 +198,7 @@ const AdminLeftSideBar = () => {
             <ListItemButton
               sx={style}
               selected={selectedIndex === 8}
-              onClick={() => handleOnClick(8, "test")}
+              onClick={() => handleOnClick(8, 'test')}
             >
               <ListItemIcon>
                 <AssignmentIcon />
@@ -209,7 +209,7 @@ const AdminLeftSideBar = () => {
             <ListItemButton
               sx={style}
               selected={selectedIndex === 9}
-              onClick={() => handleOnClick(9, "statistic")}
+              onClick={() => handleOnClick(9, 'statistic')}
             >
               <ListItemIcon>
                 <BarChartIcon />
@@ -220,7 +220,7 @@ const AdminLeftSideBar = () => {
             <ListItemButton
               sx={style}
               selected={selectedIndex === 13}
-              onClick={() => handleOnClick(13, "notification")}
+              onClick={() => handleOnClick(13, 'notification')}
             >
               <ListItemIcon>
                 <NotificationsIcon />
@@ -231,7 +231,7 @@ const AdminLeftSideBar = () => {
             <ListItemButton
               sx={style1}
               selected={selectedIndex === 10}
-              onClick={() => handleOnClick(10, "senNofitication")}
+              onClick={() => handleOnClick(10, 'senNofitication')}
             >
               <ListItemIcon>
                 <MessageIcon />
@@ -244,7 +244,7 @@ const AdminLeftSideBar = () => {
         <ListItemButton
           sx={style1}
           selected={selectedIndex === 11}
-          onClick={() => handleOnClick(11, "/contact")}
+          onClick={() => handleOnClick(11, '/contact')}
         >
           <ListItemIcon>
             <DraftsIcon />
@@ -256,12 +256,12 @@ const AdminLeftSideBar = () => {
       <List>
         <ListItemButton
           sx={{
-            borderTop: "1px solid #c6c6c6",
-            width: "100%",
+            borderTop: '1px solid #c6c6c6',
+            width: '100%',
           }}
           onClick={() => {
-            localStorage.removeItem("token");
-            navigate("/login");
+            localStorage.removeItem('token');
+            navigate('/login');
           }}
         >
           <ListItemIcon>

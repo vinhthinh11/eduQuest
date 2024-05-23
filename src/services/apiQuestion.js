@@ -111,3 +111,18 @@ export const findQuestion = async query => {
     throw err;
   }
 };
+export const deleteQuesiton = async id => {
+  try {
+    const bearerToken = localStorage.getItem('token');
+    return await axios.delete(`${USER_URL}/admin/question/delete`, {
+      headers: {
+        Authorization: `Bearer ${bearerToken}`,
+      },
+      data: {
+        ...id,
+      },
+    });
+  } catch (err) {
+    throw new Error(err.response.data.message);
+  }
+};

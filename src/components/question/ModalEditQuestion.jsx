@@ -222,16 +222,15 @@ export default function ModalEditQuestion({ open, setOpen, question }) {
           >
             Quay lại
           </button>
-          <button
-            className={`btn  text-white py-2 px-4 ${
-              user?.teacher_id !== question?.teacher_id
-                ? 'rounded cursor-not-allowed bg-slate-400'
-                : 'bg-green-500 hover:bg-green-600'
-            }`}
-            onClick={handleConfirm}
-          >
-            Đồng ý
-          </button>
+          {(userLink.userType === 'admin' ||
+            user.teacher_id === question?.teacher_id) && (
+            <button
+              className="text-white py-2 px-4 bg-green-500 hover:bg-green-600 rounded"
+              onClick={handleConfirm}
+            >
+              Đồng ý
+            </button>
+          )}
         </div>
       </Box>
     </Modal>

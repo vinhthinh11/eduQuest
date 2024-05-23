@@ -41,12 +41,14 @@ const SubjectHeadLeftSideBar = () => {
     <div className="basis-1/4 w-full flex flex-col min-h-full border-r-2 border-edu">
       <div className="flex flex-col justify-center items-center py-4">
         <img
-          className="w-20 h-20 rounded-full"
-          src="/images/logo_eduquest.jpg"
+          className="w-40 h-40 rounded-full shadow-xl"
+          src="/images/eduLogo.jpg"
           alt="logo"
         />
-        <p className="capitalize">Edu Quest</p>
-        <p className="font-semibold text-xl">Subject head page</p>
+        <p className="capitalize text-[#5945d7]">Edu Quest</p>
+        <p className="font-semibold text-xl text-[#7561f7]">
+          Subject head page
+        </p>
       </div>
       <List
         sx={{

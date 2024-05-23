@@ -18,6 +18,27 @@ function ProtectedRoute({ children, permissions = 0 }) {
         setUser(data);
         if (data.permission === permissions) {
           setShow(true);
+          if (data.permission === 3) {
+            // check is doing test or practice
+            const test_code = data.doing_exam;
+            const practice_code = data.doing_practice;
+            if (test_code) {
+              setTimeout(() => {
+                toast.success(
+                  'Bạn đang làm bài thi và sẽ được chuyển hướng tới trang làm bài thi'
+                );
+                navigate(`test/${test_code}`);
+              }, 700);
+            }
+            if (practice_code) {
+              setTimeout(() => {
+                toast.success(
+                  'Bạn đang làm bài thi và sẽ được chuyển hướng tới trang làm bài thi'
+                );
+                navigate(`practice/${practice_code}`);
+              }, 700);
+            }
+          }
         } else {
           navigate('/login');
           toast.error('Bạn không có quyền truy cập');
